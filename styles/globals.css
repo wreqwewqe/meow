@@ -1,4 +1,70 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.green-button {
+  display: inline-block;
+  background-color: #008000;
+
+  /* 绿色背景颜色 */
+  color: #000;
+  /* 文本颜色为黑色 */
+  /* padding: 10px 10px; */
+  /* 内边距设置，使按钮更大 */
+  border: none;
+  /* 去掉边框 */
+  border-radius: 10px;
+  /* 圆角 */
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  /* 增加字体大小 */
+  width: 200px;
+  /* 设置按钮宽度 */
+  height: 60px;
+  line-height: 60px;
+  /* 设置按钮高度 */
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* 添加颜色和阴影的过渡效果 */
+  box-shadow: 5px 5px 8px 0 rgba(0, 0, 0, 0.7);
+  /* 阴影效果 */
+}
+
+/* 鼠标悬停时的样式 */
+.green-button:hover {
+  background-color: #006400;
+  /* 鼠标悬停时的颜色 */
+  box-shadow: 7px 7px 10px 0 rgba(0, 0, 0, 0.7);
+  color: white !important;
+  /* 悬停时的阴影效果 */
+}
+
+.ant-table-thead .ant-table-cell {
+  background: white !important;
+  color: red;
+
+  &:before {
+    content: none !important;
+  }
+}
+
+.ant-table-content {
+  border-radius: 30px !important;
+}
+
+/* 
+th.ant-table-cell::before {
+  content: none !important;
+
+} */
+
+/* html,
 body {
   padding: 0;
   margin: 0;
@@ -13,4 +79,4 @@ a {
 
 * {
   box-sizing: border-box;
-}
+} */
