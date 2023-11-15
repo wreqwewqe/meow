@@ -36,6 +36,11 @@
   /* 阴影效果 */
 }
 
+.no_scroll::-webkit-scrollbar {
+  width: 0;
+  /* 隐藏滚动条 */
+}
+
 /* 鼠标悬停时的样式 */
 .green-button:hover {
   background-color: #006400;

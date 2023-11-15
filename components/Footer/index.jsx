@@ -6,7 +6,7 @@ import discord from "../../public/discord.jpg"
 import github from "../../public/github.jpg"
 export default function Footer() {
     return (
-        <div className='min-w-full box-border bg-[brown]  h-[264px] py-[64px] px-[112px] text-[#5F6D7E] '>
+        <div className='min-w-full box-border   h-[264px] py-[64px] px-[112px] text-[#5F6D7E] '>
             <div className='flex justify-between'>
                 <Image src={logo} height={38}></Image>
                 <div className='flex justify-between items-center font-medium  w-[428px]'>

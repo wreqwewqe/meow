@@ -60,7 +60,7 @@ export default function Dashboard() {
             key: 'asset',
         },
         {
-            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px] bg-[yellow]'>Wallet balance</div>,
+            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px]'>Wallet balance</div>,
             dataIndex: 'wallet',
             key: 'wallet',
             render: (text) => (<div className='font-semibold'>{text}</div>)
@@ -108,7 +108,7 @@ export default function Dashboard() {
             key: 'asset',
         },
         {
-            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px] bg-[yellow]'>Debt</div>,
+            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px]'>Debt</div>,
             dataIndex: 'debt',
             key: 'debt',
             render: (text) => (<div className='font-semibold'>{text}</div>)
@@ -163,7 +163,7 @@ export default function Dashboard() {
             key: 'asset',
         },
         {
-            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px] bg-[yellow]'>Wallet balance</div>,
+            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px]'>Wallet balance</div>,
             dataIndex: 'wallet',
             key: 'wallet',
             render: (text) => (<div className='font-semibold'>{text}</div>)
@@ -217,7 +217,7 @@ export default function Dashboard() {
             key: 'asset',
         },
         {
-            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px] bg-[yellow]'>Wallet balance</div>,
+            title: <div className=' text-[#c8cad3] text-[10px] relative bottom-[-10px]'>Wallet balance</div>,
             dataIndex: 'wallet',
             key: 'wallet',
             render: (text) => (<div className='font-semibold'>{text}</div>)
@@ -242,16 +242,14 @@ export default function Dashboard() {
         }
     ];
     return (
-        <div className='min-h-full'>
+        <div className='min-h-full '>
             <Header></Header>
             {address ? <div className='box-border  py-[64px] px-[112px] '>
                 <div className='h-[118px] mb-[64px]'>
                     <Popover content={content} placement="bottom">
                         <div className='text-[32px] font-bold w-[317px]'>Ethereum Market <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
                     </Popover>
-
-
-                    <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E]'>
+                    <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
                         <div className='w-[174px] mr-[16px]'>Total market size</div>
                         <div className='w-[174px] mr-[16px]'>Total avalible</div>
                         <div className='w-[174px]'>Total borrows</div>
@@ -262,19 +260,19 @@ export default function Dashboard() {
                         <div>$586.78K</div>
                     </div>
                 </div>
-                <div className='flex mb-[29px]'>
-                    <div className='mr-[32px]'>
+                <div className='flex mb-[29px] justify-between'>
+                    <div className=' w-[48%]'>
                         <ShowList title="Your supplies" about_me={true} data={your_supply_data} columns={your_supply_columns}></ShowList>
                     </div>
-                    <div>
+                    <div className=' w-[48%]'>
                         <ShowList title="Your borrows" about_me={true} data={your_borrow_data} columns={your_borrow_columns}></ShowList>
                     </div>
                 </div>
-                <div className='flex'>
-                    <div className='mr-[32px]'>
+                <div className='flex justify-between'>
+                    <div className=' w-[48%]'>
                         <ShowList title="Assets to supply" data={supply_data} columns={supply_columns}></ShowList>
                     </div>
-                    <div>
+                    <div className=' w-[48%]'>
                         <ShowList title="Assets to borrow" data={borrow_data} columns={borrow_columns}></ShowList>
                     </div>
                 </div>

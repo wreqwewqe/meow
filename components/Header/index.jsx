@@ -9,7 +9,8 @@ import { useGlobalContext } from '../../GlobalContext';
 import { Popover } from "antd"
 import { useDisconnect, useAccount, useNetwork } from 'wagmi'
 import {
-    CopyFilled
+    CopyFilled,
+    DownOutlined
 } from '@ant-design/icons';
 function Header() {
     const { disconnect } = useDisconnect()
@@ -24,6 +25,10 @@ function Header() {
     const lang = state.lang;
     const router = useRouter()
     console.log("t", t);
+    const market = () => (<div className='w-[200px]'>
+        <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
+        <div className='cursor-pointer' onClick={() => { router.push("ScrollMarket") }}>Scroll Market</div>
+    </div>)
     const onClick = () => {
 
     }
@@ -41,7 +46,7 @@ function Header() {
                 <div onClick={() => disconnect()} className=' cursor-pointer  w-[108px] border border-solid border-[#EAEBF0] rounded-[2px]'>DISCONNECT</div>
             </div>
             <div className='text-[16px]'>
-                <div className='h-[22px] mb-[16px] font-medium text-[#272D37]'> My profile</div>
+                <div className='h-[22px] mb-[16px] font-medium text-[#272D37] cursor-pointer' onClick={() => { router.push("/Profile") }}> My profile</div>
                 <div className='h-[1px] bg-[#EAEBF0] mb-[16px]'></div>
                 <div className='font-medium text-[14px] text-[#5F6D7E] mb-[6px]'>Network</div>
                 <div className='w-[85px] flex items-center justify-between mb-[16.5px] text-[#272D37] font-medium '><div className='w-[6px] h-[6px] rounded-[50%] bg-[#28DD24]'></div>{chain && chain.name || " "}</div>
@@ -57,7 +62,7 @@ function Header() {
                 <div><Image src={logo} height={38}></Image></div>
                 <div className='cursor-pointer'>Home</div>
                 <div className='cursor-pointer' onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
-                <div className='cursor-pointer'>Market</div>
+                <div className='cursor-pointer'><Popover content={market}>Market <DownOutlined /></Popover></div>
                 <div className='cursor-pointer'>Docs</div>
                 <div className='cursor-pointer'>Security</div>
             </div>
