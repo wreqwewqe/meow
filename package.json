@@ -11,10 +11,13 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^1.1.1",
     "antd": "^5.9.4",
+    "axios": "^1.6.2",
+    "bignumber": "^1.1.0",
     "mysql": "^2.18.1",
     "next": "^13.4.19",
     "next-i18next": "^14.0.3",
     "react": "^18.2.0",
+    "react-blockies": "^1.4.1",
     "react-dom": "^18.2.0",
     "sass": "^1.69.0",
     "uuid": "^9.0.1",
