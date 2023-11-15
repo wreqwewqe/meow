@@ -58,11 +58,11 @@ export default function Profile() {
                 <div suppressHydrationWarning className='text-[32px] font-bold mb-[16px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                 <div className='mb-[64px]'><Image src={copy} onClick={copy_address} className='cursor-pointer mr-[8px]' height={15}></Image><span className='text-[16px] text-[#5F6D7E]'>Copy address to clipboard</span></div>
                 <div className='flex justify-between mb-[32px]'>
-                    <div className='px-[32px] py-[24px] border-solid border border-[#EAEBF0] rounded-[5px] w-[592px] box-border'>
+                    <div className='px-[32px] py-[24px] border-solid border border-[#EAEBF0] rounded-[5px] w-[46%] box-border'>
                         <div className='mb-[24px]'>$ MEO <Popover content={content1}><Image src={exclaim_point} className='cursor-pointer' height={15} /></Popover></div>
                         <div className='text-[22px] font-bold'>{loading?"":data.data.integral}</div>
                     </div>
-                    <div className='px-[32px] py-[24px] border-solid border border-[#EAEBF0] rounded-[5px] w-[592px] box-border'>
+                    <div className='px-[32px] py-[24px] border-solid border border-[#EAEBF0] rounded-[5px] w-[46%] box-border'>
                         <div className='mb-[24px]'>$ Meow <Popover content={content2}><Image src={exclaim_point} className='cursor-pointer' height={15} /></Popover></div>
                         <div className='text-[22px] font-bold'>{loading?"":data.data.token}</div>
                     </div >
