@@ -1,4 +1,4 @@
-import React, {useEffect,useState,BigNumber} from 'react'
+import React, {useEffect,useState} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useAccount, useConnect, useSwitchNetwork } from 'wagmi'
@@ -9,6 +9,7 @@ import { Popover, Input, message } from 'antd';
 import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
 import axios from 'axios'
+import {BigNumber} from 'ethers'
 export default function Profile() {
     axios.defaults.baseURL = BaseURI
     const [data, setData] = useState({});
@@ -37,7 +38,7 @@ export default function Profile() {
             }else{
                 response.data.data.token = ((BigNumber.from(response.data.data.token).div(BigNumber.from(10).pow(16)).toNumber())/100).toFixed(2)
             }
-            response.data.data.inviteCode = "https://meowprotocol.xyz/"+response.data.data.inviteCode
+            response.data.data.inviteCode = "https://meowprotocol.xyz/Dashboard?"+response.data.data.inviteCode
               setData(response.data);
             } catch (error) {
               setError(error);
@@ -48,7 +49,6 @@ export default function Profile() {
       
           fetchData();
     },[])
-    console.log(data);
     return (
         <div className='h-screen'>
             <Header></Header>

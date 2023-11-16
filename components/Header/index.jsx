@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import logo from "../../public/logo.jpg"

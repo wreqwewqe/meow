@@ -1,5 +1,5 @@
 import { providers } from 'ethers';
-import { error } from 'jquery';
+// import { error } from 'jquery';
 
 const getProviderOrSigner = async (needSigner = false, web3ModalRef) => {
     // const provider = await web3ModalRef.current.connect();

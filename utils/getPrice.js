@@ -14,7 +14,7 @@ const total=(bignum)=>{
     var M =  BigNumber.from(1000000);
     var B =  BigNumber.from(1000000000);
     var hundred = BigNumber.from(100)
-    if (bignum.gt(B.mul(BigNumber.from(100000)))){
+    if (bignum.gt(B.mul(BigNumber.from(10000000)))){
         return "\u00A0\u00A0\u00A0\u00A0\u221E"
     }
     if (bignum.gt(B.mul(hundred))){
@@ -27,6 +27,29 @@ const total=(bignum)=>{
                 return  (bignum.div(K).toNumber()/100).toString()+"K";
             }else{
                 return  (bignum.toNumber()/100).toString();
+            }
+        }
+    }
+}
+
+const total4=(bignum)=>{
+    var K =  BigNumber.from(1000);
+    var M =  BigNumber.from(1000000);
+    var B =  BigNumber.from(1000000000);
+    var tenTundred = BigNumber.from(10000)
+    if (bignum.gt(B.mul(BigNumber.from(10000000)))){
+        return "\u00A0\u00A0\u00A0\u00A0\u221E"
+    }
+    if (bignum.gt(B.mul(tenTundred))){
+        return (bignum.div(B).toNumber()/100).toString()+"B";
+    }else{
+        if(bignum.gt(M.mul(tenTundred))){
+            return  (bignum.div(M).toNumber()/100).toString()+"M";
+        }else{
+            if(bignum.gt(K.mul(tenTundred))){
+                return  (bignum.div(K).toNumber()/100).toString()+"K";
+            }else{
+                return  (bignum.toNumber()/10000).toString();
             }
         }
     }
@@ -60,5 +83,5 @@ const rayDiv=(a,b)=>{
     return b.div(BigNumber.from(2)).add(a.mul(ray)).div(b)
 }
 module.exports = {
-    getprice,total,calculateInterest,rayMul,rayToWad,rayDiv
+    getprice,total,calculateInterest,rayMul,rayToWad,rayDiv,total4
 }
