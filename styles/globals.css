@@ -63,6 +63,10 @@
   border-radius: 30px !important;
 }
 
+.active_router {
+  color: #F4B512;
+}
+
 /* 
 th.ant-table-cell::before {
   content: none !important;

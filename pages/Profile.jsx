@@ -34,7 +34,7 @@ export default function Profile() {
                 </div>
                 <div className='box-border border-solid border p-[32px] border-[#EAEBF0] rounded-[5px] mb-[32px]'>
                     <div className='text-[24px] font-bold mb-[40px]'>Invite My Friends <Popover content={content3}><Image src={exclaim_point} className='cursor-pointer' height={16} /></Popover></div>
-                    <div className='flex mb-[24px]'><Input className='mr-[23px]' placeholder='Https//www.Meow.xyz/46Juzcyx'></Input> <div className='box-border bg-[#F4B512] px-[21px] py-[12px] w-[119px] h-[48px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[14px] border-none'>Copy Link</div></div>
+                    <div className='flex mb-[24px]'><Input className='mr-[23px]' placeholder='Https//www.Meow.xyz/46Juzcyx'></Input> <div className='box-border bg-[#F4B512] px-[21px] py-[12px] whitespace-nowrap rounded-[6px] text-[white] font-semibold cursor-pointer text-[14px] border-none'>Copy Link</div></div>
                     <div className='text-[16px] text-[#5F6D7E]'>Copy the link above to start inviting friends</div>
                 </div>
 
