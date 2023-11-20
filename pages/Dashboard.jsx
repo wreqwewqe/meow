@@ -22,8 +22,6 @@ export default function Dashboard() {
             switchNetwork();
         }
     }, [targetChain])
-
-
     const content = (
         <div className='w-[317px] text-[18px] font-medium'>
             <p className='cursor-pointer' onClick={() => {
