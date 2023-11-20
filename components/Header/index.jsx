@@ -25,7 +25,8 @@ function Header() {
     // console.log("sate", state)
     const lang = state.lang;
     const router = useRouter()
-    const market = () => (<div className='w-[200px]'>
+    console.log("t", t);
+    const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
         <div className='cursor-pointer' onClick={() => { router.push("ScrollMarket") }}>Scroll Market</div>
     </div>)
@@ -61,7 +62,7 @@ function Header() {
         <div className=' flex justify-between px-[32px] h-full'>
             <div className=' flex  justify-between font-semibold  text-[15px] items-center w-[588px] '>
                 <div><Image src={logo} height={38}></Image></div>
-                <div className='cursor-pointer'>Home</div>
+                <div className='cursor-pointer' onClick={() => { router.push("/Home") }}>Home</div>
                 <div className='cursor-pointer' onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
                 <div className='cursor-pointer'><Popover content={market}>Market <DownOutlined /></Popover></div>
                 <div className='cursor-pointer'>Docs</div>
