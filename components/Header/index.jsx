@@ -16,16 +16,15 @@ import {
 function Header() {
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
-    console.log("chain", chain);
+    // console.log("chain", chain);
     const { address, isConnecting, isDisconnected } = useAccount()
-    console.log("address", address, isConnecting, isDisconnected)
+    // console.log("address", address, isConnecting, isDisconnected)
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
     const { state, dispatch } = useGlobalContext();
     const [show, setShow] = useState(false);
-    console.log("sate", state)
+    // console.log("sate", state)
     const lang = state.lang;
     const router = useRouter()
-    console.log("t", t);
     const market = () => (<div className='w-[200px]'>
         <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
         <div className='cursor-pointer' onClick={() => { router.push("ScrollMarket") }}>Scroll Market</div>
