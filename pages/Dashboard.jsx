@@ -2,9 +2,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ShowList from "../components/ShowList"
+import Transaction from "../components/Trasaction"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
-import { useAccount, useConnect, useSwitchNetwork } from 'wagmi'
+import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { Popover, Skeleton } from "antd"
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
@@ -35,18 +36,13 @@ export default function Dashboard() {
     // const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [nnn,setNNN] = useState()
+    const [open,setOpen] =useState(false)
     const { chains, isLoading, pendingChainId, switchNetwork ,status} =
         useSwitchNetwork({
             chainId: targetChain,
-            onSettled(data,error){
-                console.log('Settled', { data, error })
-            },
-            onSuccess(data){
-                console.log('succedded',data);
-            },
         })
     const { address, isConnecting, isDisconnected } = useAccount()
+    const { chain} = useNetwork()
         const fetchData = async () => {
             try {
                 const provider = await getProviderOrSigner(false, web3ModalRef);
@@ -291,20 +287,29 @@ export default function Dashboard() {
         if (targetChain) {
             switchNetwork();
         }
+    }, [targetChain])
+    useEffect(()=>{
         if(address){
-            console.log("我不是傻逼");
             setLoading(true)
             fetchData()
-        }else{
-            console.log("我是傻逼");
         }
-    }, [targetChain,address])
+    },[address])
     useEffect(()=>{
-        console.log("ssssssssssssssssss"+status);
-    },[status])
+        console.log("status:",status);
+        if(status=="loading"&&targetChain!=chain.id.toString()){
+            setLoading(true)
+        }
+        if(status=="error"){
+            setTargetChain(chain.id.toString())
+            setLoading(false)
+        }
+    },[status,targetChain])
     useEffect(()=>{
-        console.log("11111111111111111111"+nnn);
-    },[nnn])
+        if(address){
+            setLoading(true)
+            fetchData()
+        }
+    },[chain])
 
     const content = (
         <div className='w-[317px] text-[18px] font-medium'>
@@ -348,7 +353,7 @@ export default function Dashboard() {
             title: "",
             render: () => (<div className='flex font-semibold '>
                 <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Withdraw</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Supply</div>
+                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'onClick={()=>{setOpen(true)}}>Supply</div>
             </div>)
         }
     ];
@@ -561,6 +566,7 @@ export default function Dashboard() {
                 {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
             </div>
             }
+            <Transaction title="Supply ETH" open={open} setOpen={setOpen}></Transaction>
             <Footer></Footer>
         </div >
     )
