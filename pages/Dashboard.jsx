@@ -6,13 +6,16 @@ import Transaction from "../components/Trasaction"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork } from 'wagmi'
-import { Popover } from "antd"
+import { Popover, Button } from "antd"
 export default function Dashboard() {
     const [targetChain, setTargetChain] = useState("");
     const [open, setOpen] = useState(false);
     const { chains, error, isLoading, pendingChainId, switchNetwork } =
         useSwitchNetwork({
             chainId: targetChain,
+            onSuccess(data) {
+                console.log('Success', data)
+            },
         })
     useEffect(() => {
         if (targetChain) {
@@ -351,6 +354,7 @@ export default function Dashboard() {
             }
             <Transaction title="Supply ETH" open={open} setOpen={setOpen}></Transaction>
             <Footer></Footer>
+
         </div >
     )
 }
