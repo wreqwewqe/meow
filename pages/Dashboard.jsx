@@ -41,14 +41,10 @@ export default function Dashboard() {
             chainId: targetChain,
             onSettled(data,error){
                 console.log('Settled', { data, error })
-                setNNN(error)
             },
             onSuccess(data){
                 console.log('succedded',data);
             },
-            onError(data){
-                console.log("error",data);
-            }
         })
     const { address, isConnecting, isDisconnected } = useAccount()
         const fetchData = async () => {
