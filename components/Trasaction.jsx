@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal, Input } from "antd"
 export default function Trasaction({ title, open, setOpen }) {
+    const [value, setValue] = useState("");
     const handleOk = () => {
 
     }
     const handleCancel = () => {
         setOpen(false)
     }
-    const placeholder = <div>
-        <div>Enter The Amount</div>
-        <div>$0</div>
-    </div>
+
+    const onChange = (values) => {
+        console.log("values", values.target.value);
+        setValue(values.target.value)
+    }
     return (
         <div><Modal title={title} open={open} onOk={handleOk} onCancel={handleCancel} footer="">
 
             <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Amount</div>
-            <Input placeholder="Enter The Amount" suffix={
+            <Input placeholder="Enter The Amount" value={value} onChange={onChange} suffix={
                 <div>
                     <div className='font-bold text-[20px] text-right'>{title.split(" ")[1]}</div>
                     <div ><span className='text-[14px] text-[#919AA6]'>Supply Balance</span> 0.1<span className='text-[#F4B512] cursor-pointer'>Max</span></div>
@@ -47,7 +49,10 @@ export default function Trasaction({ title, open, setOpen }) {
                     <div className='basis-1/2 bg-[#EAEBF0] box-border py-[6px] text-center'>2.Finished</div>
                 </div> : <></>
             }
-            <div className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' >{title.split(" ")[0]}</div>
+            {value ?
+                <div className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' >{title.split(" ")[0] + " " + value + " ETH"}</div>
+                : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
+            }
             <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer'>Close</div>
         </Modal></div>
     )
