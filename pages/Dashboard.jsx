@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ShowList from "../components/ShowList"
+import Transaction from "../components/Trasaction"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork } from 'wagmi'
 import { Popover } from "antd"
 export default function Dashboard() {
     const [targetChain, setTargetChain] = useState("");
+    const [open, setOpen] = useState(false);
     const { chains, error, isLoading, pendingChainId, switchNetwork } =
         useSwitchNetwork({
             chainId: targetChain,
@@ -17,6 +19,7 @@ export default function Dashboard() {
             switchNetwork();
         }
     }, [targetChain])
+
 
     const content = (
         <div className='w-[317px] text-[18px] font-medium'>
@@ -79,7 +82,7 @@ export default function Dashboard() {
         {
             title: "",
             render: () => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Supply</div>
+                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer' onClick={() => { setOpen(true) }}>Supply</div>
                 <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
             </div>)
         }
@@ -346,6 +349,7 @@ export default function Dashboard() {
                 {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
             </div>
             }
+            <Transaction title="Supply ETH" open={open} setOpen={setOpen}></Transaction>
             <Footer></Footer>
         </div >
     )
