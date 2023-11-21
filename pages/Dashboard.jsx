@@ -42,7 +42,7 @@ export default function Dashboard() {
             chainId: targetChain,
         })
     const { address, isConnecting, isDisconnected } = useAccount()
-    const { chain} = useNetwork()
+    const { chain } = useNetwork()
         const fetchData = async () => {
             try {
                 const provider = await getProviderOrSigner(false, web3ModalRef);
@@ -122,7 +122,7 @@ export default function Dashboard() {
                         if (data[index]["TokenAddress"] == "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE") {
                             const balance = await provider.getBalance(address);
                             var ethBalance = ethers.utils.formatEther(balance);
-                            ERC20Balance = ethBalance.substring(0, ethBalance.indexOf('.', 0) + 5);
+                            ERC20Balance = ethBalance.substring(0, ethBalance.indexOf('.', 0) + 3);
                         } else {
                             const erc20balance = await ERC20Contract.balanceOf(address);
                             // const decimals = await ERC20Contract.decimals();
@@ -288,14 +288,15 @@ export default function Dashboard() {
             switchNetwork();
         }
     }, [targetChain])
+
     useEffect(()=>{
         if(address){
             setLoading(true)
             fetchData()
         }
     },[address])
+
     useEffect(()=>{
-        console.log("status:",status);
         if(status=="loading"&&targetChain!=chain.id.toString()){
             setLoading(true)
         }
@@ -304,7 +305,9 @@ export default function Dashboard() {
             setLoading(false)
         }
     },[status,targetChain])
+
     useEffect(()=>{
+        setError("")
         if(address){
             setLoading(true)
             fetchData()
@@ -351,9 +354,9 @@ export default function Dashboard() {
         },
         {
             title: "",
-            render: () => (<div className='flex font-semibold '>
+            render: (text,record) => (<div className='flex font-semibold '>
                 <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Withdraw</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'onClick={()=>{setOpen(true)}}>Supply</div>
+                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'onClick={()=>{setOpen(true);console.log(record);}}>Supply</div>
             </div>)
         }
     ];
@@ -460,14 +463,14 @@ export default function Dashboard() {
     ];
     if (error) {
         return <p>Error: {error.message}</p>;
-      }
+      }else{
     return (
         <div className='min-h-full '>
             <Header></Header>
             {address ? <div className='box-border  py-[64px] px-[112px] '>
                 <div className='h-[118px] mb-[64px]'>
                     <Popover content={content} placement="bottom">
-                        <div className='text-[32px] font-bold w-[317px]'>Ethereum Market <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
+                        <div className='text-[32px] font-bold w-[317px]'>{chain.id==5?"Ethereum Market":"Scroll Market"} <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
                     </Popover>
                     <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
                         <div className='w-[174px] mr-[16px]'>Net worth</div>
@@ -475,9 +478,9 @@ export default function Dashboard() {
                         <div className='w-[174px]'>Health Factor</div>
                     </div>
                     <div className='flex text-[22px] text-[#272D37] font-semibold'>
-                        <div className='w-[174px] mr-[16px]'>{headBlockData[0]}</div>
-                        <div className='w-[174px] mr-[16px]'>{headBlockData[1]}</div>
-                        <div>{headBlockData[2]}</div>
+                        <div className='w-[174px] mr-[16px]'>{loading?"":headBlockData[0]}</div>
+                        <div className='w-[174px] mr-[16px]'>{loading?"":headBlockData[1]}</div>
+                        <div>{loading?"":headBlockData[2]}</div>
                     </div>
                 </div>
                 <div className='flex mb-[29px] justify-between'>
@@ -566,8 +569,9 @@ export default function Dashboard() {
                 {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
             </div>
             }
-            <Transaction title="Supply ETH" open={open} setOpen={setOpen}></Transaction>
+            <Transaction title="Borrow ETH" open={open} setOpen={setOpen}></Transaction>
             <Footer></Footer>
         </div >
     )
+        }
 }
