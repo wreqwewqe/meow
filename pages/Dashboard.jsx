@@ -483,8 +483,22 @@ export default function Dashboard() {
                         <div>{loading?"":headBlockData[2]}</div>
                     </div>
                 </div>
+                {/* <div className='columns-2 '>
+                    <div >
+                        <ShowList title="Your supplies" about_me={true} data={your_supply_data} columns={your_supply_columns}></ShowList>
+                    </div>
+                    <div >
+                        <ShowList title="Your borrows" about_me={true} data={your_borrow_data} columns={your_borrow_columns}></ShowList>
+                    </div>
+                    <div >
+                        <ShowList title="Assets to supply" data={supply_data} columns={supply_columns}></ShowList>
+                    </div>
+                    <div >
+                        <ShowList title="Assets to borrow" data={borrow_data} columns={borrow_columns}></ShowList>
+                    </div>
+                </div> */}
                 <div className='flex mb-[29px] justify-between'>
-                    <div className=' w-[48%]'>
+                    <div className='basis-[48%] mr-[32px]'>
                         <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns } header = {supplyBox} loading = {loading}></ShowList>
                     </div>
                     <div className=' w-[48%]'>
@@ -492,11 +506,11 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div className='flex justify-between'>
-                    <div className=' w-[48%]'>
-                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading = {loading}></ShowList>
+                    <div className='basis-[48%] mr-[32px]'>
+                        <ShowList title="Assets to supply" data={supply_data} columns={supply_columns}></ShowList>
                     </div>
-                    <div className=' w-[48%]'>
-                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading = {loading}></ShowList>
+                    <div className='basis-[48%]'>
+                        <ShowList title="Assets to borrow" data={borrow_data} columns={borrow_columns}></ShowList>
                     </div>
                 </div>
             </div> : <div className=' text-center h-[400px]'>
@@ -569,7 +583,7 @@ export default function Dashboard() {
                 {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
             </div>
             }
-            <Transaction title="Borrow ETH" open={open} setOpen={setOpen}></Transaction>
+            <Transaction title="Supply ETH" open={open} setOpen={setOpen}></Transaction>
             <Footer></Footer>
         </div >
     )
