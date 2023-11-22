@@ -37,6 +37,8 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [open,setOpen] =useState(false)
+    const [operation,setOperation] = useState("")
+    const [boxData,setBoxData] = useState()
     const { chains, isLoading, pendingChainId, switchNetwork ,status} =
         useSwitchNetwork({
             chainId: targetChain,
@@ -355,8 +357,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text,record) => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Withdraw</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'onClick={()=>{setOpen(true);console.log(record);}}>Supply</div>
+                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'onClick={()=>{setOperation("Withdraw");setBoxData(record);setOpen(true)}}>Withdraw</div>
+                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'onClick={()=>{setOperation("Supply");setBoxData(record);setOpen(true)}}>Supply</div>
             </div>)
         }
     ];
@@ -387,9 +389,9 @@ export default function Dashboard() {
         },
         {
             title: "",
-            render: () => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Repay</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Borrow</div>
+            render: (text,record) => (<div className='flex font-semibold '>
+                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'onClick={()=>{setOperation("Repay");setBoxData(record);setOpen(true)}}>Repay</div>
+                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'onClick={()=>{setOperation("Borrow");setBoxData(record);setOpen(true)}}>Borrow</div>
             </div>)
         }
     ];
@@ -421,8 +423,8 @@ export default function Dashboard() {
         },
         {
             title: "",
-            render: () => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Supply</div>
+            render: (text,record) => (<div className='flex font-semibold '>
+                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'onClick={()=>{setOperation("Supply");setBoxData(record);setOpen(true)}}>Supply</div>
                 <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
             </div>)
         }
@@ -455,8 +457,8 @@ export default function Dashboard() {
         },
         {
             title: "",
-            render: () => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Borrow</div>
+            render: (text,record) => (<div className='flex font-semibold '>
+                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'onClick={()=>{setOperation("Borrow");setBoxData(record);setOpen(true)}}>Borrow</div>
                 <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
             </div>)
         }
@@ -569,7 +571,7 @@ export default function Dashboard() {
                 {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
             </div>
             }
-            <Transaction title="Borrow ETH" open={open} setOpen={setOpen}></Transaction>
+            <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address}></Transaction>
             <Footer></Footer>
         </div >
     )

@@ -23,7 +23,8 @@
     "sass": "^1.69.0",
     "uuid": "^9.0.1",
     "viem": "~1.12.2",
-    "wagmi": "~1.4.2"
+    "wagmi": "~1.4.2",
+    "web3modal": "^1.9.12"
   },
   "devDependencies": {
     "@types/node": "^18.16.12",

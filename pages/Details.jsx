@@ -1,9 +1,11 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Transaction from "../components/Trasaction"
 import { Progress } from "antd"
 import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
+import { getProviderOrSigner } from '../utils/ProviderOrSigner';
 import axios from 'axios'
 import { BaseURI, ETHEREUM_ADDRESS} from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
@@ -19,6 +21,12 @@ export default function EthDetails() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const {chain} = useNetwork()
+    const web3ModalRef = useRef();
+    const [borrowData,setBorrow] = useState({})
+    const [supplyData,setSupply] = useState({})
+    const [open,setOpen] =useState(false)
+    const [operation,setOperation] = useState("")
+    const [boxData,setBoxData] = useState()
     const { address, isConnecting, isDisconnected } = useAccount()
     useEffect(()=>{
         const queryString = window.location.search;
@@ -36,6 +44,7 @@ export default function EthDetails() {
         try {
             const Data = await axios.get('/detail',{params:{asset:asset,net:network}})
             const data = Data.data.data.assetdata
+            console.log(data);
             const E2 =BigNumber.from(100)
 
             const assetDate={}
@@ -80,7 +89,7 @@ export default function EthDetails() {
       const fetchAssetData = async () => {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
-            const Data = await axios.get('/details',{params:{asset:asset,address:address,net:net}})
+            const Data = await axios.get('/details',{params:{asset:asset,address:address,net:network}})
             const data = Data.data.data.assetdata
             const availableBorrow = Data.data.data.availableBorrow
             const E2 =BigNumber.from(100)
@@ -150,7 +159,7 @@ export default function EthDetails() {
                 borrowEnable = true
             }
             const borrowdata = {}
-            borrowdata.ERC20Name = data["Asset"]
+            borrowdata.name = [data["Asset"],data["Name"]]
             borrowdata.healthFactor = Data.data.data.healthFactor
             borrowdata.assetAddress = data["TokenAddress"]
             borrowdata.available = assetDate.availableBorrow
@@ -168,7 +177,7 @@ export default function EthDetails() {
                 collateral = "——"
             }
             var supplydata = {}
-            supplydata.ERC20Name = data["Asset"]
+            supplydata.name = [data["Asset"],data["Name"]]
             supplydata.healthFactor = Data.data.data.healthFactor
             supplydata.assetAddress = data["TokenAddress"]
             supplydata.APY = assetDate.supplyapy
@@ -185,6 +194,21 @@ export default function EthDetails() {
           setLoading(false);
         }
       };
+      useEffect(()=>{
+        if(asset!==""&&network!==""){
+            console.log("我进来了");
+            fetchData();
+        }
+      },[asset,network])
+      useEffect(()=>{
+        if (asset !== ""&&network!==""&&address) {
+            console.log("我也进来了");
+            fetchAssetData();
+        }
+    },[chain,asset,address])
+    if (error) {
+        return <p>Error: {error.message}</p>;
+      }
 
     return (
         <div className='min-h-full '>
@@ -280,31 +304,31 @@ export default function EthDetails() {
                                 <WalletOutlined className='text-[20px] mr-[30px]' />
                                 <div>
                                     <div className='text-[#5F6D7E]'>Wallet balance</div>
-                                    <div><span className='font-bold mt-[5px]'>{detailData.balance}</span>{detailData.coin}</div>
+                                    <div><span className='font-bold mt-[5px]'>{detailData.balance} </span>{detailData.coin}</div>
                                 </div>
                             </div>
                             <hr className='mb-[20px] border-[#EAEBF0]' />
                             <div className='flex justify-between items-center'>
                                 <div>
                                     <div>Avaliable to supply</div>
-                                    <div><span className='font-bold mt-[5px]'>{detailData.balance}</span>{detailData.coin}</div>
+                                    <div><span className='font-bold mt-[5px]'>{detailData.balance} </span>{detailData.coin}</div>
                                     <div className='mt-[15px]'>${detailData.balanceprice}</div>
                                 </div>
-                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Supply</button></div>
+                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={()=>{setOperation("Supply");setBoxData(supplyData);setOpen(true)}}>Supply</button></div>
                             </div>
                             <div className='flex justify-between mt-[20px] items-center'>
                                 <div>
                                     <div>Avaliable to borrow</div>
-                                    <div><span className='font-bold mt-[5px]'>{detailData.availableBorrow}</span>{detailData.coin}</div>
+                                    <div><span className='font-bold mt-[5px]'>{detailData.availableBorrow} </span>{detailData.coin}</div>
                                     <div className='mt-[15px]'>${detailData.availableprice}</div>
                                 </div>
-                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Borrow</button></div>
+                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'onClick={()=>{setOperation("Borrow");setBoxData(borrowData);setOpen(true)}}>Borrow</button></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address}></Transaction>
             <Footer></Footer>
         </div>
     )

@@ -1,13 +1,13 @@
 import { BigNumber, Contract, providers, constants } from 'ethers';
-import Web3Modal from "web3modal";
+// import Web3Modal from "web3modal";
 import { useState, useEffect, useRef } from 'react';
 import { PoolABI } from "../ABIs/LendingPool";
 import { DataProviderABI } from "../ABIs/LendingPoolDataProvider";
 import { getProviderOrSigner } from './ProviderOrSigner';
 import { ATokenABI } from "../ABIs/AToken";
-import { ERC20ABI } from '@/ABIs/ERC20';
-import {ETHEREUM_ADDRESS} from "@/utils/constants"
-import { CoreABI } from '@/ABIs/LendingPoolCore';
+import { ERC20ABI } from '../ABIs/ERC20';
+import {ETHEREUM_ADDRESS} from "../utils/constants"
+import { CoreABI } from '../ABIs/LendingPoolCore';
 import axios from 'axios';
 import { BaseURI } from './constants';
 axios.defaults.baseURL = BaseURI;
@@ -93,7 +93,7 @@ const deposit = async (assetAddress,Value,web3ModalRef) => {
   const borrow = async (assetAddress,value,web3ModalRef,rateMode) => {
     const signer = await getProviderOrSigner(true, web3ModalRef);
     const poolContract = new Contract(
-      PoolABI.address,
+      PoolABI.EthereumAddress,
       PoolABI.abi,
       signer
     );
@@ -131,7 +131,7 @@ const deposit = async (assetAddress,Value,web3ModalRef) => {
     const signer = await getProviderOrSigner(true, web3ModalRef);
     const provider = await getProviderOrSigner(false,web3ModalRef);
     const poolContract = new Contract(
-      PoolABI.address,
+      PoolABI.EthereumAddress,
       PoolABI.abi,
       signer
     );
