@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ConnectButton, RainbowKitProvider} from '@rainbow-me/rainbowkit';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import logo from "../../public/logo.jpg"
@@ -16,13 +16,13 @@ import {
 function Header() {
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
-    // console.log("chain", chain);
+    console.log("chain", chain);
     const { address, isConnecting, isDisconnected } = useAccount()
-    // console.log("address", address, isConnecting, isDisconnected)
+    console.log("address", address, isConnecting, isDisconnected)
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
     const { state, dispatch } = useGlobalContext();
     const [show, setShow] = useState(false);
-    // console.log("sate", state)
+    console.log("sate", state)
     const lang = state.lang;
     const router = useRouter()
     console.log("router", router)
@@ -37,8 +37,7 @@ function Header() {
     const content = (
         <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
             <div className='flex justify-between items-center w-[221px]'>
-                {/* <div className='w-[48px] h-[48px] bg-[#F4B512] rounded-[50%]'></div> */}
-                <Blockies className='w-[48px] h-[48px] bg-[#F4B512] rounded-[50%]' seed={address} size={12} scale={4}/>
+                <div className='w-[48px] h-[48px] bg-[#F4B512] rounded-[50%]'></div>
                 <div className='flex justify-between  items-center w-[153px] h-[22px]'>
                     <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                     <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' /></div>
@@ -70,7 +69,7 @@ function Header() {
                 <div className='cursor-pointer'>Security</div>
             </div>
             {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
-            {/* <ConnectButton></ConnectButton> */}
+            <ConnectButton></ConnectButton>
             <ConnectButton.Custom>
                 {({
                     account,
