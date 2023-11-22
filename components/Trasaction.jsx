@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Modal, Input } from "antd"
+import { Modal, Input, Button } from "antd"
 export default function Trasaction({ title, open, setOpen }) {
     const [value, setValue] = useState("");
     const variable = useRef();
@@ -68,7 +68,7 @@ export default function Trasaction({ title, open, setOpen }) {
                 </div> : <></>
             }
             {value ?
-                <div className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' >{title.split(" ")[0] + " " + value + " ETH"}</div>
+                <Button className='bg-[#F4B512] text-[white] font-bold w-[100%] mb-[8px] h-[46px]' >{title.split(" ")[0] + " " + value + " ETH"}</Button>
                 : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
             }
             <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer'>Close</div>

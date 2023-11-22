@@ -35,27 +35,27 @@ export default function Dashboard() {
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
     const { address, isConnecting, isDisconnected } = useAccount()
     const your_supply_data = [
-        // {
-        //     key: '1',
-        //     asset: 'John Brown',
-        //     wallet: 0.02,
-        //     apy: '0.04%',
-        //     can_collateral: true,
-        // },
-        // {
-        //     key: '2',
-        //     asset: 'John Brown',
-        //     wallet: 0.02,
-        //     apy: '0.04%',
-        //     can_collateral: false,
-        // },
-        // {
-        //     key: '3',
-        //     asset: 'John Brown',
-        //     wallet: 0.02,
-        //     apy: '0.05%',
-        //     can_collateral: false,
-        // },
+        {
+            key: '1',
+            asset: 'John Brown',
+            wallet: 0.02,
+            apy: '0.04%',
+            can_collateral: true,
+        },
+        {
+            key: '2',
+            asset: 'John Brown',
+            wallet: 0.02,
+            apy: '0.04%',
+            can_collateral: false,
+        },
+        {
+            key: '3',
+            asset: 'John Brown',
+            wallet: 0.02,
+            apy: '0.05%',
+            can_collateral: false,
+        },
     ];
     const your_supply_columns = [
         {
@@ -240,7 +240,7 @@ export default function Dashboard() {
         {
             title: "",
             render: () => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Supply</div>
+                <Button disabled={true} className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer'>Supply</Button>
                 <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
             </div>)
         }
