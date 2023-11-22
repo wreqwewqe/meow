@@ -7,6 +7,10 @@
   margin: 0;
 }
 
+.active {
+  color: #F4B512;
+}
+
 .green-button {
   display: inline-block;
   background-color: #008000;

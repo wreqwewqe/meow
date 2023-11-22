@@ -8,6 +8,7 @@ import { Select } from "antd"
 import { useGlobalContext } from '../../GlobalContext';
 import { Popover } from "antd"
 import { useDisconnect, useAccount, useNetwork } from 'wagmi'
+
 import {
     CopyFilled,
     DownOutlined
@@ -24,6 +25,7 @@ function Header() {
     console.log("sate", state)
     const lang = state.lang;
     const router = useRouter()
+    console.log("router", router)
     console.log("t", t);
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
@@ -41,7 +43,7 @@ function Header() {
                     <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' /></div>
                 </div>
             </div>
-            <div className='flex   justify-between  w-[244px] h-[28px] mt-[12px] mb-[24px] text-[#5F6D7E] text-center text-[14px] font-medium'>
+            <div className='flex  justify-between  w-[244px] h-[28px] mt-[12px] mb-[24px] text-[#5F6D7E] text-center text-[14px] font-medium'>
                 <div onClick={() => connectM()} className='cursor-pointer w-[130px] border border-solid border-[#EAEBF0] rounded-[2px]'>SWITCH WALLET</div>
                 <div onClick={() => disconnect()} className=' cursor-pointer  w-[108px] border border-solid border-[#EAEBF0] rounded-[2px]'>DISCONNECT</div>
             </div>
@@ -60,9 +62,9 @@ function Header() {
         <div className=' flex justify-between px-[32px] h-full'>
             <div className=' flex  justify-between font-semibold  text-[15px] items-center w-[588px] '>
                 <div><Image src={logo} height={38}></Image></div>
-                <div className='cursor-pointer' onClick={() => { router.push("/Home") }}>Home</div>
-                <div className='cursor-pointer' onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
-                <div className='cursor-pointer'><Popover content={market}>Market <DownOutlined /></Popover></div>
+                <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
+                <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
+                <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>
                 <div className='cursor-pointer'>Docs</div>
                 <div className='cursor-pointer'>Security</div>
             </div>
