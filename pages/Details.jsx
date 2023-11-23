@@ -328,7 +328,7 @@ export default function EthDetails() {
                     </div>
                 </div>
             </div>
-            <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address}></Transaction>
+            <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address} chain={chain}></Transaction>
             <Footer></Footer>
         </div>
     )

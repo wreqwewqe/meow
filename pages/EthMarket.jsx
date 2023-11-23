@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { Table } from "antd"
+import { Button, Table } from "antd"
 import { Skeleton } from 'antd'
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import { BaseURI, ETHEREUM_ADDRESS} from '../utils/constants';
-import { total, total4} from '../utils/getPrice'
+import { total, total4 } from '../utils/getPrice'
+import { useRouter } from 'next/router';
 import { BigNumber } from 'ethers'
 export default function EthMarket() {
     axios.defaults.baseURL = BaseURI
@@ -16,6 +17,7 @@ export default function EthMarket() {
     const [marketsize, setMarket] = useState("");
     const [available, setAvailable] = useState("");
     const [tborrows, setTborrows] = useState("");
+    const router = useRouter()
     const fetchData = async () => {
         try {
             var totalMarket = BigNumber.from(0);
@@ -107,9 +109,9 @@ export default function EthMarket() {
         },
         {
             title: "",
-            render: () => (<div className='flex font-semibold '>
+            render: (text,record) => (<div className='flex font-semibold '>
 
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
+                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={()=>router.push('/Details?asset='+record.asset[0]+'&&net=Ethereum')}>Details</Button>
             </div>)
         }
     ];

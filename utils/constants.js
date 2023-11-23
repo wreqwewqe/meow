@@ -6,6 +6,7 @@
  * @LastEditTime: 2023-05-05 16:29:40
  */
 const ETHEREUM_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+const EthereumCode = 5
 // const BaseURI = 'https://api.bittesseract.com/api/v1/';
 const BaseURI = "http://127.0.0.1:8000/api/v1"
 const intersetRate = [
@@ -113,5 +114,5 @@ const intersetRate = [
 ]
 
 module.exports = {
-    ETHEREUM_ADDRESS,BaseURI,intersetRate
+    ETHEREUM_ADDRESS,BaseURI,intersetRate,EthereumCode
 }

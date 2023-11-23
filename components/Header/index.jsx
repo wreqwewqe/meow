@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -8,12 +8,14 @@ import { Select } from "antd"
 import { useGlobalContext } from '../../GlobalContext';
 import { Popover } from "antd"
 import { useDisconnect, useAccount, useNetwork } from 'wagmi'
+import { userMessage } from '../../utils/contractfunc'
 
 import {
     CopyFilled,
     DownOutlined
 } from '@ant-design/icons';
 function Header() {
+    const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
     console.log("chain", chain);
@@ -27,6 +29,9 @@ function Header() {
     const router = useRouter()
     console.log("router", router)
     console.log("t", t);
+    useEffect(()=>{
+        userMessage(web3ModalRef,address,chain)
+    },[address,chain])
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
         <div className='cursor-pointer' onClick={() => { router.push("ScrollMarket") }}>Scroll Market</div>
