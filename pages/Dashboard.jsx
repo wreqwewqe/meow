@@ -6,7 +6,7 @@ import Transaction from "../components/Trasaction"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
-import { Popover, Skeleton, Button } from "antd"
+import { Popover, Skeleton, Button, message } from "antd"
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
 import { PoolABI } from '../ABIs/LendingPool';
@@ -14,7 +14,7 @@ import { total,calculateInterest,rayMul,rayToWad,rayDiv } from '../utils/getPric
 import { CoreABI } from '../ABIs/LendingPoolCore';
 import { PriceOracleABI } from '../ABIs/PriceOralce';
 import axios from 'axios'
-import { BaseURI, ETHEREUM_ADDRESS, EthereumCode} from '../utils/constants';
+import { BaseURI, ETHEREUM_ADDRESS, EthereumCode, ScrollCode} from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import { useRouter } from 'next/router' 
 import {onChangeToScroll,userMessage} from '../utils/contractfunc'
@@ -41,6 +41,8 @@ export default function Dashboard() {
     const [open,setOpen] =useState(false)
     const [operation,setOperation] = useState("")
     const [boxData,setBoxData] = useState()
+    const [isChain,setIsChain] = useState(true)
+    const [isError,setisError] = useState(false)
     const router = useRouter()
     const { chains, isLoading, pendingChainId, switchNetwork ,status} =
         useSwitchNetwork({
@@ -333,7 +335,20 @@ export default function Dashboard() {
             setLoading(true)
             fetchData()
         }
+        if(chain.id==EthereumCode||chain.id==ScrollCode){
+            setIsChain(false)
+        }else{
+            setIsChain(true)
+        }
     },[chain])
+    useEffect(()=>{
+        if(error){
+            setisError(true)
+        }else{
+            setisError(false)
+        }
+        console.log("iserror:",isError);
+    },[error])
 
     const content = (
         <div className='w-[317px] text-[18px] font-medium'>
@@ -482,16 +497,16 @@ export default function Dashboard() {
             </div>)
         }
     ];
-    if (error) {
-        return <p>Error: {error.message}</p>;
-      }else{
+    // if(error){
+    //     return <p>Error: {error.message}</p>;
+    // }
     return (
         <div className='min-h-full '>
             <Header></Header>
             {address ? <div className='box-border  py-[64px] px-[112px] '>
                 <div className='h-[118px] mb-[64px]'>
                     <Popover content={content} placement="bottom">
-                        <div className='text-[32px] font-bold w-[317px]'>{chain.id==5?"Ethereum Market":"Scroll Market"} <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
+                        <div className='text-[32px] font-bold w-[317px]'>{chain.id==EthereumCode?"Ethereum Market":chain.id==ScrollCode?"Scroll Market":"Please select the network you want!"} <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
                     </Popover>
                     <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
                         <div className='w-[174px] mr-[16px]'>Net worth</div>
@@ -499,25 +514,25 @@ export default function Dashboard() {
                         <div className='w-[174px]'>Health Factor</div>
                     </div>
                     <div className='flex text-[22px] text-[#272D37] font-semibold'>
-                        <div className='w-[174px] mr-[16px]'>{loading?"":headBlockData[0]}</div>
-                        <div className='w-[174px] mr-[16px]'>{loading?"":headBlockData[1]}</div>
-                        <div>{loading?"":headBlockData[2]}</div>
+                        <div className='w-[174px] mr-[16px]'>{loading||isChain||isError?"":headBlockData[0]}</div>
+                        <div className='w-[174px] mr-[16px]'>{loading||isChain||isError?"":headBlockData[1]}</div>
+                        <div>{loading||isChain||isError?"":headBlockData[2]}</div>
                     </div>
                 </div>
                 <div className='flex mb-[29px] justify-between'>
                     <div className=' w-[48%]'>
-                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns } header = {supplyBox} loading = {loading}></ShowList>
+                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns } header = {supplyBox} loading = {loading||isChain||isError}></ShowList>
                     </div>
                     <div className=' w-[48%]'>
-                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header = {borrowBox} supply = {false} loading = {loading}></ShowList>
+                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header = {borrowBox} supply = {false} loading = {loading||isChain||isError}></ShowList>
                     </div>
                 </div>
                 <div className='flex justify-between'>
                     <div className=' w-[48%]'>
-                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading = {loading}></ShowList>
+                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading = {loading||isChain||isError}></ShowList>
                     </div>
                     <div className=' w-[48%]'>
-                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading = {loading}></ShowList>
+                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading = {loading||isChain||isError}></ShowList>
                     </div>
                 </div>
             </div> : <div className=' text-center h-[400px]'>
@@ -594,5 +609,4 @@ export default function Dashboard() {
             <Footer></Footer>
         </div >
     )
-        }
 }

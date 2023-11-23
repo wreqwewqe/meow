@@ -14,23 +14,23 @@ import {
     CopyFilled,
     DownOutlined
 } from '@ant-design/icons';
-function Header() {
+import { EthereumCode, ScrollCode } from '../../utils/constants';
+function Header({isHome=true}) {
     const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
-    console.log("chain", chain);
     const { address, isConnecting, isDisconnected } = useAccount()
-    console.log("address", address, isConnecting, isDisconnected)
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
     const { state, dispatch } = useGlobalContext();
     const [show, setShow] = useState(false);
-    console.log("sate", state)
     const lang = state.lang;
     const router = useRouter()
-    console.log("router", router)
-    console.log("t", t);
     useEffect(()=>{
-        userMessage(web3ModalRef,address,chain)
+        if(chain&&address){
+            if((chain.id==EthereumCode||chain.id==ScrollCode)){
+                userMessage(web3ModalRef,address,chain)
+            }
+        }
     },[address,chain])
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
@@ -74,8 +74,9 @@ function Header() {
                 <div className='cursor-pointer'>Security</div>
             </div>
             {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
-            <ConnectButton></ConnectButton>
-            <ConnectButton.Custom>
+            {/* <ConnectButton></ConnectButton> */}
+            {!isHome?<button onClick={()=>{ router.push("/Dashboard")}} type="button" className={button_style}>Launch APP</button>
+            :<ConnectButton.Custom>
                 {({
                     account,
                     chain,
@@ -139,7 +140,7 @@ function Header() {
                         </div>
                     );
                 }}
-            </ConnectButton.Custom>
+            </ConnectButton.Custom>}
         </div>
     </div>
 }
