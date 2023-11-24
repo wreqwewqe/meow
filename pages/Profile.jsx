@@ -54,7 +54,7 @@ export default function Profile() {
             <Header></Header>
             <div className='box-border px-[112px] py-[64px]'>
                 {/* <div className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]'></div> */}
-                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address.toLocaleLowerCase()} size={24} scale={4}/>
+                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address?address.toLowerCase():""} size={24} scale={4}/>
                 <div suppressHydrationWarning className='text-[32px] font-bold mb-[16px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                 <div className='mb-[64px]'><Image src={copy} onClick={copy_address} className='cursor-pointer mr-[8px]' height={15}></Image><span className='text-[16px] text-[#5F6D7E]'>Copy address to clipboard</span></div>
                 <div className='flex justify-between mb-[32px]'>

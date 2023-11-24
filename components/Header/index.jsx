@@ -43,7 +43,7 @@ function Header({isHome=true}) {
     const content = (
         <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
             <div className='flex justify-between items-center w-[221px]'>
-                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address.toLocaleLowerCase()} size={14} scale={4}/>
+                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address?address.toLowerCase():""} size={14} scale={4}/>
                 <div className='flex justify-between  items-center w-[153px] h-[22px]'>
                     <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                     <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' /></div>
