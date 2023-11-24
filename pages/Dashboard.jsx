@@ -331,14 +331,16 @@ export default function Dashboard() {
 
     useEffect(()=>{
         setError("")
-        if(address&&chain.id){
-            setLoading(true)
-            fetchData()
-        }
-        if(chain.id==EthereumCode||chain.id==ScrollCode){
-            setIsChain(false)
-        }else{
-            setIsChain(true)
+            if(chain){
+            if(address&&chain.id){
+                setLoading(true)
+                fetchData()
+            }
+            if(chain.id==EthereumCode||chain.id==ScrollCode){
+                setIsChain(false)
+            }else{
+                setIsChain(true)
+            }
         }
     },[chain])
     useEffect(()=>{

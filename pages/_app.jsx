@@ -110,7 +110,7 @@ function MyApp({ Component, pageProps }) {
     <GlobalContextProvider>
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
       <WagmiConfig config={wagmiConfig} >
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider chains={chains} modalSize='compact' locale='en'>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </WagmiConfig>
