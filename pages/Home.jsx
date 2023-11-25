@@ -2,10 +2,12 @@ import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Image from 'next/image';
-import home1 from "../public/home1.jpg"
-import home2 from "../public/home2.jpg"
-import home3 from "../public/home3.jpg"
+import home1 from "../public/home1.png"
+import home2 from "../public/home2.png"
+import home3 from "../public/home3.png"
 import home4 from "../public/home4.jpg"
+import Eth from "../public/eth.png"
+import Scroll from "../public/scroll.png"
 export default function Home() {
     return (
         <div  >
@@ -15,7 +17,7 @@ export default function Home() {
                 <div>Purring into the Future of Lending</div>
                 <div className='text-[#F4B512]'>Borrow,Save,Earn</div>
             </div>
-            <div className='box-border h-[483px] bg-[yellow] '>
+            <div className='box-border h-[483px]  '>
                 <Image height={483} className='w-full' src={home1}></Image>
             </div>
             <div className=' box-border h-[688px] bg-[#FAFBFC] py-[64px] flex justify-center'>
@@ -38,15 +40,16 @@ export default function Home() {
                     <div className='font-bold text-[32px]'>MeoW Markets</div>
                     <div className='mt-[16px]'>Meow will expand its permissionless lending business on multiple blockchains.</div>
                 </div>
-                <div className='flex justify-between box-border h-[208px] bg-[yellow] px-[32px]'>
-                    <div className='w-[560px] h-[208px] bg-[pink] text-center'>
-                        <div className='h-[60px]'>图片</div>
+                <div className='flex justify-between box-border h-[208px]  px-[32px]'>
+                    <div className='w-[560px] h-[208px] text-center'>
+
+                        <div className='h-[60px]' > <Image width={60} src={Eth}></Image></div>
                         <div className='mt-[20px] mb-[12px] text-[22px] font-semibold'>ETH</div>
                         <div className='text-[#5F6D7E]'>Efficiently unleash cross-media information without cross-media value. Quickly timely deliverables for real-time schemas. </div>
                         <div className='text-[#F4B512] mt-[16px]'>Go to Market </div>
                     </div>
-                    <div className='w-[560px] h-[208px] bg-[red] text-center'>
-                        <div className='h-[60px]'>图片</div>
+                    <div className='w-[560px] h-[208px]  text-center'>
+                        <div className='h-[60px]'><Image width={60} src={Scroll}></Image></div>
                         <div className='mt-[20px] mb-[12px] text-[22px] font-semibold'>Scoll</div>
                         <div className='text-[#5F6D7E]'>Completely pursue scalable customer cross- media through potentialities. Holistically quickly installed portals. </div>
                         <div className='text-[#F4B512] mt-[16px]'>Go to Market </div>
@@ -61,11 +64,11 @@ export default function Home() {
                 <div className='h-[60px]'> <Image height={60} src={home3}></Image></div>
             </div>
 
-            <div className='box-border h-[328px] py-[64px] px-[80px] text-center' >
+            <div className='box-border h-[328px] py-[64px] px-[80px] text-center  ' >
                 <div className='text-[32px] font-bold'>Our Partners</div>
                 <div className='mt-[16px]'>Supported by excellent partners in the Web3 space, Meow is growing stronger </div>
                 <div className='mb-[64px]'>with their help.</div>
-                <Image height={32} src={home4}></Image>
+                {/* <Image height={32} src={home4}></Image> */}
             </div>
             <Footer></Footer>
         </div>

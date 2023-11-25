@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ShowList from "../components/ShowList"
 import Transaction from "../components/Trasaction"
+import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
@@ -18,7 +19,8 @@ import { BaseURI, ETHEREUM_ADDRESS, EthereumCode, ScrollCode } from '../utils/co
 import { BigNumber, Contract, ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { onChangeToScroll, userMessage } from '../utils/contractfunc'
-
+import Eth from "../public/eth.png"
+import Scroll from "../public/scroll.png"
 export default function Dashboard() {
     axios.defaults.baseURL = BaseURI
     const [targetChain, setTargetChain] = useState("");
@@ -148,7 +150,7 @@ export default function Dashboard() {
                     if (data[index]["Collateral"] == 1) {
                         collateral = "\u2714"
                     } else {
-                        collateral = "鈥斺€?
+                        collateral = "——"
                     }
 
                     if (ERC20Balance == 0) {
@@ -179,7 +181,7 @@ export default function Dashboard() {
                         collateral = "\u2714"
                         collateralBalance += assetBalance * assetPriceUSD;
                     } else {
-                        collateral = "鈥斺€?
+                        collateral = "——"
                     }
                     supplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "withdrawIsable": healthFactor > 1, "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
                 }
@@ -354,12 +356,12 @@ export default function Dashboard() {
 
     const content = (
         <div className='w-[317px] text-[18px] font-medium'>
-            <p className='cursor-pointer' onClick={() => {
+            <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("5");
-            }}>Ethereum Market</p>
-            <p className='cursor-pointer' onClick={() => {
+            }}> <Image width={48} src={Eth} className='mr-[13px]'></Image> Ethereum Market</p>
+            <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("534352");
-            }}>Scroll Market</p>
+            }}> <Image width={48} src={Scroll} className='mr-[13px]'></Image>Scroll Market</p>
         </div>
     );
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';

@@ -10,13 +10,14 @@ import { useGlobalContext } from '../../GlobalContext';
 import { Popover } from "antd"
 import { useDisconnect, useAccount, useNetwork } from 'wagmi'
 import { userMessage } from '../../utils/contractfunc'
-
+import Eth from "../../public/eth.png"
+import Scroll from "../../public/scroll.png"
 import {
     CopyFilled,
     DownOutlined
 } from '@ant-design/icons';
 import { EthereumCode, ScrollCode } from '../../utils/constants';
-function Header({isHome=true}) {
+function Header({ isHome = true }) {
     const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
@@ -26,16 +27,16 @@ function Header({isHome=true}) {
     const [show, setShow] = useState(false);
     const lang = state.lang;
     const router = useRouter()
-    useEffect(()=>{
-        if(chain&&address){
-            if((chain.id==EthereumCode||chain.id==ScrollCode)){
-                userMessage(web3ModalRef,address,chain)
+    useEffect(() => {
+        if (chain && address) {
+            if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
+                userMessage(web3ModalRef, address, chain)
             }
         }
-    },[address,chain])
+    }, [address, chain])
     const market = () => (<div className='w-[200px] font-bold'>
-        <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
-        <div className='cursor-pointer' onClick={() => { router.push("ScrollMarket") }}>Scroll Market</div>
+        <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} width={48} className='mr-[20px]'></Image> Ethereum Market</div>
+        <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} width={48} className='mr-[20px]'></Image>Scroll Market</div>
     </div>)
     const onClick = () => {
 
@@ -43,7 +44,7 @@ function Header({isHome=true}) {
     const content = (
         <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
             <div className='flex justify-between items-center w-[221px]'>
-                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address?address.toLowerCase():""} size={14} scale={4}/>
+                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
                 <div className='flex justify-between  items-center w-[153px] h-[22px]'>
                     <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                     <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' /></div>
@@ -67,7 +68,7 @@ function Header({isHome=true}) {
         <div></div>
         <div className=' flex justify-between px-[32px] h-full'>
             <div className=' flex  justify-between font-semibold  text-[15px] items-center w-[588px] '>
-                <div><Image src={logo} height={38}></Image></div>
+                <div><Image src={logo} width={180}  ></Image></div>
                 <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
                 <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
                 <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>
@@ -76,72 +77,72 @@ function Header({isHome=true}) {
             </div>
             {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
             {/* <ConnectButton></ConnectButton> */}
-            {!isHome?<button onClick={()=>{ router.push("/Dashboard")}} type="button" className={button_style}>Launch APP</button>
-            :<ConnectButton.Custom>
-                {({
-                    account,
-                    chain,
-                    openAccountModal,
-                    openChainModal,
-                    openConnectModal,
-                    authenticationStatus,
-                    mounted,
-                }) => {
-                    // Note: If your app doesn't use authentication, you
-                    // can remove all 'authenticationStatus' checks
+            {!isHome ? <button onClick={() => { router.push("/Dashboard") }} type="button" className={button_style}>Launch APP</button>
+                : <ConnectButton.Custom>
+                    {({
+                        account,
+                        chain,
+                        openAccountModal,
+                        openChainModal,
+                        openConnectModal,
+                        authenticationStatus,
+                        mounted,
+                    }) => {
+                        // Note: If your app doesn't use authentication, you
+                        // can remove all 'authenticationStatus' checks
 
-                    const ready = mounted && authenticationStatus !== 'loading';
-                    const connected =
-                        ready &&
-                        account &&
-                        chain &&
-                        (!authenticationStatus ||
-                            authenticationStatus === 'authenticated');
+                        const ready = mounted && authenticationStatus !== 'loading';
+                        const connected =
+                            ready &&
+                            account &&
+                            chain &&
+                            (!authenticationStatus ||
+                                authenticationStatus === 'authenticated');
 
-                    return (
-                        <div
-                            {...(!ready && {
-                                'aria-hidden': true,
-                                'style': {
-                                    opacity: 0,
-                                    pointerEvents: 'none',
-                                    userSelect: 'none',
-                                },
-                            })}
-                        >
-                            {(() => {
-                                if (!connected) {
-                                    return (
-                                        <button onClick={openConnectModal} type="button" className={button_style}>
-                                            Connect Wallet
-                                        </button>
-                                    );
-                                }
-
-                                if (chain.unsupported) {
-                                    return (
-                                        <button onClick={openChainModal} type="button" className={button_style}>
-                                            {account.displayName}
-                                        </button>
-                                    );
-                                }
-
-                                return (
-                                    <Popover content={content}>
-                                        <div style={{ display: 'flex', gap: 12 }}>
-
-                                            <button type="button" className={button_style}>
-                                                {account.displayName}
-
+                        return (
+                            <div
+                                {...(!ready && {
+                                    'aria-hidden': true,
+                                    'style': {
+                                        opacity: 0,
+                                        pointerEvents: 'none',
+                                        userSelect: 'none',
+                                    },
+                                })}
+                            >
+                                {(() => {
+                                    if (!connected) {
+                                        return (
+                                            <button onClick={openConnectModal} type="button" className={button_style}>
+                                                Connect Wallet
                                             </button>
-                                        </div>
-                                    </Popover>
-                                );
-                            })()}
-                        </div>
-                    );
-                }}
-            </ConnectButton.Custom>}
+                                        );
+                                    }
+
+                                    if (chain.unsupported) {
+                                        return (
+                                            <button onClick={openChainModal} type="button" className={button_style}>
+                                                {account.displayName}
+                                            </button>
+                                        );
+                                    }
+
+                                    return (
+                                        <Popover content={content}>
+                                            <div style={{ display: 'flex', gap: 12 }}>
+
+                                                <button type="button" className={button_style}>
+                                                    {account.displayName}
+
+                                                </button>
+                                            </div>
+                                        </Popover>
+                                    );
+                                })()}
+                            </div>
+                        );
+                    }}
+                </ConnectButton.Custom>}
         </div>
     </div>
 }
