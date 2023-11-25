@@ -357,7 +357,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
                 {value ?
-                    <button className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' onClick={handleRepay} disabled={!loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</button>
+                    <button className='bg-[#F4B512] text-[white] h-[44px] font-bold  rounded-[6px] mb-[8px]' onClick={handleRepay} disabled={!loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
                 }
                 <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer' onClick={() => handleCancel()}>Close</div>
