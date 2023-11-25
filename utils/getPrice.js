@@ -82,6 +82,8 @@ const rayToWad = (a)=>{
 const rayDiv=(a,b)=>{
     return b.div(BigNumber.from(2)).add(a.mul(ray)).div(b)
 }
+
+
 module.exports = {
     getprice,total,calculateInterest,rayMul,rayToWad,rayDiv,total4
 }

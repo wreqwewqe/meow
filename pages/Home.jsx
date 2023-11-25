@@ -9,7 +9,7 @@ import home4 from "../public/home4.jpg"
 export default function Home() {
     return (
         <div  >
-            <Header></Header>
+            <Header isHome={false}></Header>
             <div className='text-center box-border text-[52px] font-bold  h-[276px]  py-[48px] px-[270px]'>
                 <div>Meow Protocol</div>
                 <div>Purring into the Future of Lending</div>

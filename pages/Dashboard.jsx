@@ -6,7 +6,7 @@ import Transaction from "../components/Trasaction"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
-import { Popover, Skeleton } from "antd"
+import { Popover, Skeleton, Button, message } from "antd"
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
 import { PoolABI } from '../ABIs/LendingPool';
@@ -14,8 +14,10 @@ import { total, calculateInterest, rayMul, rayToWad, rayDiv } from '../utils/get
 import { CoreABI } from '../ABIs/LendingPoolCore';
 import { PriceOracleABI } from '../ABIs/PriceOralce';
 import axios from 'axios'
-import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
+import { BaseURI, ETHEREUM_ADDRESS, EthereumCode, ScrollCode } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
+import { useRouter } from 'next/router'
+import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 
 export default function Dashboard() {
     axios.defaults.baseURL = BaseURI
@@ -39,6 +41,9 @@ export default function Dashboard() {
     const [open, setOpen] = useState(false)
     const [operation, setOperation] = useState("")
     const [boxData, setBoxData] = useState()
+    const [isChain, setIsChain] = useState(true)
+    const [isError, setisError] = useState(false)
+    const router = useRouter()
     const { chains, isLoading, pendingChainId, switchNetwork, status } =
         useSwitchNetwork({
             chainId: targetChain,
@@ -49,17 +54,17 @@ export default function Dashboard() {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
             const PoolContract = new Contract(
-                PoolABI.EthereumAddress,
+                chain.id == EthereumCode ? PoolABI.EthereumAddress : PoolABI.ScrollAddress,
                 PoolABI.abi,
                 provider
             );
             const priceOracleContract = new Contract(
-                PriceOracleABI.EthereumAddress,
+                chain.id == EthereumCode ? PriceOracleABI.EthereumAddress : PriceOracleABI.ScrollAddress,
                 PriceOracleABI.abi,
                 provider
             );
             const poolCore = new Contract(
-                CoreABI.EthereumAddress,
+                chain.id == EthereumCode ? CoreABI.EthereumAddress : CoreABI.ScrollAddress,
                 CoreABI.abi,
                 provider
             );
@@ -72,6 +77,14 @@ export default function Dashboard() {
             let assetSupplies = []
             let borrows = []
             let assetBorrows = []
+            let net = ""
+            if (chain.id == 5) {
+                net = "Ethereum"
+            }
+            console.log(chain.id == 5);
+            if (chain.id == 534352) {
+                net = "Scroll"
+            }
 
             let totalAssetSupplyAPY = 0
             let totalAssetSupplyBalance = 0
@@ -80,7 +93,7 @@ export default function Dashboard() {
             let collateralBalance = 0
             let supplyAPRave = 0
             var borrowButtonEnable = true;
-            const borrowDatA = await axios.get('/borrow', { params: { address: address, net: "Ethereum" } })
+            const borrowDatA = await axios.get('/borrow', { params: { address: address, net: net } })
             const userData = borrowDatA.data.data.userData
             // console.log("ssssadasd");
             // console.log(userData);
@@ -93,6 +106,7 @@ export default function Dashboard() {
             const E9 = BigNumber.from(10).pow(9)
             const E2 = BigNumber.from(100)
             const E18 = BigNumber.from(10).pow(18)
+
 
             for (let index = 0; index < data.length; index++) {
                 const assetPrice = BigNumber.from(data[index]["PriceOracle"])
@@ -134,13 +148,13 @@ export default function Dashboard() {
                     if (data[index]["Collateral"] == 1) {
                         collateral = "\u2714"
                     } else {
-                        collateral = "——"
+                        collateral = "鈥斺€?
                     }
 
                     if (ERC20Balance == 0) {
                         buttonEnable = true;
                     }
-                    assetSupplies.push({ "key": assetSupplies.length + 1, "name": [data[index]["Name"], ERC20Name], "ERC20Name": ERC20Name, "balance": ERC20Balance, "APY": (BigNumber.from(data[index]["SupplyAPY"]).div(E25).toNumber() / 100).toFixed(2), "collateral": collateral, "buttonEnable": buttonEnable, "assetAddress": data[index]["TokenAddress"], "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "Balance": 0 })
+                    assetSupplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "key": assetSupplies.length + 1, "name": [data[index]["Name"], ERC20Name], "ERC20Name": ERC20Name, "balance": ERC20Balance, "APY": (BigNumber.from(data[index]["SupplyAPY"]).div(E25).toNumber() / 100).toFixed(2), "collateral": collateral, "buttonEnable": buttonEnable, "assetAddress": data[index]["TokenAddress"], "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "Balance": 0 })
                 } else {
                     var ERC20Name = data[index]["Name"]
                     var collateral = ""
@@ -165,9 +179,9 @@ export default function Dashboard() {
                         collateral = "\u2714"
                         collateralBalance += assetBalance * assetPriceUSD;
                     } else {
-                        collateral = "——"
+                        collateral = "鈥斺€?
                     }
-                    supplies.push({ "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
+                    supplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "withdrawIsable": healthFactor > 1, "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
                 }
 
                 if (data[index]["Balance"] == "" || data[index]["Balance"] === "0") {
@@ -177,7 +191,7 @@ export default function Dashboard() {
 
 
                     if (assetPrice.eq(bigZero) || userData["AvailableBorrow"] == "0" || data[index]["AvailableLiquidity"] == "0") {
-                        assetBorrows.push({ "key": assetBorrows.length + 1, "name": data[index]["Name"], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
+                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1, "key": assetBorrows.length + 1, "name": data[index]["Name"], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
@@ -185,7 +199,7 @@ export default function Dashboard() {
                         } else {
                             availableBorrow = (BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"] - 2)).toNumber() / 100).toFixed(2)
                         }
-                        assetBorrows.push({ "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": availableBorrow, "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": borrowButtonEnable })
+                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1, "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": availableBorrow, "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": borrowButtonEnable })
                     }
                 } else {
                     var ERC20Name = data[index]["Asset"]
@@ -212,7 +226,7 @@ export default function Dashboard() {
                     var TotalAssetBorrowAPY = totalAssetBorrowAPY + borrowAPY * borrowBalance * assetPriceUSD;
                     totalAssetBorrowAPY = Math.floor(TotalAssetBorrowAPY);
                     if (assetPrice.eq(bigZero) || data[index]["AvailableLiquidity"] == "0") {
-                        borrows.push({ "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": (0).toFixed(2), "WalletBalance": ERC20Balance })
+                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1, "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": (0).toFixed(2), "WalletBalance": ERC20Balance })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
@@ -220,7 +234,7 @@ export default function Dashboard() {
                         } else {
                             availableBorrow = (BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"] - 2)).toNumber() / 100).toFixed(2)
                         }
-                        borrows.push({ "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": availableBorrow, "WalletBalance": ERC20Balance })
+                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1, "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": availableBorrow, "WalletBalance": ERC20Balance })
                     }
                 }
             }
@@ -286,13 +300,20 @@ export default function Dashboard() {
         }
     };
     useEffect(() => {
+        // console.log("chainssssssssssssss",chains);
         if (targetChain) {
-            switchNetwork();
-        }
-    }, [targetChain])
+            if (targetChain == "534352") {
+                // switchNetwork();
+                onChangeToScroll(ethereum, setLoading)
+            } else {
+                switchNetwork();
+            }
 
+        }
+
+    }, [targetChain])
     useEffect(() => {
-        if (address) {
+        if (address && chain.id) {
             setLoading(true)
             fetchData()
         }
@@ -310,11 +331,26 @@ export default function Dashboard() {
 
     useEffect(() => {
         setError("")
-        if (address) {
-            setLoading(true)
-            fetchData()
+        if (chain) {
+            if (address && chain.id) {
+                setLoading(true)
+                fetchData()
+            }
+            if (chain.id == EthereumCode || chain.id == ScrollCode) {
+                setIsChain(false)
+            } else {
+                setIsChain(true)
+            }
         }
     }, [chain])
+    useEffect(() => {
+        if (error) {
+            setisError(true)
+        } else {
+            setisError(false)
+        }
+        console.log("iserror:", isError);
+    }, [error])
 
     const content = (
         <div className='w-[317px] text-[18px] font-medium'>
@@ -357,8 +393,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer' onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }}>Withdraw</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</div>
+                <button className={record.withdrawIsable ? 'bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
+                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
             </div>)
         }
     ];
@@ -390,8 +426,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</div>
+                <Button className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
+                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
             </div>)
         }
     ];
@@ -424,8 +460,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
+                <Button className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
@@ -458,122 +494,121 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <div className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer' onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</div>
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
+                <button className={record.borrowIsable ? 'bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable}>Borrow</button>
+                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
-    if (error) {
-        return <p>Error: {error.message}</p>;
-    } else {
-        return (
-            <div className='min-h-full '>
-                <Header></Header>
-                {address ? <div className='box-border  py-[64px] px-[112px] '>
-                    <div className='h-[118px] mb-[64px]'>
-                        <Popover content={content} placement="bottom">
-                            <div className='text-[32px] font-bold w-[317px]'>{chain.id == 5 ? "Ethereum Market" : "Scroll Market"} <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
-                        </Popover>
-                        <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
-                            <div className='w-[174px] mr-[16px]'>Net worth</div>
-                            <div className='w-[174px] mr-[16px]'>Net APY</div>
-                            <div className='w-[174px]'>Health Factor</div>
-                        </div>
-                        <div className='flex text-[22px] text-[#272D37] font-semibold'>
-                            <div className='w-[174px] mr-[16px]'>{loading ? "" : headBlockData[0]}</div>
-                            <div className='w-[174px] mr-[16px]'>{loading ? "" : headBlockData[1]}</div>
-                            <div>{loading ? "" : headBlockData[2]}</div>
-                        </div>
+    // if(error){
+    //     return <p>Error: {error.message}</p>;
+    // }
+    return (
+        <div className='min-h-full '>
+            <Header></Header>
+            {address ? <div className='box-border  py-[64px] px-[112px] '>
+                <div className='h-[118px] mb-[64px]'>
+                    <Popover content={content} placement="bottom">
+                        <div className='text-[32px] font-bold w-[317px]'>{chain.id == EthereumCode ? "Ethereum Market" : chain.id == ScrollCode ? "Scroll Market" : "Please select the network you want!"} <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
+                    </Popover>
+                    <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
+                        <div className='w-[174px] mr-[16px]'>Net worth</div>
+                        <div className='w-[174px] mr-[16px]'>Net APY</div>
+                        <div className='w-[174px]'>Health Factor</div>
                     </div>
-                    <div className='flex mb-[29px] justify-between'>
-                        <div className=' w-[48%]'>
-                            <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading}></ShowList>
-                        </div>
-                        <div className=' w-[48%]'>
-                            <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading}></ShowList>
-                        </div>
+                    <div className='flex text-[22px] text-[#272D37] font-semibold'>
+                        <div className='w-[174px] mr-[16px]'>{loading || isChain || isError ? "" : headBlockData[0]}</div>
+                        <div className='w-[174px] mr-[16px]'>{loading || isChain || isError ? "" : headBlockData[1]}</div>
+                        <div>{loading || isChain || isError ? "" : headBlockData[2]}</div>
                     </div>
-                    <div className='flex justify-between'>
-                        <div className=' w-[48%]'>
-                            <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading}></ShowList>
-                        </div>
-                        <div className=' w-[48%]'>
-                            <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading}></ShowList>
-                        </div>
-                    </div>
-                </div> : <div className=' text-center h-[400px]'>
-                    <div className='mt-[200px] font-bold text-[24px] mb-[64px]'>please,connet your wallet</div>
-                    <ConnectButton.Custom>
-                        {({
-                            account,
-                            chain,
-                            openAccountModal,
-                            openChainModal,
-                            openConnectModal,
-                            authenticationStatus,
-                            mounted,
-                        }) => {
-                            // Note: If your app doesn't use authentication, you
-                            // can remove all 'authenticationStatus' checks
-
-                            const ready = mounted && authenticationStatus !== 'loading';
-                            const connected =
-                                ready &&
-                                account &&
-                                chain &&
-                                (!authenticationStatus ||
-                                    authenticationStatus === 'authenticated');
-
-                            return (
-                                <div
-                                    {...(!ready && {
-                                        'aria-hidden': true,
-                                        'style': {
-                                            opacity: 0,
-                                            pointerEvents: 'none',
-                                            userSelect: 'none',
-                                        },
-                                    })}
-                                >
-                                    {(() => {
-                                        if (!connected) {
-                                            return (
-                                                <button onClick={openConnectModal} type="button" className={button_style}>
-                                                    Connect Wallet
-                                                </button>
-                                            );
-                                        }
-
-                                        if (chain.unsupported) {
-                                            return (
-                                                <button onClick={openChainModal} type="button" className={button_style}>
-                                                    Wrong network
-                                                </button>
-                                            );
-                                        }
-
-                                        return (
-                                            <Popover content={content}>
-                                                <div style={{ display: 'flex', gap: 12 }}>
-
-                                                    <button type="button" className={button_style}>
-                                                        {account.displayName}
-
-                                                    </button>
-                                                </div>
-                                            </Popover>
-                                        );
-                                    })()}
-                                </div>
-                            );
-                        }}
-                    </ConnectButton.Custom>
-                    {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
                 </div>
-                }
-                <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address}></Transaction>
-                <Footer></Footer>
-            </div >
-        )
-    }
+                <div className='flex mb-[29px] justify-between'>
+                    <div className=' w-[48%]'>
+                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                    <div className=' w-[48%]'>
+                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                </div>
+                <div className='flex justify-between'>
+                    <div className=' w-[48%]'>
+                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                    <div className=' w-[48%]'>
+                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                </div>
+            </div> : <div className=' text-center h-[400px]'>
+                <div className='mt-[200px] font-bold text-[24px] mb-[64px]'>please,connet your wallet</div>
+                <ConnectButton.Custom>
+                    {({
+                        account,
+                        chain,
+                        openAccountModal,
+                        openChainModal,
+                        openConnectModal,
+                        authenticationStatus,
+                        mounted,
+                    }) => {
+                        // Note: If your app doesn't use authentication, you
+                        // can remove all 'authenticationStatus' checks
+
+                        const ready = mounted && authenticationStatus !== 'loading';
+                        const connected =
+                            ready &&
+                            account &&
+                            chain &&
+                            (!authenticationStatus ||
+                                authenticationStatus === 'authenticated');
+
+                        return (
+                            <div
+                                {...(!ready && {
+                                    'aria-hidden': true,
+                                    'style': {
+                                        opacity: 0,
+                                        pointerEvents: 'none',
+                                        userSelect: 'none',
+                                    },
+                                })}
+                            >
+                                {(() => {
+                                    if (!connected) {
+                                        return (
+                                            <button onClick={openConnectModal} type="button" className={button_style}>
+                                                Connect Wallet
+                                            </button>
+                                        );
+                                    }
+
+                                    if (chain.unsupported) {
+                                        return (
+                                            <button onClick={openChainModal} type="button" className={button_style}>
+                                                Wrong network
+                                            </button>
+                                        );
+                                    }
+
+                                    return (
+                                        <Popover content={content}>
+                                            <div style={{ display: 'flex', gap: 12 }}>
+
+                                                <button type="button" className={button_style}>
+                                                    {account.displayName}
+
+                                                </button>
+                                            </div>
+                                        </Popover>
+                                    );
+                                })()}
+                            </div>
+                        );
+                    }}
+                </ConnectButton.Custom>
+                {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
+            </div>
+            }
+            <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address} chain={chain}></Transaction>
+            <Footer></Footer>
+        </div >
+    )
 }

@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import logo from "../../public/logo.jpg"
 import t from "../../public/locales"
 import { Select } from "antd"
+import Blockies from 'react-blockies';
 import { useGlobalContext } from '../../GlobalContext';
 import { Popover } from "antd"
 import { useDisconnect, useAccount, useNetwork } from 'wagmi'
+import { userMessage } from '../../utils/contractfunc'
 
 import {
     CopyFilled,
     DownOutlined
 } from '@ant-design/icons';
-function Header() {
+import { EthereumCode, ScrollCode } from '../../utils/constants';
+function Header({isHome=true}) {
+    const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
-    console.log("chain", chain);
     const { address, isConnecting, isDisconnected } = useAccount()
-    console.log("address", address, isConnecting, isDisconnected)
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
     const { state, dispatch } = useGlobalContext();
     const [show, setShow] = useState(false);
-    console.log("sate", state)
     const lang = state.lang;
     const router = useRouter()
-    console.log("router", router)
-    console.log("t", t);
+    useEffect(()=>{
+        if(chain&&address){
+            if((chain.id==EthereumCode||chain.id==ScrollCode)){
+                userMessage(web3ModalRef,address,chain)
+            }
+        }
+    },[address,chain])
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer' onClick={() => { router.push("EthMarket") }}>Ethereum Market</div>
         <div className='cursor-pointer' onClick={() => { router.push("ScrollMarket") }}>Scroll Market</div>
@@ -37,7 +43,7 @@ function Header() {
     const content = (
         <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
             <div className='flex justify-between items-center w-[221px]'>
-                <div className='w-[48px] h-[48px] bg-[#F4B512] rounded-[50%]'></div>
+                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address?address.toLowerCase():""} size={14} scale={4}/>
                 <div className='flex justify-between  items-center w-[153px] h-[22px]'>
                     <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                     <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' /></div>
@@ -69,8 +75,9 @@ function Header() {
                 <div className='cursor-pointer'>Security</div>
             </div>
             {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
-            <ConnectButton></ConnectButton>
-            <ConnectButton.Custom>
+            {/* <ConnectButton></ConnectButton> */}
+            {!isHome?<button onClick={()=>{ router.push("/Dashboard")}} type="button" className={button_style}>Launch APP</button>
+            :<ConnectButton.Custom>
                 {({
                     account,
                     chain,
@@ -134,7 +141,7 @@ function Header() {
                         </div>
                     );
                 }}
-            </ConnectButton.Custom>
+            </ConnectButton.Custom>}
         </div>
     </div>
 }

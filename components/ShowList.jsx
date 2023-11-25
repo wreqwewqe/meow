@@ -5,7 +5,7 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import bowl from "../public/bowl.jpg"
 import light from "../public/light.jpg"
 export default function ShowList({ title, about_me, data, columns, header, supply = true, loading}) {
-    // console.log("a", title);
+    console.log("a", loading);
     if(loading){
         return(
         <div className='box-border w-[100%]  py-[24px] px-[32px] border border-solid border-[#b0b6bd] rounded-[5px]  '>

@@ -7,6 +7,7 @@ import axios from 'axios'
 import { BaseURI, ETHEREUM_ADDRESS} from '../utils/constants';
 import { total, total4} from '../utils/getPrice'
 import { BigNumber } from 'ethers'
+import { useRouter } from 'next/router';
 export default function EthMarket() {
     axios.defaults.baseURL = BaseURI
     const [data, setData] = useState({});
@@ -15,6 +16,7 @@ export default function EthMarket() {
     const [marketsize, setMarket] = useState("");
     const [available, setAvailable] = useState("");
     const [tborrows, setTborrows] = useState("");
+    const router = useRouter()
     useEffect(()=>{
         const fetchData = async () => {
             try {
@@ -106,9 +108,9 @@ export default function EthMarket() {
         },
         {
             title: "",
-            render: () => (<div className='flex font-semibold '>
+            render: (text,record) => (<div className='flex font-semibold '>
 
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer'>Details</div>
+                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={()=>router.push('/Details?asset='+record.asset[0]+'&&net=Scroll')}>Details</div>
             </div>)
         }
     ];

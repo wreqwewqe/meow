@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Modal, Input, notification } from "antd"
+import { Modal, Input, notification, Button, Steps, ConfigProvider, message } from "antd"
+import { LoadingOutlined, SmileOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { total } from "../utils/getPrice"
 import { DataProviderABI } from "../ABIs/LendingPoolDataProvider";
@@ -15,36 +16,33 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     const [input, setInput] = useState(0)
     const [loading, setLoading] = useState(false)
     const [rateMode, setRateMode] = useState(1)
-    useEffect(() => {
-        console.log("ratemode:", rateMode);
-    })
+    const [approveStatu, setApproveStatu] = useState("wait")
+    const [supplyStatu, setSupplyStatu] = useState("wait")
+    const [doneStatu, setDoneStatu] = useState("wait")
     axios.defaults.baseURL = BaseURI;
-    const openNotification = (api, content) => {
-        api.info({
-            message: content,
-            placement: 'top',
-            duration: 0,
-        });
-    };
-    const [api, contextHolder] = notification.useNotification();
 
     const handleDeposit = async () => {
         if (input == 0) {
-            openNotification(api, "Value must >0!")
+            message.error("Value must >0!")
             return
         }
         setLoading(true)
-        const result = await deposit(data.assetAddress, value, web3modal)
+        const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu)
         setLoading(false)
         if (result == "") {
             window.location.reload()
         } else {
             // console.log(result);
+            setApproveStatu("wait")
+            setDoneStatu("wait")
+            setSupplyStatu("wait")
             if (result.code != "ACTION_REJECTED") {
+
                 try {
-                    openNotification(api, result.error.message + " Please try again!")
+                    console.log(result.error.message);
+                    message.error(result.error.message + " Please try again!")
                 } catch (error) {
-                    openNotification(api, "Transaction failed, please try again!")
+                    message.error("Transaction failed, please try again!")
                 }
             }
         }
@@ -53,7 +51,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
 
     const handleRedeem = async () => {
         if (input == 0) {
-            openNotification(api, "Value must >0!")
+            message.error("Value must >0!")
             return
         }
         setLoading(true)
@@ -63,11 +61,15 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             window.location.reload()
         } else {
             // console.log(result);
+            setApproveStatu("wait")
+            setDoneStatu("wait")
+            setSupplyStatu("wait")
             if (result.code != "ACTION_REJECTED") {
+
                 try {
-                    openNotification(api, result.error.message + " Please try again!")
+                    message.error(result.error.message + " Please try again!")
                 } catch (error) {
-                    openNotification(api, "Transaction failed, please try again!")
+                    message.error("Transaction failed, please try again!")
                 }
             }
         }
@@ -75,7 +77,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
 
     const handleBorrow = async () => {
         if (input == 0) {
-            openNotification(api, "Value must >0!")
+            message.error("Value must >0!")
             return
         }
         // console.log("ratemode:"+rateMode);
@@ -114,11 +116,14 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             window.location.reload()
         } else {
             // console.log(result);
+            setApproveStatu("wait")
+            setDoneStatu("wait")
+            setSupplyStatu("wait")
             if (result.code != "ACTION_REJECTED") {
                 try {
-                    openNotification(api, result.error.message + " Please try again!")
+                    message.error(result.error.message + " Please try again!")
                 } catch (error) {
-                    openNotification(api, "Transaction failed, please try again!")
+                    message.error("Transaction failed, please try again!")
                 }
             }
         }
@@ -126,7 +131,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
 
     const handleRepay = async () => {
         if (input == 0) {
-            openNotification(api, "Value must >0!")
+            omessage.error("Value must >0!")
             return
         }
         setLoading(true)
@@ -148,11 +153,14 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             window.location.reload()
         } else {
             // console.log(result);
+            setApproveStatu("wait")
+            setDoneStatu("wait")
+            setSupplyStatu("wait")
             if (result.code != "ACTION_REJECTED") {
                 try {
-                    openNotification(api, result.error.message + " Please try again!")
+                    message.error(result.error.message + " Please try again!")
                 } catch (error) {
-                    openNotification(api, "Transaction failed, please try again!")
+                    message.error("Transaction failed, please try again!")
                 }
             }
         }
@@ -204,6 +212,10 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         setOpen(false)
         setInput(0)
         setValue("")
+        setLoading(false)
+        setApproveStatu("wait")
+        setDoneStatu("wait")
+        setSupplyStatu("wait")
     }
     const onChange = (values) => {
         console.log("values", values.target.value);
@@ -250,7 +262,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
                 {value ?
-                    <button className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' onClick={handleBorrow} disabled={loading}>{title + " " + value + " " + data.name[1]}</button>
+                    <Button className='bg-[#F4B512] text-[white] h-[44px] font-bold rounded-[6px] mb-[8px] w-full' onClick={handleBorrow} loading={loading}>{title + " " + value + " " + data.name[1]}</Button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
                 }
                 <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer' onClick={() => handleCancel()}>Close</div>
@@ -287,16 +299,44 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     </div>
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
-                <div className='flex mb-[8px] text-[12px] text-[#919AA6]'>
-                    <div className='basis-1/2 bg-[#EAEBF0] mr-[5px] box-border py-[6px] text-center'>1.Approved</div>
-                    <div className='basis-1/2 bg-[#EAEBF0] box-border py-[6px] text-center'>2.Finished</div>
-                </div>
+                {/* <div className='flex mb-[8px] text-[12px] text-[#919AA6]'>
+                    <Button className='basis-1/2 bg-[#EAEBF0] mr-[5px] box-border py-[6px] text-center'>1.Approved</Button>
+                    <Button className='basis-1/2 bg-[#EAEBF0] box-border py-[6px] text-center'>2.Finished</Button>
+                </div> */}
+                {approveStatu == "wait" ? "" :
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                colorPrimary: '#F4B512'
+                            },
+                        }}
+                    >
+                        <Steps
+                            items={[
+                                {
+                                    title: 'Approve',
+                                    status: approveStatu,
+                                    icon: approveStatu == "finish" ? <SmileOutlined /> : approveStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                                {
+                                    title: 'Supply',
+                                    status: supplyStatu,
+                                    icon: supplyStatu == "finish" ? <SmileOutlined /> : supplyStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                                {
+                                    title: 'Done',
+                                    status: doneStatu,
+                                    icon: doneStatu == "finish" ? <SmileOutlined /> : doneStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                            ]}
+                        />
+                    </ConfigProvider>}
                 {value ?
-                    <button className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' onClick={handleDeposit} disabled={loading}>{title + " " + value + " " + data.name[1]}</button>
+                    <Button className='bg-[#F4B512] text-[white] h-[44px] font-bold rounded-[6px] mb-[8px] w-full' onClick={handleDeposit} loading={loading}>{title + " " + value + " " + data.name[1]}</Button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
                 }
                 <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer' onClick={() => handleCancel()}>Close</div>
-            </Modal></div>
+            </Modal ></div >
         )
     }
     if (title == "Withdraw") {
@@ -324,7 +364,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
                 {value ?
-                    <button className='bg-[#F4B512] text-[white] box-border py-[12px] font-bold text-center cursor-pointer rounded-[6px] mb-[8px]' onClick={handleRedeem} disabled={loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</button>
+                    <Button className='bg-[#F4B512] text-[white] h-[44px] font-bold rounded-[6px] mb-[8px] w-full' onClick={handleRedeem} loading={loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</Button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
                 }
                 <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer' onClick={() => handleCancel()}>Close</div>
@@ -357,7 +397,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
                 {value ?
-                    <button className='bg-[#F4B512] text-[white] h-[44px] font-bold  rounded-[6px] mb-[8px]' onClick={handleRepay} disabled={!loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</button>
+                    <Button className='bg-[#F4B512] text-[white] h-[44px] font-bold rounded-[6px] mb-[8px] w-full' onClick={handleRepay} loading={loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</Button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
                 }
                 <div className=' border-solid border border-[#EAEBF0] py-[12px] font-bold text-center cursor-pointer' onClick={() => handleCancel()}>Close</div>
