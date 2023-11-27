@@ -8,7 +8,8 @@
 const ETHEREUM_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 const EthereumCode = 5
 // const BaseURI = 'https://api.bittesseract.com/api/v1/';
-const BaseURI = "http://ih7pns.natappfree.cc"
+// const BaseURI = "http://ih7pns.natappfree.cc"
+const BaseURI = "http://t9zw9r.natappfree.cc/api/v1"
 const intersetRate = [
     { "name": "0%", "Utilization Rate": 0, "Borrow APR, variable": 3 },
     { "Utilization Rate": 1, "Borrow APR, variable": 3.0625 },
