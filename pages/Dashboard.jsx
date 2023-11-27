@@ -358,10 +358,10 @@ export default function Dashboard() {
         <div className='w-[317px] text-[18px] font-medium'>
             <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("5");
-            }}> <Image width={48} src={Eth} className='mr-[13px]'></Image> Ethereum Market</p>
+            }}> <Image width={40} src={Eth} className='mr-[13px]'></Image> Ethereum Market</p>
             <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("534352");
-            }}> <Image width={48} src={Scroll} className='mr-[13px]'></Image>Scroll Market</p>
+            }}> <Image width={40} src={Scroll} className='mr-[13px]'></Image>Scroll Market</p>
         </div>
     );
     const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';

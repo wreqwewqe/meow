@@ -35,8 +35,8 @@ function Header({ isHome = true }) {
         }
     }, [address, chain])
     const market = () => (<div className='w-[200px] font-bold'>
-        <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} width={48} className='mr-[20px]'></Image> Ethereum Market</div>
-        <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} width={48} className='mr-[20px]'></Image>Scroll Market</div>
+        <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} width={40} className='mr-[20px]'></Image> Ethereum Market</div>
+        <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} width={40} className='mr-[20px]'></Image>Scroll Market</div>
     </div>)
     const onClick = () => {
 
