@@ -27,13 +27,13 @@ function Header({ isHome = true }) {
     const [show, setShow] = useState(false);
     const lang = state.lang;
     const router = useRouter()
-    useEffect(() => {
-        if (chain && address) {
-            if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
-                userMessage(web3ModalRef, address, chain)
-            }
-        }
-    }, [address, chain])
+    // useEffect(() => {
+    //     if (chain && address) {
+    //         if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
+    //             userMessage(web3ModalRef, address, chain)
+    //         }
+    //     }
+    // }, [address, chain])
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} width={40} className='mr-[20px]'></Image> Ethereum Market</div>
         <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} width={40} className='mr-[20px]'></Image>Scroll Market</div>
