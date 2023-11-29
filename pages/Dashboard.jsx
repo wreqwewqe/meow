@@ -200,7 +200,7 @@ export default function Dashboard() {
 
 
                     if (assetPrice.eq(bigZero) || userData["AvailableBorrow"] == "0" || data[index]["AvailableLiquidity"] == "0") {
-                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1, "key": assetBorrows.length + 1, "name": data[index]["Name"], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
+                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1, "key": assetBorrows.length + 1, "name": [data[index]["Name"],ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
@@ -367,7 +367,7 @@ export default function Dashboard() {
                 setTargetChain("5");
             }}> <Image width={40} src={Eth} className='mr-[13px]'></Image> Ethereum Market</p>
             <p className='cursor-pointer flex items-center' onClick={() => {
-                setTargetChain("534352");
+                setTargetChain("534351");
             }}> <Image width={40} src={Scroll} className='mr-[13px]'></Image>Scroll Market</p>
         </div>
     );

@@ -10,7 +10,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
         return (
             <div className='box-border w-[100%]  py-[24px] px-[32px] border border-solid border-[#b0b6bd] rounded-[5px]  '>
                 <div className='text-[22px] font-semibold mb-[8px] '>{title}</div>
-                <Skeleton loading={false} active></Skeleton>
+                <Skeleton loading={loading} active></Skeleton>
             </div>
         )
     }
