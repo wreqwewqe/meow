@@ -55,6 +55,13 @@ export default function Dashboard() {
     const fetchData = async () => {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
+                const queryString = window.location.search;
+                const queryParams = new URLSearchParams(queryString);
+                var code = queryParams.get('code');
+                // console.log("code:",code?code:"");
+                if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
+                    await userMessage(web3ModalRef, address, chain, code?code:"")
+                }
             const PoolContract = new Contract(
                 chain.id == EthereumCode ? PoolABI.EthereumAddress : PoolABI.ScrollAddress,
                 PoolABI.abi,
@@ -80,11 +87,11 @@ export default function Dashboard() {
             let borrows = []
             let assetBorrows = []
             let net = ""
-            if (chain.id == 5) {
+            if (chain.id == EthereumCode) {
                 net = "Ethereum"
             }
             console.log(chain.id == 5);
-            if (chain.id == 534352) {
+            if (chain.id == ScrollCode) {
                 net = "Scroll"
             }
 
@@ -523,23 +530,38 @@ export default function Dashboard() {
                         <div>{loading || isChain || isError ? "" : headBlockData[2]}</div>
                     </div>
                 </div>
-                <div className='flex mb-[29px] justify-between'>
-                    <div className=' w-[48%]'>
+                {/* <div className='flex mb-[29px] justify-between'>
+                    <div className=' basis-[48%]'>
                         <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
                     </div>
-                    <div className=' w-[48%]'>
+                    <div className=' basis-[48%]'>
                         <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
                     </div>
                 </div>
                 <div className='flex justify-between'>
-                    <div className=' w-[48%]'>
+                    <div className=' basis-[48%]'>
                         <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
                     </div>
-                    <div className=' w-[48%]'>
+                    <div className=' basis-[48%]'>
+                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                </div> */}
+                 <div className='columns-2'>
+                    <div className='inline-block w-full  mb-[10px]' >
+                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                    <div className='inline-block w-full  '>
+                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
+                    </div >
+                    <div className=' inline-block w-full  mb-[10px]'>
+                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
+                    </div>
+
+                    <div className='inline-block w-full  '>
                         <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
                     </div>
                 </div>
-            </div> : <div className=' text-center h-[400px]'>
+            </div>: <div className=' text-center h-[400px]'>
                 <div className='mt-[200px] font-bold text-[24px] mb-[64px]'>please,connet your wallet</div>
                 <ConnectButton.Custom>
                     {({

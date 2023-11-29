@@ -17,6 +17,7 @@ import {
     DownOutlined
 } from '@ant-design/icons';
 import { EthereumCode, ScrollCode } from '../../utils/constants';
+
 function Header({ isHome = true }) {
     const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
@@ -27,13 +28,17 @@ function Header({ isHome = true }) {
     const [show, setShow] = useState(false);
     const lang = state.lang;
     const router = useRouter()
-    useEffect(() => {
-        if (chain && address) {
-            if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
-                userMessage(web3ModalRef, address, chain)
-            }
-        }
-    }, [address, chain])
+    // useEffect(() => {
+    //     if (chain && address) {
+    //         const queryString = window.location.search;
+    //         const queryParams = new URLSearchParams(queryString);
+    //         var code = queryParams.get('code');
+    //         // console.log("code:",code?code:"");
+    //         if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
+    //             userMessage(web3ModalRef, address, chain, code?code:"")
+    //         }
+    //     }
+    // }, [address, chain])
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} width={40} className='mr-[20px]'></Image> Ethereum Market</div>
         <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} width={40} className='mr-[20px]'></Image>Scroll Market</div>

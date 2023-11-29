@@ -38,7 +38,7 @@ export default function Profile() {
             }else{
                 response.data.data.token = ((BigNumber.from(response.data.data.token).div(BigNumber.from(10).pow(16)).toNumber())/100).toFixed(2)
             }
-            response.data.data.inviteCode = "https://meowprotocol.xyz/Dashboard?"+response.data.data.inviteCode
+            response.data.data.inviteCode = "https://meowprotocol.xyz/Dashboard?code="+response.data.data.inviteCode
               setData(response.data);
             } catch (error) {
               setError(error);

@@ -1,4 +1,5 @@
-const address = "0xBc2Ff20C6f4d85Aa1C48Fcec376502Fb9F2523a5"
+const EthereumAddress = "0x7A5CCc62968BF8D12B6c3ACc83228Da877122d54"
+const ScrollAddress = "0xA2378033c0892a8BD0c46166debd660E02367403"
 const abi = [
     {
         "inputs": [
@@ -79,6 +80,7 @@ const abi = [
 module.exports = {
     RateOracleABI: {
         abi,
-        address,
+        EthereumAddress,
+        ScrollAddress
     },
 }

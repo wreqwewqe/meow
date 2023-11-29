@@ -1,5 +1,5 @@
-const EthereumAddress = "0x2b8fE5a750eA79D839e7bdCC5E95ad573C8b3a18"
-const ScrollAddress = ""
+const EthereumAddress = "0x3177c6f1c1Df8F9454946c06FBe9F13C209323d1"
+const ScrollAddress = "0xF7D16f75F1522Ae426a3e09F0c8aE047f9F28354"
 const abi = [
 	{
 		"anonymous": false,
