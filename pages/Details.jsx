@@ -1,4 +1,4 @@
-import React,{useState,useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Transaction from "../components/Trasaction"
@@ -7,47 +7,47 @@ import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
 import axios from 'axios'
-import { BaseURI, ETHEREUM_ADDRESS} from '../utils/constants';
+import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
 import { PoolABI } from '../ABIs/LendingPool';
-import { total,calculateInterest,rayMul,rayToWad,rayDiv } from '../utils/getPrice';
+import { total, calculateInterest, rayMul, rayToWad, rayDiv } from '../utils/getPrice';
 
 export default function EthDetails() {
-    axios.defaults.baseURL=BaseURI
+    axios.defaults.baseURL = BaseURI
     const [asset, setAsset] = useState("");
     const [network, setNetwork] = useState("");
-    const [detailData,setDetail] = useState({})
+    const [detailData, setDetail] = useState({})
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const {chain} = useNetwork()
+    const { chain } = useNetwork()
     const web3ModalRef = useRef();
-    const [borrowData,setBorrow] = useState({})
-    const [supplyData,setSupply] = useState({})
-    const [open,setOpen] =useState(false)
-    const [operation,setOperation] = useState("")
-    const [boxData,setBoxData] = useState()
+    const [borrowData, setBorrow] = useState({})
+    const [supplyData, setSupply] = useState({})
+    const [open, setOpen] = useState(false)
+    const [operation, setOperation] = useState("")
+    const [boxData, setBoxData] = useState()
     const { address, isConnecting, isDisconnected } = useAccount()
-    useEffect(()=>{
+    useEffect(() => {
         const queryString = window.location.search;
-            const queryParams = new URLSearchParams(queryString);
-            var assetname = queryParams.get('asset');
-            var net = queryParams.get("net")
-            if(assetname==null){
-                assetname="ETH"
-            }
-            setAsset(assetname);
-            setNetwork(net)
-    },[address,chain])
+        const queryParams = new URLSearchParams(queryString);
+        var assetname = queryParams.get('asset');
+        var net = queryParams.get("net")
+        if (assetname == null) {
+            assetname = "ETH"
+        }
+        setAsset(assetname);
+        setNetwork(net)
+    }, [address, chain])
 
     const fetchData = async () => {
         try {
-            const Data = await axios.get('/detail',{params:{asset:asset,net:network}})
+            const Data = await axios.get('/detail', { params: { asset: asset, net: network } })
             const data = Data.data.data.assetdata
             console.log(data);
-            const E2 =BigNumber.from(100)
+            const E2 = BigNumber.from(100)
 
-            const assetDate={}
+            const assetDate = {}
             assetDate.name = data["Name"]
             assetDate.ltv = data["LTV"]
             assetDate.lt = data["LiquidationThreshold"]
@@ -56,49 +56,49 @@ export default function EthDetails() {
             assetDate.supplyapy = (BigNumber.from(data['SupplyAPY']).div(BigNumber.from(10).pow(25)).toNumber() / 100).toFixed(2)
             assetDate.apys = (BigNumber.from(data['BorrowAPYs']).div(BigNumber.from(10).pow(25)).toNumber() / 100).toFixed(2)
             assetDate.apyv = (BigNumber.from(data['BorrowAPYv']).div(BigNumber.from(10).pow(25)).toNumber() / 100).toFixed(2)
-            assetDate.totalBorrow = total(BigNumber.from(data['TotalBorrow']).div(BigNumber.from(10).pow(data["Decimals"]-2)))
-            assetDate.totalsupply = total(BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(10).pow(data["Decimals"]-2)))
+            assetDate.totalBorrow = total(BigNumber.from(data['TotalBorrow']).div(BigNumber.from(10).pow(data["Decimals"] - 2)))
+            assetDate.totalsupply = total(BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(10).pow(data["Decimals"] - 2)))
             assetDate.size = total(BigNumber.from(data['MaxSupply']).mul(BigNumber.from(100)))
-            assetDate.cycle = (BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(data['MaxSupply'])).div(BigNumber.from(10).pow(data["Decimals"]-4)).toNumber()/100).toFixed(2)
+            assetDate.cycle = (BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(data['MaxSupply'])).div(BigNumber.from(10).pow(data["Decimals"] - 4)).toNumber() / 100).toFixed(2)
             assetDate.supplyprice = total(BigNumber.from(data['TotalSupplied']))
             assetDate.borrowprice = total(BigNumber.from(data['TotalBorrowed']))
             assetDate.sizeprice = total(BigNumber.from(data['MaxSupply']).mul(BigNumber.from(data['Price'])))
             // assetDate.balance = balance
-            assetDate.oraclePrice = ((parseFloat(data["Price"])/100).toFixed(2)).toString()
+            assetDate.oraclePrice = ((parseFloat(data["Price"]) / 100).toFixed(2)).toString()
             // assetDate.balanceprice = total(BigNumber.from(Math.trunc(balance*100)).mul(BigNumber.from(data['Price'])).div(BigNumber.from(100)))
             // assetDate.availableprice = total(BigNumber.from(Math.trunc(assetDate.availableBorrow*100)).mul(BigNumber.from(data['Price'])).div(BigNumber.from(100)))
-            if(data['Collateral']==1){
-                assetDate.enable =true
-            }else{
-                assetDate.enable =false
+            if (data['Collateral'] == 1) {
+                assetDate.enable = true
+            } else {
+                assetDate.enable = false
             }
-            if(BigNumber.from(data['TotalLiquidity']).isZero()){
+            if (BigNumber.from(data['TotalLiquidity']).isZero()) {
                 assetDate.ur = (0).toFixed(2)
-            }else{
-                assetDate.ur = BigNumber.from(data['TotalBorrow']).mul(BigNumber.from(10000)).div(BigNumber.from(data['TotalLiquidity'])).toNumber()/100
+            } else {
+                assetDate.ur = BigNumber.from(data['TotalBorrow']).mul(BigNumber.from(10000)).div(BigNumber.from(data['TotalLiquidity'])).toNumber() / 100
             }
 
             setDetail(assetDate)
         } catch (error) {
-          setError(error);
+            setError(error);
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
+    };
 
-      const fetchAssetData = async () => {
+    const fetchAssetData = async () => {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
-            const Data = await axios.get('/details',{params:{asset:asset,address:address,net:network}})
+            const Data = await axios.get('/details', { params: { asset: asset, address: address, net: network } })
             const data = Data.data.data.assetdata
             const availableBorrow = Data.data.data.availableBorrow
-            const E2 =BigNumber.from(100)
-    
-    
-    
+            const E2 = BigNumber.from(100)
+
+
+
             var balance
             if (data["TokenAddress"] == "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE") {
-                const balanceeth = await provider.getBalance(provider.provider.selectedAddress);
+                const balanceeth = await provider.getBalance(provider.address);
                 var ethBalance = ethers.utils.formatEther(balanceeth);
                 // balance = ethBalance.substring(0, ethBalance.indexOf('.', 0) + 3);
                 balance = parseFloat(ethBalance).toFixed(2)
@@ -108,11 +108,11 @@ export default function EthDetails() {
                     ERC20ABI.abi,
                     provider
                 )
-                const erc20balance = await ERC20Contract.balanceOf(provider.provider.selectedAddress);
+                const erc20balance = await ERC20Contract.balanceOf(provider.address);
                 // const decimals = await ERC20Contract.decimals();
                 balance = ((erc20balance.div(BigNumber.from(10).pow(data["Decimals"] - 2)).toNumber()) / 100).toFixed(2);
             }
-            const assetDate={}
+            const assetDate = {}
             assetDate.name = data["Name"]
             assetDate.ltv = data["LTV"]
             assetDate.lt = data["LiquidationThreshold"]
@@ -121,63 +121,63 @@ export default function EthDetails() {
             assetDate.supplyapy = (BigNumber.from(data['SupplyAPY']).div(BigNumber.from(10).pow(25)).toNumber() / 100).toFixed(2)
             assetDate.apys = (BigNumber.from(data['BorrowAPYs']).div(BigNumber.from(10).pow(25)).toNumber() / 100).toFixed(2)
             assetDate.apyv = (BigNumber.from(data['BorrowAPYv']).div(BigNumber.from(10).pow(25)).toNumber() / 100).toFixed(2)
-            assetDate.totalBorrow = total(BigNumber.from(data['TotalBorrow']).div(BigNumber.from(10).pow(data["Decimals"]-2)))
-            assetDate.totalsupply = total(BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(10).pow(data["Decimals"]-2)))
+            assetDate.totalBorrow = total(BigNumber.from(data['TotalBorrow']).div(BigNumber.from(10).pow(data["Decimals"] - 2)))
+            assetDate.totalsupply = total(BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(10).pow(data["Decimals"] - 2)))
             assetDate.size = total(BigNumber.from(data['MaxSupply']).mul(BigNumber.from(100)))
-            assetDate.cycle = (BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(data['MaxSupply'])).div(BigNumber.from(10).pow(data["Decimals"]-4)).toNumber()/100).toFixed(2)
+            assetDate.cycle = (BigNumber.from(data['TotalLiquidity']).div(BigNumber.from(data['MaxSupply'])).div(BigNumber.from(10).pow(data["Decimals"] - 4)).toNumber() / 100).toFixed(2)
             assetDate.supplyprice = total(BigNumber.from(data['TotalSupplied']))
             assetDate.borrowprice = total(BigNumber.from(data['TotalBorrowed']))
             assetDate.sizeprice = total(BigNumber.from(data['MaxSupply']).mul(BigNumber.from(data['Price'])))
-            if(BigNumber.from(data['PriceOracle']).eq(BigNumber.from(0))){
+            if (BigNumber.from(data['PriceOracle']).eq(BigNumber.from(0))) {
                 assetDate.availableBorrow = (0).toFixed(2)
-            }else{
+            } else {
                 let bigAvailableBorrow = BigNumber.from(availableBorrow).mul(BigNumber.from(100)).div(BigNumber.from(data['PriceOracle']))
-                let bigAvailableLiquidity = BigNumber.from(data["AvailableLiquidity"]).div(BigNumber.from(10).pow(data["Decimals"]-2))
-                if(bigAvailableBorrow.lt(bigAvailableLiquidity)){
+                let bigAvailableLiquidity = BigNumber.from(data["AvailableLiquidity"]).div(BigNumber.from(10).pow(data["Decimals"] - 2))
+                if (bigAvailableBorrow.lt(bigAvailableLiquidity)) {
                     assetDate.availableBorrow = (bigAvailableBorrow.toNumber() / 100).toFixed(2)
-                }else{
-                    assetDate.availableBorrow = (bigAvailableLiquidity.toNumber())/100
+                } else {
+                    assetDate.availableBorrow = (bigAvailableLiquidity.toNumber()) / 100
                 }
             }
             assetDate.balance = balance
-            assetDate.oraclePrice = ((parseFloat(data["Price"])/100).toFixed(2)).toString()
-            assetDate.balanceprice = total(BigNumber.from(Math.trunc(balance*100)).mul(BigNumber.from(data['Price'])).div(BigNumber.from(100)))
-            assetDate.availableprice = total(BigNumber.from(Math.trunc(assetDate.availableBorrow*100)).mul(BigNumber.from(data['Price'])).div(BigNumber.from(100)))
-            if(data['Collateral']==1){
-                assetDate.enable =true
-            }else{
-                assetDate.enable =false
+            assetDate.oraclePrice = ((parseFloat(data["Price"]) / 100).toFixed(2)).toString()
+            assetDate.balanceprice = total(BigNumber.from(Math.trunc(balance * 100)).mul(BigNumber.from(data['Price'])).div(BigNumber.from(100)))
+            assetDate.availableprice = total(BigNumber.from(Math.trunc(assetDate.availableBorrow * 100)).mul(BigNumber.from(data['Price'])).div(BigNumber.from(100)))
+            if (data['Collateral'] == 1) {
+                assetDate.enable = true
+            } else {
+                assetDate.enable = false
             }
-            if(BigNumber.from(data['TotalLiquidity']).isZero()){
+            if (BigNumber.from(data['TotalLiquidity']).isZero()) {
                 assetDate.ur = (0).toFixed(2)
-            }else{
-                assetDate.ur = BigNumber.from(data['TotalBorrow']).mul(BigNumber.from(10000)).div(BigNumber.from(data['TotalLiquidity'])).toNumber()/100
+            } else {
+                assetDate.ur = BigNumber.from(data['TotalBorrow']).mul(BigNumber.from(10000)).div(BigNumber.from(data['TotalLiquidity'])).toNumber() / 100
             }
-    
+
             var borrowEnable = false
-            if(availableBorrow =="0"||data["AvailableLiquidity"] == "0"){
+            if (availableBorrow == "0" || data["AvailableLiquidity"] == "0") {
                 borrowEnable = true
             }
             const borrowdata = {}
-            borrowdata.name = [data["Asset"],data["Name"]]
+            borrowdata.name = [data["Asset"], data["Name"]]
             borrowdata.healthFactor = Data.data.data.healthFactor
             borrowdata.assetAddress = data["TokenAddress"]
             borrowdata.available = assetDate.availableBorrow
             borrowdata.buttonEnable = borrowEnable
             borrowdata.price = BigNumber.from(data["Price"])
-    
+
             var supplyEnable = true
-            if(parseFloat(balance)!=0){
+            if (parseFloat(balance) != 0) {
                 supplyEnable = false
             }
             var collateral = ""
-            if (data["Collateral"]==1) {
+            if (data["Collateral"] == 1) {
                 collateral = "\u2714"
             } else {
                 collateral = "——"
             }
             var supplydata = {}
-            supplydata.name = [data["Asset"],data["Name"]]
+            supplydata.name = [data["Asset"], data["Name"]]
             supplydata.healthFactor = Data.data.data.healthFactor
             supplydata.assetAddress = data["TokenAddress"]
             supplydata.APY = assetDate.supplyapy
@@ -189,26 +189,26 @@ export default function EthDetails() {
             setSupply(supplydata)
             setBorrow(borrowdata)
         } catch (error) {
-          setError(error);
+            setError(error);
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
-      useEffect(()=>{
-        if(asset!==""&&network!==""){
+    };
+    useEffect(() => {
+        if (asset !== "" && network !== "") {
             console.log("我进来了");
             fetchData();
         }
-      },[asset,network])
-      useEffect(()=>{
-        if (asset !== ""&&network!==""&&address) {
+    }, [asset, network])
+    useEffect(() => {
+        if (asset !== "" && network !== "" && address) {
             console.log("我也进来了");
             fetchAssetData();
         }
-    },[chain,asset,address])
+    }, [chain, asset, address])
     if (error) {
         return <p>Error: {error.message}</p>;
-      }
+    }
 
     return (
         <div className='min-h-full '>
@@ -314,7 +314,7 @@ export default function EthDetails() {
                                     <div><span className='font-bold mt-[5px]'>{detailData.balance} </span>{detailData.coin}</div>
                                     <div className='mt-[15px]'>${detailData.balanceprice}</div>
                                 </div>
-                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={()=>{setOperation("Supply");setBoxData(supplyData);setOpen(true)}}>Supply</button></div>
+                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Supply"); setBoxData(supplyData); setOpen(true) }}>Supply</button></div>
                             </div>
                             <div className='flex justify-between mt-[20px] items-center'>
                                 <div>
@@ -322,7 +322,7 @@ export default function EthDetails() {
                                     <div><span className='font-bold mt-[5px]'>{detailData.availableBorrow} </span>{detailData.coin}</div>
                                     <div className='mt-[15px]'>${detailData.availableprice}</div>
                                 </div>
-                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'onClick={()=>{setOperation("Borrow");setBoxData(borrowData);setOpen(true)}}>Borrow</button></div>
+                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Borrow"); setBoxData(borrowData); setOpen(true) }}>Borrow</button></div>
                             </div>
                         </div>
                     </div>
