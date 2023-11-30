@@ -1,13 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { Table } from "antd"
+import { Button, Table } from "antd"
+import { Skeleton } from 'antd'
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import { BaseURI, ETHEREUM_ADDRESS} from '../utils/constants';
-import { total, total4} from '../utils/getPrice'
-import { BigNumber } from 'ethers'
+import { total, total4 } from '../utils/getPrice'
 import { useRouter } from 'next/router';
+import { BigNumber } from 'ethers'
 export default function EthMarket() {
     axios.defaults.baseURL = BaseURI
     const [data, setData] = useState({});
@@ -17,54 +18,54 @@ export default function EthMarket() {
     const [available, setAvailable] = useState("");
     const [tborrows, setTborrows] = useState("");
     const router = useRouter()
-    useEffect(()=>{
-        const fetchData = async () => {
-            try {
-                var totalMarket = BigNumber.from(0);
-                var totalBorrow = BigNumber.from(0);
-                let assetRow = []
-                const response = await axios.get('/market', { params: { net: "Ethereum" } });
-                let marketdata = response.data.data
-                console.log(marketdata);
-                for (let index = 0; index < marketdata.length; index++) {
-                    totalMarket = totalMarket.add(BigNumber.from(marketdata[index]['TotalSupplied']));
-                    totalBorrow = totalBorrow.add(BigNumber.from(marketdata[index]['TotalBorrowed']));
-                    if(marketdata[index]["TokenAddress"]==ETHEREUM_ADDRESS){
-                        assetRow.push(
-                            {
-                                key: index+1,
-                                asset: [marketdata[index]["Asset"],marketdata[index]["Symbol"]],
-                                total_supplied: [total(BigNumber.from(marketdata[index]["TotalSupplied"])),total4(BigNumber.from(marketdata[index]["TotalLiquidity"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-4)))],
-                                supply_apy:(BigNumber.from(marketdata[index]['SupplyAPY']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
-                                total_borrowed: [total(BigNumber.from(marketdata[index]['TotalBorrowed'])),total4(BigNumber.from(marketdata[index]["TotalBorrow"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-4)))],
-                                variable: (BigNumber.from(marketdata[index]['BorrowAPYv']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
-                                stable: (BigNumber.from(marketdata[index]['BorrowAPYs']).div(BigNumber.from(10).pow(25)).toNumber() / 100)
-                            }
-                        )
-                    }else{
-                        assetRow.push(
-                            {
-                                key: index+1,
-                                asset: [marketdata[index]["Asset"],marketdata[index]["Symbol"]],
-                                total_supplied: [total(BigNumber.from(marketdata[index]["TotalSupplied"])),total(BigNumber.from(marketdata[index]["TotalLiquidity"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-2)))],
-                                supply_apy:(BigNumber.from(marketdata[index]['SupplyAPY']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
-                                total_borrowed: [total(BigNumber.from(marketdata[index]['TotalBorrowed'])),total(BigNumber.from(marketdata[index]["TotalBorrow"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-2)))],
-                                variable: (BigNumber.from(marketdata[index]['BorrowAPYv']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
-                                stable: (BigNumber.from(marketdata[index]['BorrowAPYs']).div(BigNumber.from(10).pow(25)).toNumber() / 100)
-                            }
-                        )
-                    }
+    const fetchData = async () => {
+        try {
+            var totalMarket = BigNumber.from(0);
+            var totalBorrow = BigNumber.from(0);
+            let assetRow = []
+            const response = await axios.get('/market', { params: { net: "Scroll" } });
+            let marketdata = response.data.data
+            console.log(marketdata);
+            for (let index = 0; index < marketdata.length; index++) {
+                totalMarket = totalMarket.add(BigNumber.from(marketdata[index]['TotalSupplied']));
+                totalBorrow = totalBorrow.add(BigNumber.from(marketdata[index]['TotalBorrowed']));
+                if(marketdata[index]["TokenAddress"]==ETHEREUM_ADDRESS){
+                    assetRow.push(
+                        {
+                            key: index+1,
+                            asset: [marketdata[index]["Name"],marketdata[index]["Asset"]],
+                            total_supplied: [total(BigNumber.from(marketdata[index]["TotalSupplied"])),total4(BigNumber.from(marketdata[index]["TotalLiquidity"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-4)))],
+                            supply_apy:(BigNumber.from(marketdata[index]['SupplyAPY']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
+                            total_borrowed: [total(BigNumber.from(marketdata[index]['TotalBorrowed'])),total4(BigNumber.from(marketdata[index]["TotalBorrow"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-4)))],
+                            variable: (BigNumber.from(marketdata[index]['BorrowAPYv']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
+                            stable: (BigNumber.from(marketdata[index]['BorrowAPYs']).div(BigNumber.from(10).pow(25)).toNumber() / 100)
+                        }
+                    )
+                }else{
+                    assetRow.push(
+                        {
+                            key: index+1,
+                            asset: [marketdata[index]["Name"],marketdata[index]["Asset"]],
+                            total_supplied: [total(BigNumber.from(marketdata[index]["TotalSupplied"])),total(BigNumber.from(marketdata[index]["TotalLiquidity"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-2)))],
+                            supply_apy:(BigNumber.from(marketdata[index]['SupplyAPY']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
+                            total_borrowed: [total(BigNumber.from(marketdata[index]['TotalBorrowed'])),total(BigNumber.from(marketdata[index]["TotalBorrow"]).div(BigNumber.from(10).pow(marketdata[index]["Decimals"]-2)))],
+                            variable: (BigNumber.from(marketdata[index]['BorrowAPYv']).div(BigNumber.from(10).pow(25)).toNumber() / 100),
+                            stable: (BigNumber.from(marketdata[index]['BorrowAPYs']).div(BigNumber.from(10).pow(25)).toNumber() / 100)
+                        }
+                    )
                 }
-                setData(assetRow);
-                setMarket(total(totalMarket));
-                setAvailable(total(totalMarket.sub(totalBorrow)));
-                setTborrows(total(totalBorrow));
-            } catch (error) {
-              setError(error);
-            } finally {
-              setLoading(false);
             }
-          };
+            setData(assetRow);
+            setMarket(total(totalMarket));
+            setAvailable(total(totalMarket.sub(totalBorrow)));
+            setTborrows(total(totalBorrow));
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+    useEffect(()=>{
       
           fetchData();
     },[])
@@ -110,7 +111,7 @@ export default function EthMarket() {
             title: "",
             render: (text,record) => (<div className='flex font-semibold '>
 
-                <div className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={()=>router.push('/Details?asset='+record.asset[0]+'&&net=Scroll')}>Details</div>
+                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={()=>router.push('/Details?asset='+record.asset[0]+'&&net=Ethereum')}>Details</Button>
             </div>)
         }
     ];
@@ -121,7 +122,7 @@ export default function EthMarket() {
         <div className='min-h-full'>
             <Header></Header>
             <div className='box-border  py-[64px] px-[112px] rounded-[10px]'>
-                <div className='text-[32px] font-bold w-[317px]'>Scroll Market </div>
+                <div className='text-[32px] font-bold w-[317px]'>Ethereum Market </div>
                 <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
                     <div className='w-[174px] mr-[16px]'>Total market size</div>
                     <div className='w-[174px] mr-[16px]'>Total avalible</div>
@@ -132,10 +133,12 @@ export default function EthMarket() {
                     <div className='w-[174px] mr-[16px]'>${available}</div>
                     <div>${tborrows}</div>
                 </div>
-                <div className='w-[100%] mt-[64px] rounded-[1px] border border-solid border-[#b0b6bd] font-bold ' >
-                    <div className='mt-[20px] ml-[20px] text-[24px]'>Scroll assets</div>
-                    <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={loading?[]:data} pagination={false} />
-                </div>
+                {loading?<Skeleton loading={loading} active></Skeleton>:
+                    <div className='w-[100%] mt-[64px] rounded-[1px] border border-solid border-[#b0b6bd] font-bold ' >
+                        <div className='mt-[20px] ml-[20px] text-[24px]'>Ethereum assets</div>
+                        <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={loading?[]:data} pagination={false} />
+                    </div>
+                }
             </div>
             <Footer></Footer>
         </div>

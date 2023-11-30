@@ -3,7 +3,7 @@ import { providers } from 'ethers';
 
 const getProviderOrSigner = async (needSigner = false, web3ModalRef) => {
     // const provider = await web3ModalRef.current.connect();
-    const web3Provider = new providers.Web3Provider(window.ethereum);
+    const web3Provider = new providers.Web3Provider(window.ethereum,"any");
 
     const { chainId } = await web3Provider.getNetwork();
     // if (chainId !== 1) {

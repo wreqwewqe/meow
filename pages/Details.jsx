@@ -108,7 +108,7 @@ export default function EthDetails() {
                     ERC20ABI.abi,
                     provider
                 )
-                const erc20balance = await ERC20Contract.balanceOf(provider.provider.selectedAddress);
+                const erc20balance = await ERC20Contract.balanceOf(address);
                 // const decimals = await ERC20Contract.decimals();
                 balance = ((erc20balance.div(BigNumber.from(10).pow(data["Decimals"] - 2)).toNumber()) / 100).toFixed(2);
             }

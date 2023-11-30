@@ -49,15 +49,11 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
         try {
             setApproveStatu("process")
             const decimals = await ERC20Contract.decimals();
-            const approve = await ERC20Contract.approve(CoreABI.EthereumAddress, BigNumber.from(value).mul(BigNumber.from(10).pow(decimals-2)));
+            const approve = await ERC20Contract.approve(chain.id==EthereumCode?CoreABI.EthereumAddress:CoreABI.ScrollAddress, BigNumber.from(value).mul(BigNumber.from(10).pow(decimals-2)));
             await approve.wait();
             setApproveStatu("finish")
             setSupplyStatu("process")
-            // const allowance = await ERC20Contract.allowance(provider.provider.selectedAddress,CoreABI.address)
-            // if(allowance.lt(BigNumber.from(value).mul(BigNumber.from(10).pow(decimals-2)))){
-            //     const approve = await ERC20Contract.increaseAllowance(CoreABI.address, BigNumber.from(value).mul(BigNumber.from(10).pow(decimals-2)));
-            //     await approve.wait();
-            // }
+
             const tx = await poolContract.deposit(assetAddress, BigNumber.from(value).mul(BigNumber.from(10).pow(decimals-2)), "0");
             await tx.wait();
             setSupplyStatu("finish")
@@ -138,7 +134,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
     }
   }
 
-  const repay = async(assetAddress,value,web3ModalRef,chain) => {
+  const repay = async(assetAddress,value,web3ModalRef,setApproveStatu,setSupplyStatu,setDoneStatu,chain) => {
     const signer = await getProviderOrSigner(true, web3ModalRef);
     const provider = await getProviderOrSigner(false,web3ModalRef);
     const poolContract = new Contract(
@@ -150,8 +146,12 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
     if(BigNumber.isBigNumber(value)){
     if(assetAddress == ETHEREUM_ADDRESS){
         try{
+            setApproveStatu("finish")
+            setSupplyStatu("process")
             const tx = await poolContract.repay(assetAddress,value , provider.provider.selectedAddress,{value:value});
             await tx.wait();
+            setSupplyStatu("finish")
+            setDoneStatu("finish")
             await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         }catch(error){
@@ -164,9 +164,12 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             signer
           )
         try {
+            setApproveStatu("process")
             const decimals = await ERC20Contract.decimals();
             const approve = await ERC20Contract.approve(chain.id==EthereumCode?CoreABI.EthereumAddress:CoreABI.ScrollAddress, Value);
             await approve.wait();
+            setApproveStatu("finish")
+            setSupplyStatu("process")
             // const allowance = await ERC20Contract.allowance(provider.provider.selectedAddress,CoreABI.address);
             // let Value = value.div(BigNumber.from(10).pow(18-decimals))
             // if(allowance.lt(Value)){
@@ -175,6 +178,8 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             // }
             const tx = await poolContract.repay(assetAddress, Value, provider.provider.selectedAddress);
             await tx.wait();
+            setSupplyStatu("finish")
+            setDoneStatu("finish")
             await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
@@ -185,8 +190,12 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
         var Value = (Number(value)*100).toFixed(0)
         if(assetAddress == ETHEREUM_ADDRESS){
             try{
+                setApproveStatu("finish")
+                setSupplyStatu("process")
                 const tx = await poolContract.repay(assetAddress, BigNumber.from(Value).mul(BigNumber.from(10).pow(16)), provider.provider.selectedAddress,{value:BigNumber.from(Value).mul(BigNumber.from(10).pow(16))});
                 await tx.wait();
+                setSupplyStatu("finish")
+                setDoneStatu("finish")
                 await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
                 return ""
             }catch(error){
@@ -199,16 +208,16 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
                 signer
               )
             try {
+              setApproveStatu("process")
                 const decimals = await ERC20Contract.decimals();
                 const approve = await ERC20Contract.approve(chain.id==EthereumCode?CoreABI.EthereumAddress:CoreABI.ScrollAddress, BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)));
                 await approve.wait();
-                // const allowance = await ERC20Contract.allowance(provider.provider.selectedAddress,CoreABI.address);
-                // if(allowance.lt(BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)))){
-                //   const approve = await ERC20Contract.increaseAllowance(CoreABI.address, BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)));
-                //   await approve.wait();
-                // }
+                setApproveStatu("finish")
+                setSupplyStatu("process")
                 const tx = await poolContract.repay(assetAddress, BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)), provider.provider.selectedAddress);
                 await tx.wait();
+                setSupplyStatu("finish")
+                setDoneStatu("finish")
                 await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
                 return ""
               } catch (error) {
@@ -229,7 +238,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             chainName: 'Scroll',
             nativeCurrency: {
                 name: 'Ether',
-                symbol: 'EHT', // 2-6 characters long
+                symbol: 'ETH', // 2-6 characters long
                 decimals: 18
             },
             rpcUrls: ['https://rpc.scroll.io/'],
