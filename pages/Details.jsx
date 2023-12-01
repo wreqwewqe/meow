@@ -14,9 +14,10 @@ import { PoolABI } from '../ABIs/LendingPool';
 import { total, calculateInterest, rayMul, rayToWad, rayDiv } from '../utils/getPrice';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ReferenceLine } from 'recharts';
 import { intersetRate } from "../utils/constants"
+
 export default function EthDetails() {
     axios.defaults.baseURL = BaseURI
-
+    const rcharts = useRef();
     const [asset, setAsset] = useState("");
     const [network, setNetwork] = useState("");
     const [detailData, setDetail] = useState({})
@@ -230,20 +231,23 @@ export default function EthDetails() {
 
         return null;
     };
+
+
+
     const render = (currtenUR, apyv) => {
 
         const data = [...intersetRate, { "Utilization Rate": currtenUR, "Borrow APR, variable": apyv }];
         data.sort((a, b) => a["Utilization Rate"] - b["Utilization Rate"])
 
         return (
-            <LineChart width={900} height={300} data={data} margin={{ top: 20, right: 30, bottom: 20, left: 5 }}>
+            <LineChart width={rcharts.current && rcharts.current.clientWidth * 0.9 || 0} height={300} data={data} margin={{ top: 20, right: 30, bottom: 20, left: 5 }}>
                 {/* <Line type="linear" dataKey="Utilization Rate" stroke="#8884d8" />Borrow APR, variable */}
                 <Line type="monotone" dataKey="Borrow APR, variable" stroke="#F4B512" dot={false} strokeWidth={2} />
-                <CartesianGrid stroke="#ccc" strokeDasharray="3 3" vertical={false}/>
-                <ReferenceLine x={currtenUR>80?80:Number.isInteger(currtenUR)?81:80} stroke="#0062D2" label={{ value: "Optimal 80%", position: "top" }} strokeDasharray="3 3"/>
-                <ReferenceLine x={currtenUR} stroke="#0062D2" label={{ value: `Currten ${currtenUR}%`, position: "insideTop" }} strokeDasharray="3 3"/>
-                <XAxis dataKey="Utilization Rate" ticks={[0, 25, 50, 75, 100]} tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#ccc' }} tickLine={{ stroke: '#ccc',display:'none' }}  tick={{ fill: '#ccc' }}/>
-                <YAxis tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#' }} tickLine={{ stroke: '#' }} tick={{ fill: '#ccc' }}/>
+                <CartesianGrid stroke="#ccc" strokeDasharray="3 3" vertical={false} />
+                <ReferenceLine x={currtenUR > 80 ? 80 : Number.isInteger(currtenUR) ? 81 : 80} stroke="#0062D2" label={{ value: "Optimal 80%", position: "top" }} strokeDasharray="3 3" />
+                <ReferenceLine x={currtenUR} stroke="#0062D2" label={{ value: `Currten ${currtenUR}%`, position: "insideTop" }} strokeDasharray="3 3" />
+                <XAxis dataKey="Utilization Rate" ticks={[0, 25, 50, 75, 100]} tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#ccc' }} tickLine={{ stroke: '#ccc', display: 'none' }} tick={{ fill: '#ccc' }} />
+                <YAxis tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#' }} tickLine={{ stroke: '#' }} tick={{ fill: '#ccc' }} />
                 <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#66ccff', strokeWidth: 2 }} />
                 {/* <Legend /> */}
             </LineChart>
@@ -325,7 +329,6 @@ export default function EthDetails() {
                                 <div>
                                     <div className='mb-[10px] text-[#5F6D7E] '>APY,variable</div>
                                     <div className='mb-[10px] font-bold'>{detailData.apyv}%</div>
-
                                 </div>
                                 <div>
                                     <div className='mb-[10px] text-[#5F6D7E] '>APY,stable</div>
@@ -335,7 +338,7 @@ export default function EthDetails() {
                             <div className='mt-[30px] font-bold'>Collateral Info</div>
                         </div>
                         <div className='mt-[24px] font-bold'>Interest rate model</div>
-                        <div className='border border-solid border-[#EAEBF0] box-border p-[20px]'>
+                        <div ref={rcharts} className='border border-solid border-[#EAEBF0] box-border p-[20px]'>
                             <div className='mb-[10px]'>Utilzation Rate</div>
                             <div className='mb-[20px] font-bold'>{detailData.ur}%</div>
                             {render(detailData.ur, detailData.apyv)}
