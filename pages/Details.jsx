@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Transaction from "../components/Trasaction"
-import { Progress } from "antd"
+import { Progress, Skeleton } from "antd"
 import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
@@ -29,6 +29,7 @@ export default function EthDetails() {
     const [open, setOpen] = useState(false)
     const [operation, setOperation] = useState("")
     const [boxData, setBoxData] = useState()
+    const [infoEnable,setInfoEnable] = useState(true)
     const { address, isConnecting, isDisconnected } = useAccount()
     useEffect(() => {
         const queryString = window.location.search;
@@ -41,6 +42,11 @@ export default function EthDetails() {
         setAsset(assetname);
         setNetwork(net)
     }, [address, chain])
+    useEffect(()=>{
+        if(isDisconnected){
+            setInfoEnable(true)
+        }
+    },[isDisconnected])
 
     const fetchData = async () => {
         try {
@@ -90,7 +96,7 @@ export default function EthDetails() {
 
     const fetchAssetData = async () => {
         try {
-            const provider = await getProviderOrSigner(false, web3ModalRef);
+            const provider = await getProviderOrSigner(true, web3ModalRef);
             const Data = await axios.get('/details', { params: { asset: asset, address: address, net: network } })
             const data = Data.data.data.assetdata
             const availableBorrow = Data.data.data.availableBorrow
@@ -190,6 +196,7 @@ export default function EthDetails() {
             setDetail(assetDate)
             setSupply(supplydata)
             setBorrow(borrowdata)
+            setInfoEnable(false)
         } catch (error) {
             setError(error);
         } finally {
@@ -208,6 +215,9 @@ export default function EthDetails() {
             fetchAssetData();
         }
     }, [chain, asset, address])
+    useEffect(() => {
+        console.log(error);
+    }, [error])
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
@@ -331,7 +341,8 @@ export default function EthDetails() {
                             {render(detailData.ur, detailData.apyv)}
                         </div>
                     </div>
-                    <div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'>
+                    {infoEnable?<div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
+                    :(<div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'>
                         <div className='text-[#272D37] text-[26px] mb-[24px] font-bold'>Your Info</div>
                         <div className='box-border p-[10px] border-solid border-[1px] border-[#EAEBF0]'>
                             <div className='flex mb-[20px]'>
@@ -359,7 +370,7 @@ export default function EthDetails() {
                                 <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Borrow"); setBoxData(borrowData); setOpen(true) }}>Borrow</button></div>
                             </div>
                         </div>
-                    </div>
+                    </div>)}
                 </div>
             </div>
             <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address} chain={chain}></Transaction>

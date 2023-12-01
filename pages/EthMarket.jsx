@@ -72,13 +72,13 @@ export default function EthMarket() {
 
     const columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px] '>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
-            render: (text) => (<div className='font-bold text-[16px]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[16px]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[16px] ' >{text[0]}<div className='font-normal text-[#c8cad3] text-[16px]'>{text[1]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Total supplied</div>,
+            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'text-center>Total supplied</div>,
             dataIndex: 'total_supplied',
             key: 'total_supplied',
             render: (text) => (<div className='font-bold text-[16px]' >{text[1]}<div className='font-normal text-[#c8cad3] text-[16px]'>${text[0]}</div></div>)
