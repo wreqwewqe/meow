@@ -315,7 +315,6 @@ export default function EthDetails() {
                                 <div>
                                     <div className='mb-[10px] text-[#5F6D7E] '>APY,variable</div>
                                     <div className='mb-[10px] font-bold'>{detailData.apyv}%</div>
-
                                 </div>
                                 <div>
                                     <div className='mb-[10px] text-[#5F6D7E] '>APY,stable</div>
