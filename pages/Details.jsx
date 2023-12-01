@@ -211,9 +211,9 @@ export default function EthDetails() {
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
-                <div className="custom-tooltip">
-                    <p className="label">{`Utilization Rate: ${payload[0].payload["Utilization Rate"]}%`}</p>
-                    <p className="additional-value">{`Borrow APR, variable: ${payload[0].payload["Borrow APR, variable"]}%`}</p>
+                <div className="bg-white border-transparent border-2 rounded-lg text-black p-4 shadow-md border-gray-300">
+                    <p className="mb-2 ">{`Utilization Rate: ${payload[0].payload["Utilization Rate"]}%`}</p>
+                    <p className=" ">{`Borrow APR, variable: ${payload[0].payload["Borrow APR, variable"]}%`}</p>
                 </div>
             );
         }
@@ -226,15 +226,15 @@ export default function EthDetails() {
         data.sort((a, b) => a["Utilization Rate"] - b["Utilization Rate"])
 
         return (
-            <LineChart width={600} height={300} data={data} margin={{ top: 20, right: 30, bottom: 20, left: 5 }}>
+            <LineChart width={900} height={300} data={data} margin={{ top: 20, right: 30, bottom: 20, left: 5 }}>
                 {/* <Line type="linear" dataKey="Utilization Rate" stroke="#8884d8" />Borrow APR, variable */}
-                <Line type="monotone" dataKey="Borrow APR, variable" stroke="#66ccff" dot={false} />
-                <CartesianGrid stroke="#" strokeDasharray="4 1 2" />
-                <ReferenceLine x={80} stroke="green" label={{ value: "Optimal 80%", position: "top" }} />
-                <ReferenceLine x={currtenUR} stroke="green" label={{ value: `Currten ${currtenUR}%`, position: "insideTop" }} />
-                <XAxis dataKey="Utilization Rate" ticks={[0, 25, 50, 75, 100]} tickFormatter={(value) => `${value}%`} />
-                <YAxis tickFormatter={(value) => `${value}%`} />
-                <Tooltip content={<CustomTooltip />} />
+                <Line type="monotone" dataKey="Borrow APR, variable" stroke="#F4B512" dot={false} strokeWidth={2} />
+                <CartesianGrid stroke="#ccc" strokeDasharray="3 3" vertical={false}/>
+                <ReferenceLine x={currtenUR>80?80:Number.isInteger(currtenUR)?81:80} stroke="#0062D2" label={{ value: "Optimal 80%", position: "top" }} strokeDasharray="3 3"/>
+                <ReferenceLine x={currtenUR} stroke="#0062D2" label={{ value: `Currten ${currtenUR}%`, position: "insideTop" }} strokeDasharray="3 3"/>
+                <XAxis dataKey="Utilization Rate" ticks={[0, 25, 50, 75, 100]} tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#ccc' }} tickLine={{ stroke: '#ccc',display:'none' }}  tick={{ fill: '#ccc' }}/>
+                <YAxis tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#' }} tickLine={{ stroke: '#' }} tick={{ fill: '#ccc' }}/>
+                <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#66ccff', strokeWidth: 2 }} />
                 {/* <Legend /> */}
             </LineChart>
         );
@@ -326,6 +326,7 @@ export default function EthDetails() {
                         <div className='mt-[24px] font-bold'>Interest rate model</div>
                         <div className='border border-solid border-[#EAEBF0] box-border p-[20px]'>
                             <div className='mb-[10px]'>Utilzation Rate</div>
+                            <div className='mb-[20px] font-bold'>{detailData.ur}%</div>
                             {render(detailData.ur, detailData.apyv)}
                         </div>
                     </div>
