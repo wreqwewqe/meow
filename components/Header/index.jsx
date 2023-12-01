@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import logo from "../../public/logo.jpg"
+import logo from "../../public/logo.png"
 import t from "../../public/locales"
 import { Select } from "antd"
 import Blockies from 'react-blockies';
@@ -35,8 +35,8 @@ function Header({ isHome = true }) {
         })
     }
     const redirectToExternalPage = () => {
-        window.open((chain.id==EthereumCode?EthereumScan:ScrollScan )+"/address/"+address)
-      };
+        window.open((chain.id == EthereumCode ? EthereumScan : ScrollScan) + "/address/" + address)
+    };
     // useEffect(() => {
     //     if (chain && address) {
     //         const queryString = window.location.search;
@@ -55,13 +55,14 @@ function Header({ isHome = true }) {
     const onClick = () => {
 
     }
-    const content =(conn)=> (
+    console.log("hhh")
+    const content = (conn) => (
         <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
             <div className='flex justify-between items-center w-[221px]'>
                 <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
                 <div className='flex justify-between  items-center w-[153px] h-[22px]'>
                     <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
-                    <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' onClick={copy_address}/></div>
+                    <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' onClick={copy_address} /></div>
                 </div>
             </div>
             <div className='flex  justify-between  w-[244px] h-[28px] mt-[12px] mb-[24px] text-[#5F6D7E] text-center text-[14px] font-medium'>
@@ -82,7 +83,7 @@ function Header({ isHome = true }) {
         <div></div>
         <div className=' flex justify-between px-[32px] h-full'>
             <div className=' flex  justify-between font-semibold  text-[15px] items-center w-[588px] '>
-                <div><Image src={logo} width={180}  ></Image></div>
+                <div><Image src={logo} width={106}  ></Image></div>
                 <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
                 <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
                 <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
-import logo from "../../public/logo.jpg"
+import logo from "../../public/logo.png"
 import x from "../../public/x.png"
 import discord from "../../public/discord.png"
 import github from "../../public/github.png"
