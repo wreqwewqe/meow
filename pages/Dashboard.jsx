@@ -261,7 +261,7 @@ export default function Dashboard() {
             } else {
                 var SupplyBalance = BigNumber.from(userData["TotalLiquidity"]).mul(BigNumber.from(price)).div(E18);
                 totalAssetSupplyBalance = total(SupplyBalance);
-                var supplyAPYAve = (BigNumber.from(totalAssetSupplyAPY).div(SupplyBalance).mul(E2).toNumber() / 100).toFixed(2);
+                var supplyAPYAve = (BigNumber.from(totalAssetSupplyAPY).mul(E2).div(SupplyBalance).toNumber() / 100).toFixed(2);
                 supplyAPRave = supplyAPYAve;
                 var CollateralBalance = total(BigNumber.from(userData["TotalCollateral"]).mul(BigNumber.from(price)).div(E18));
                 var supplyBoxTitle = [totalAssetSupplyBalance, supplyAPYAve, "$" + CollateralBalance];
@@ -278,7 +278,7 @@ export default function Dashboard() {
             } else {
                 totalAssetBorrowBalance = total(BorrowBalance);
                 // console.log("total"+totalAssetBorrowAPY);
-                var borrowAPYAve = (BigNumber.from(totalAssetBorrowAPY).div(BorrowBalance).mul(E2).toNumber() / 100).toFixed(2);
+                var borrowAPYAve = (BigNumber.from(totalAssetBorrowAPY).mul(E2).div(BorrowBalance).toNumber() / 100).toFixed(2);
                 var borrowUsed = 100
                 if (!BigNumber.from(userData["AvailableBorrow"]).isZero()) {
                     const a = (BigNumber.from(userData["TotalCollateral"])).mul(userData["Ltv"]).div(E2)

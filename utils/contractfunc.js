@@ -18,7 +18,7 @@ axios.defaults.baseURL = BaseURI;
 
 const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupplyStatu,setDoneStatu,chain) => {
     const signer = await getProviderOrSigner(true, web3ModalRef);
-    const provider = await getProviderOrSigner(false, web3ModalRef);
+    const provider = await getProviderOrSigner(true, web3ModalRef);
     const poolContract = new Contract(
       chain.id==EthereumCode?PoolABI.EthereumAddress:PoolABI.ScrollAddress,
       PoolABI.abi,
@@ -136,7 +136,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
 
   const repay = async(assetAddress,value,web3ModalRef,setApproveStatu,setSupplyStatu,setDoneStatu,chain) => {
     const signer = await getProviderOrSigner(true, web3ModalRef);
-    const provider = await getProviderOrSigner(false,web3ModalRef);
+    const provider = await getProviderOrSigner(true,web3ModalRef);
     const poolContract = new Contract(
       chain.id==EthereumCode?PoolABI.EthereumAddress:PoolABI.ScrollAddress,
       PoolABI.abi,
