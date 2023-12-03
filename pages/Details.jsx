@@ -225,7 +225,6 @@ export default function EthDetails() {
 
 
     const render = (currtenUR, apyv) => {
-
         const data = [...intersetRate, { "Utilization Rate": currtenUR, "Borrow APR, variable": apyv }];
         data.sort((a, b) => a["Utilization Rate"] - b["Utilization Rate"])
 

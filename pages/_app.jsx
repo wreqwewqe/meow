@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-
+import "../utils/rem"
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { configureChains, createConfig, sepolia, WagmiConfig, Chain } from 'wagmi';
