@@ -55,13 +55,13 @@ export default function Dashboard() {
     const fetchData = async () => {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
-                const queryString = window.location.search;
-                const queryParams = new URLSearchParams(queryString);
-                var code = queryParams.get('code');
-                // console.log("code:",code?code:"");
-                if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
-                    await userMessage(web3ModalRef, address, chain, code?code:"")
-                }
+            const queryString = window.location.search;
+            const queryParams = new URLSearchParams(queryString);
+            var code = queryParams.get('code');
+            // console.log("code:",code?code:"");
+            if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
+                await userMessage(web3ModalRef, address, chain, code ? code : "")
+            }
             const PoolContract = new Contract(
                 chain.id == EthereumCode ? PoolABI.EthereumAddress : PoolABI.ScrollAddress,
                 PoolABI.abi,
@@ -190,7 +190,7 @@ export default function Dashboard() {
                     } else {
                         collateral = "——"
                     }
-                    supplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "withdrawIsable": healthFactor > 1||healthFactor=="\u00A0\u00A0\u00A0\u00A0\u221E", "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
+                    supplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "withdrawIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
                 }
 
                 if (data[index]["Balance"] == "" || data[index]["Balance"] === "0") {
@@ -201,17 +201,17 @@ export default function Dashboard() {
 
                     if (assetPrice.eq(bigZero) || userData["AvailableBorrow"] == "0" || data[index]["AvailableLiquidity"] == "0") {
                         console.log(data[index]["Name"]);
-                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1||healthFactor=="\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"],ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
+                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
                             availableBorrow = BigNumber.from(userData["AvailableBorrow"]).mul(E2).div(assetPrice).toNumber() / 100
-                            console.log("上",data[index]["Name"]);
+                            console.log("上", data[index]["Name"]);
                         } else {
-                            console.log("下",data[index]["Name"]);
+                            console.log("下", data[index]["Name"]);
                             availableBorrow = (BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"] - 2)).toNumber() / 100).toFixed(2)
                         }
-                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 ||healthFactor=="\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": availableBorrow, "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": borrowButtonEnable })
+                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": availableBorrow, "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": borrowButtonEnable })
                     }
                 } else {
                     var ERC20Name = data[index]["Asset"]
@@ -238,17 +238,17 @@ export default function Dashboard() {
                     var TotalAssetBorrowAPY = totalAssetBorrowAPY + borrowAPY * borrowBalance * assetPriceUSD;
                     totalAssetBorrowAPY = Math.floor(TotalAssetBorrowAPY);
                     if (assetPrice.eq(bigZero) || data[index]["AvailableLiquidity"] == "0") {
-                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1||healthFactor=="\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": (0).toFixed(2), "WalletBalance": ERC20Balance })
+                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": (0).toFixed(2), "WalletBalance": ERC20Balance })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
                             availableBorrow = BigNumber.from(userData["AvailableBorrow"]).mul(E2).div(assetPrice).toNumber() / 100
-                            console.log("上",data[index]["Name"]);
+                            console.log("上", data[index]["Name"]);
                         } else {
-                            console.log("下",data[index]["Name"]);
+                            console.log("下", data[index]["Name"]);
                             availableBorrow = (BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"] - 2)).toNumber() / 100).toFixed(2)
                         }
-                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1||healthFactor=="\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": availableBorrow, "WalletBalance": ERC20Balance })
+                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": availableBorrow, "WalletBalance": ERC20Balance })
                     }
                 }
             }
@@ -363,44 +363,44 @@ export default function Dashboard() {
         } else {
             setisError(false)
         }
-        console.log("error:",error);
+        console.log("error:", error);
         console.log("iserror:", isError);
     }, [error])
 
     const content = (
-        <div className='w-[317px] text-[18px] font-medium'>
+        <div className='w-[31.7rem] text-[1.8rem] font-medium'>
             <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("5");
-            }}> <Image width={40} src={Eth} className='mr-[13px]'></Image> Ethereum Market</p>
+            }}> <Image width={40} src={Eth} className='mr-[1.3rem]'></Image> Ethereum Market</p>
             <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("534351");
-            }}> <Image width={40} src={Scroll} className='mr-[13px]'></Image>Scroll Market</p>
+            }}> <Image width={40} src={Scroll} className='mr-[1.3rem]'></Image>Scroll Market</p>
         </div>
     );
-    const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
+    const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
 
 
     const your_supply_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[16px]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[16px]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Balance</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Balance</div>,
             dataIndex: 'balance',
             key: 'balance',
             render: (text) => (<div className='font-semibold'>{text}</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
             render: (text) => (<div className='font-semibold'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px] w-[100px] '>Can be Collateral</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
             render: (text) => <div className='text-center'> {text} </div>
@@ -408,32 +408,32 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.withdrawIsable ? 'bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
-                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <button className={record.withdrawIsable ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
+                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
             </div>)
         }
     ];
     const your_borrow_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[16px]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[16px]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Debt</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Debt</div>,
             dataIndex: 'balance',
             key: 'balance',
             render: (text) => (<div className='font-semibold'>{text}</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
             render: (text) => (<div className='font-semibold'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px] w-[100px] '>APY type</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>APY type</div>,
             dataIndex: 'APYType',
             key: 'APYType',
             render: (text) => (<div className='font-semibold'>{text}</div>)
@@ -441,33 +441,33 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <Button className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
-                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
+                <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
+                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
             </div>)
         }
     ];
 
     const supply_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[16px]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[16px]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Wallet balance</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Wallet balance</div>,
             dataIndex: 'balance',
             key: 'balance',
             render: (text) => (<div className='font-semibold'>{text}</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
             render: (text) => (<div className='font-semibold'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px] w-[100px] '>Can be Collateral</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
             render: (text) => <div className='text-center'> {text} </div>
@@ -475,33 +475,33 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <Button className=' bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
-                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
 
     const borrow_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[16px]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[16px]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>Available</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Available</div>,
             dataIndex: 'available',
             key: 'available',
             render: (text) => (<div className='font-semibold'>{text}</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>APY,variable</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY,variable</div>,
             dataIndex: 'APYV',
             key: 'APYV',
             render: (text) => (<div className='font-semibold'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[12px] relative bottom-[-10px]'>APY,stable</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY,stable</div>,
             dataIndex: 'APYS',
             key: 'APYS',
             render: (text) => (<div className='font-semibold'>{text}%</div>)
@@ -509,8 +509,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.borrowIsable ? 'bg-[#F4B512] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[6px] mr-[4px] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable}>Borrow</button>
-                <Button className='py-[3px] px-[5px] rounded-[6px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <button className={record.borrowIsable ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable}>Borrow</button>
+                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
@@ -520,19 +520,19 @@ export default function Dashboard() {
     return (
         <div className='min-h-full '>
             <Header></Header>
-            {address ? <div className='box-border  py-[64px] px-[112px] '>
-                <div className='h-[118px] mb-[64px]'>
+            {address ? <div className='box-border  py-[64px] px-[11.2rem] '>
+                <div className='h-[11.8rem] mb-[6.4rem]'>
                     <Popover content={content} placement="bottom">
-                        <div className='text-[32px] font-bold w-[317px]'>{chain.id == EthereumCode ? "Ethereum Market" : chain.id == ScrollCode ? "Scroll Market" : "Please select the network you want!"} <DownOutlined className='text-[16px] cursor-pointer ' /> </div>
+                        <div className='text-[3.2rem] font-bold w-[31.7rem]'>{chain.id == EthereumCode ? "Ethereum Market" : chain.id == ScrollCode ? "Scroll Market" : "Please select the network you want!"} <DownOutlined className='text-[1.6rem] cursor-pointer ' /> </div>
                     </Popover>
-                    <div className='flex mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
-                        <div className='w-[174px] mr-[16px]'>Net worth</div>
-                        <div className='w-[174px] mr-[16px]'>Net APY</div>
-                        <div className='w-[174px]'>Health Factor</div>
+                    <div className='flex mt-[1.6rem] mb-[0.8rem] text-[1.6rem] font-normal text-[#5F6D7E] '>
+                        <div className='w-[17.4rem] mr-[1.6rem]'>Net worth</div>
+                        <div className='w-[17.4rem] mr-[1.6rem]'>Net APY</div>
+                        <div className='w-[17.rem]'>Health Factor</div>
                     </div>
-                    <div className='flex text-[22px] text-[#272D37] font-semibold'>
-                        <div className='w-[174px] mr-[16px]'>{loading || isChain || isError ? "" : headBlockData[0]}</div>
-                        <div className='w-[174px] mr-[16px]'>{loading || isChain || isError ? "" : headBlockData[1]}</div>
+                    <div className='flex text-[2.2rem] text-[#272D37] font-semibold'>
+                        <div className='w-[17.4rem] mr-[1.6rem]'>{loading || isChain || isError ? "" : headBlockData[0]}</div>
+                        <div className='w-[17.4rem] mr-[1.6rem]'>{loading || isChain || isError ? "" : headBlockData[1]}</div>
                         <div>{loading || isChain || isError ? "" : headBlockData[2]}</div>
                     </div>
                 </div>
@@ -552,14 +552,14 @@ export default function Dashboard() {
                         <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
                     </div>
                 </div> */}
-                 <div className='columns-2'>
-                    <div className='inline-block w-full  mb-[10px]' >
+                <div className='columns-2'>
+                    <div className='inline-block w-full  mb-[1rem]' >
                         <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
                     </div>
                     <div className='inline-block w-full  '>
                         <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
                     </div >
-                    <div className=' inline-block w-full  mb-[10px]'>
+                    <div className=' inline-block w-full  mb-[1rem]'>
                         <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
                     </div>
 
@@ -567,8 +567,8 @@ export default function Dashboard() {
                         <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
                     </div>
                 </div>
-            </div>: <div className=' text-center h-[400px]'>
-                <div className='mt-[200px] font-bold text-[24px] mb-[64px]'>please,connet your wallet</div>
+            </div> : <div className=' text-center h-[40rem]'>
+                <div className='mt-[20rem] font-bold text-[2.4rem] mb-[6.4rem]'>please,connet your wallet</div>
                 <ConnectButton.Custom>
                     {({
                         account,

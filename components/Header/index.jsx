@@ -23,7 +23,7 @@ function Header({ isHome = true }) {
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
     const { address, isConnecting, isDisconnected } = useAccount()
-    const button_style = 'box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none';
+    const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[6px] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
     const { state, dispatch } = useGlobalContext();
     const [show, setShow] = useState(false);
     const [connectTest, setConnectTest] = useState();
@@ -79,10 +79,10 @@ function Header({ isHome = true }) {
             </div>
         </div>
     );
-    return <div className='box-border  h-[86px] py-[20px] px-[60px]'>
+    return <div className='box-border  h-[8.6rem] py-[2rem] px-[6rem]'>
         <div></div>
-        <div className=' flex justify-between px-[32px] h-full'>
-            <div className=' flex  justify-between font-semibold  text-[15px] items-center w-[588px] '>
+        <div className=' flex justify-between px-[3.2rem] h-full'>
+            <div className=' flex  justify-between font-semibold  text-[1.5rem] items-center w-[58.8rem] '>
                 <div><Image src={logo} width={106}  ></Image></div>
                 <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
                 <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>

@@ -30,7 +30,7 @@ export default function EthDetails() {
     const [open, setOpen] = useState(false)
     const [operation, setOperation] = useState("")
     const [boxData, setBoxData] = useState()
-    const [infoEnable,setInfoEnable] = useState(true)
+    const [infoEnable, setInfoEnable] = useState(true)
     const { address, isConnecting, isDisconnected } = useAccount()
     useEffect(() => {
         const queryString = window.location.search;
@@ -43,11 +43,11 @@ export default function EthDetails() {
         setAsset(assetname);
         setNetwork(net)
     }, [address, chain])
-    useEffect(()=>{
-        if(isDisconnected){
+    useEffect(() => {
+        if (isDisconnected) {
             setInfoEnable(true)
         }
-    },[isDisconnected])
+    }, [isDisconnected])
 
     const fetchData = async () => {
         try {
@@ -256,123 +256,123 @@ export default function EthDetails() {
     return (
         <div className='min-h-full '>
             <Header></Header>
-            <div className=' box-border py-[64px] px-[112px] mb-[64px]'>
-                <div className='font-bold text-[32px] mb-[16px]'>{asset} Market</div>
-                <div className='flex justify-between w-[800px] mb-[64px]'>
+            <div className=' box-border py-[6.4rem] px-[11.2rem] mb-[6.4rem]'>
+                <div className='font-bold text-[3.2rem] mb-[1.6rem]'>{asset} Market</div>
+                <div className='flex justify-between w-[80rem] mb-[6.4rem]'>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[8px]'>{asset}</div>
-                        <div className='text-[#272D37] text-[22px] font-bold'>{detailData.name}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem]'>{asset}</div>
+                        <div className='text-[#272D37] text-[2.2rem] font-bold'>{detailData.name}</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[8px]'>Reserve Size</div>
-                        <div className='text-[#272D37] text-[22px]  font-bold'>{detailData.size}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Reserve Size</div>
+                        <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.size}</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[8px]'>Available liquidity</div>
-                        <div className='text-[#272D37] text-[22px]  font-bold'>{detailData.totalsupply}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Available liquidity</div>
+                        <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.totalsupply}</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[8px]'>Utilization Rate</div>
-                        <div className='text-[#272D37] text-[22px]  font-bold'>{detailData.ur}%</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Utilization Rate</div>
+                        <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.ur}%</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[8px]'>Oracle price</div>
-                        <div className='text-[#272D37] text-[22px] font-bold'>${detailData["oraclePrice"]}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Oracle price</div>
+                        <div className='text-[#272D37] text-[2.2rem] font-bold'>${detailData["oraclePrice"]}</div>
                     </div>
                 </div>
                 <div className='flex justify-between'>
-                    <div className='basis-[64%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'>
-                        <div className='text-[26px] font-bold mb-[24px]'>Reserve status & configuration</div>
-                        <div className='text-[18px] font-bold mb-[8px]'>Supply Info</div>
-                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[20px]'>
-                            <div className='w-[60%]  flex justify-between mb-[30px]'>
+                    <div className='basis-[64%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[0.1rem] border-[#EAEBF0]'>
+                        <div className='text-[2.6rem] font-bold mb-[2.4rem]'>Reserve status & configuration</div>
+                        <div className='text-[1.8rem] font-bold mb-[0.8rem]'>Supply Info</div>
+                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[2rem]'>
+                            <div className='w-[60%]  flex justify-between mb-[3rem]'>
                                 <div> <Progress type="circle" percent={detailData.cycle} /></div>
                                 <div>
-                                    <div className='mb-[10px] text-[#5F6D7E] '>Total supplied</div>
-                                    <div className='mb-[10px]'>{detailData.totalsupply} of {detailData.size}</div>
+                                    <div className='mb-[1rem] text-[#5F6D7E] '>Total supplied</div>
+                                    <div className='mb-[1rem]'>{detailData.totalsupply} of {detailData.size}</div>
                                     <div>${detailData.supplyprice} of ${detailData.sizeprice}</div>
                                 </div>
                                 <div>
-                                    <div className='mb-[10px] text-[#5F6D7E] '>APY</div>
+                                    <div className='mb-[1rem] text-[#5F6D7E] '>APY</div>
                                     <div>{detailData.supplyapy}%</div>
                                 </div>
                             </div>
-                            <div className='flex mb-[20px] font-bold'>
-                                <div className='text-[#272D37] mr-[30px]'>Collateral</div>
+                            <div className='flex mb-[2rem] font-bold'>
+                                <div className='text-[#272D37] mr-[3rem]'>Collateral</div>
                                 <div className='text-[green]'>Can be Collateral</div>
                             </div>
                             <div className='flex justify-between'>
-                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[10px]'>
-                                    <div className='text-[#5F6D7E] mb-[15px]'>Max LTV</div>
+                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
+                                    <div className='text-[#5F6D7E] mb-[1.5rem]'>Max LTV</div>
                                     <div>{detailData.ltv}%</div>
                                 </div>
 
-                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[10px]'>
-                                    <div className='text-[#5F6D7E] mb-[15px]'>Liquidation threshold</div>
+                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
+                                    <div className='text-[#5F6D7E] mb-[1.5rem]'>Liquidation threshold</div>
                                     <div>{detailData.lt}%</div>
                                 </div>
-                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[10px]'>
-                                    <div className='text-[#5F6D7E]  mb-[15px]'>Liquidation penalty</div>
+                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
+                                    <div className='text-[#5F6D7E]  mb-[1.5rem]'>Liquidation penalty</div>
                                     <div>{detailData.lp}%</div>
                                 </div>
                             </div>
                         </div>
-                        <div className='text-[18px] font-bold mb-[8px] mt-[24px]'>Borrow Info</div>
-                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[20px]'>
-                            <div className='w-[60%]  flex justify-between mb-[30px]'>
+                        <div className='text-[1.8rem] font-bold mb-[0.8rem] mt-[2.4rem]'>Borrow Info</div>
+                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[2rem]'>
+                            <div className='w-[60%]  flex justify-between mb-[3rem]'>
                                 <div>
-                                    <div className='mb-[10px] text-[#5F6D7E] '>Total borrowed</div>
-                                    <div className='mb-[10px] font-bold'>{detailData.totalBorrow}</div>
+                                    <div className='mb-[1rem] text-[#5F6D7E] '>Total borrowed</div>
+                                    <div className='mb-[1rem] font-bold'>{detailData.totalBorrow}</div>
                                     <div>${detailData.borrowprice}</div>
                                 </div>
                                 <div>
-                                    <div className='mb-[10px] text-[#5F6D7E] '>APY,variable</div>
-                                    <div className='mb-[10px] font-bold'>{detailData.apyv}%</div>
+                                    <div className='mb-[1rem] text-[#5F6D7E] '>APY,variable</div>
+                                    <div className='mb-[1rem] font-bold'>{detailData.apyv}%</div>
                                 </div>
                                 <div>
-                                    <div className='mb-[10px] text-[#5F6D7E] '>APY,stable</div>
+                                    <div className='mb-[1rem] text-[#5F6D7E] '>APY,stable</div>
                                     <div className='font-bold'>{detailData.apys}%</div>
                                 </div>
                             </div>
-                            <div className='mt-[30px] font-bold'>Collateral Info</div>
+                            <div className='mt-[3rem] font-bold'>Collateral Info</div>
                         </div>
-                        <div className='mt-[24px] font-bold'>Interest rate model</div>
-                        <div ref={rcharts} className='border border-solid border-[#EAEBF0] box-border p-[20px]'>
-                            <div className='mb-[10px]'>Utilzation Rate</div>
-                            <div className='mb-[20px] font-bold'>{detailData.ur}%</div>
+                        <div className='mt-[2.4rem] font-bold'>Interest rate model</div>
+                        <div ref={rcharts} className='border border-solid border-[#EAEBF0] box-border p-[2rem]'>
+                            <div className='mb-[1rem]'>Utilzation Rate</div>
+                            <div className='mb-[2rem] font-bold'>{detailData.ur}%</div>
                             {render(detailData.ur, detailData.apyv)}
                         </div>
                     </div>
-                    {infoEnable?<div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
-                    :(<div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'>
-                        <div className='text-[#272D37] text-[26px] mb-[24px] font-bold'>Your Info</div>
-                        <div className='box-border p-[10px] border-solid border-[1px] border-[#EAEBF0]'>
-                            <div className='flex mb-[20px]'>
-                                <WalletOutlined className='text-[20px] mr-[30px]' />
-                                <div>
-                                    <div className='text-[#5F6D7E]'>Wallet balance</div>
-                                    <div><span className='font-bold mt-[5px]'>{detailData.balance} </span>{detailData.coin}</div>
+                    {infoEnable ? <div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
+                        : (<div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'>
+                            <div className='text-[#272D37] text-[2.6rem] mb-[2.4rem] font-bold'>Your Info</div>
+                            <div className='box-border p-[1rem] border-solid border-[1px] border-[#EAEBF0]'>
+                                <div className='flex mb-[2rem]'>
+                                    <WalletOutlined className='text-[2rem] mr-[3rem]' />
+                                    <div>
+                                        <div className='text-[#5F6D7E]'>Wallet balance</div>
+                                        <div><span className='font-bold mt-[0.5rem]'>{detailData.balance} </span>{detailData.coin}</div>
+                                    </div>
+                                </div>
+                                <hr className='mb-[2rem] border-[#EAEBF0]' />
+                                <div className='flex justify-between items-center'>
+                                    <div>
+                                        <div>Avaliable to supply</div>
+                                        <div><span className='font-bold mt-[0.5rem]'>{detailData.balance} </span>{detailData.coin}</div>
+                                        <div className='mt-[1.5rem]'>${detailData.balanceprice}</div>
+                                    </div>
+                                    <div><button className='box-border bg-[#F4B512] p-[1rem]  rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none' onClick={() => { setOperation("Supply"); setBoxData(supplyData); setOpen(true) }}>Supply</button></div>
+                                </div>
+                                <div className='flex justify-between mt-[2rem] items-center'>
+                                    <div>
+                                        <div>Avaliable to borrow</div>
+                                        <div><span className='font-bold mt-[0.5rem]'>{detailData.availableBorrow} </span>{detailData.coin}</div>
+                                        <div className='mt-[1.5rem]'>${detailData.availableprice}</div>
+                                    </div>
+                                    <div><button className='box-border bg-[#F4B512] p-[1rem]  rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none' onClick={() => { setOperation("Borrow"); setBoxData(borrowData); setOpen(true) }}>Borrow</button></div>
                                 </div>
                             </div>
-                            <hr className='mb-[20px] border-[#EAEBF0]' />
-                            <div className='flex justify-between items-center'>
-                                <div>
-                                    <div>Avaliable to supply</div>
-                                    <div><span className='font-bold mt-[5px]'>{detailData.balance} </span>{detailData.coin}</div>
-                                    <div className='mt-[15px]'>${detailData.balanceprice}</div>
-                                </div>
-                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Supply"); setBoxData(supplyData); setOpen(true) }}>Supply</button></div>
-                            </div>
-                            <div className='flex justify-between mt-[20px] items-center'>
-                                <div>
-                                    <div>Avaliable to borrow</div>
-                                    <div><span className='font-bold mt-[5px]'>{detailData.availableBorrow} </span>{detailData.coin}</div>
-                                    <div className='mt-[15px]'>${detailData.availableprice}</div>
-                                </div>
-                                <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Borrow"); setBoxData(borrowData); setOpen(true) }}>Borrow</button></div>
-                            </div>
-                        </div>
-                    </div>)}
+                        </div>)}
                 </div>
             </div>
             <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address} chain={chain}></Transaction>

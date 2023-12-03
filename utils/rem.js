@@ -10,7 +10,7 @@ window.onresize = function () {
 
 function setRem(designSize) {
     // 给html赋值
-    const html = document.getElementsByTagName("html")[0];
+    const html = document && document.getElementsByTagName("html")[0];
     // 获取html宽度和body的宽度
     const clientW =
         document.documentElement.clientWidth || document.body.clientWidth;

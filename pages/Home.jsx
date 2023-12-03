@@ -15,56 +15,56 @@ export default function Home() {
     return (
         <div  >
             <Header isHome={false}></Header>
-            <div className='text-center box-border text-[52px] font-bold  h-[276px]  py-[48px] px-[270px]'>
+            <div className='text-center box-border text-[5.2rem] font-bold  h-[27.6rem]  py-[4.8rem] px-[27rem]'>
                 <div>Meow Protocol</div>
                 <div>Purring into the Future of Lending</div>
                 <div className='text-[#F4B512]'>Borrow,Save,Earn</div>
             </div>
-            <div className='box-border h-[483px]  '>
+            <div className='box-border h-[48.3rem]  '>
                 <Image height={483} className='w-full' src={home1}></Image>
             </div>
-            <div className=' box-border h-[688px] bg-[#FAFBFC] py-[64px] flex justify-center'>
-                <div className=' flex justify-between box-border w-[1280px] h-[560px] px-[32px] py-[1px]'>
-                    <div className='mt-[162px] w-[532px]'>
-                        <div className='text-[32px] font-semibold'>Meow Reputation for Progress</div>
-                        <div className='text-[32px] font-semibold mb-[16px]'>Your <span className='text-[#F4B512]'>Contribution</span>,Your <span className='text-[#F4B512]'>Benefits</span></div>
-                        <div className='text-[16px] font-normal mb-[40px]'>Your contributions at Meow accumulate as Meow Reputation, the key to unlocking opportunities and wealth.</div>
-                        <div className='flex justify-between w-[315px] h-[46px]'>
-                            <div className='box-border bg-[#F4B512] w-[180px] font-semibold py-[12px] px-[18px] text-[15px] rounded-[6px] text-[#FFFFFF] '>Start Contribute <ArrowRightOutlined /></div>
-                            <div className='box-border bg-[#DAE0E6] font-semibold w-[123px]  py-[12px] px-[18px] text-[15px] rounded-[6px] text-[#272D37]'>Learn More</div>
+            <div className=' box-border h-[68.8rem] bg-[#FAFBFC] py-[6.4rem] flex justify-center'>
+                <div className=' flex justify-between box-border w-[128rem] h-[56rem] px-[3.2rem] py-[1px]'>
+                    <div className='mt-[16.2rem] w-[53.2rem]'>
+                        <div className='text-[3.2rem] font-semibold'>Meow Reputation for Progress</div>
+                        <div className='text-[3.2rem] font-semibold mb-[1.6rem]'>Your <span className='text-[#F4B512]'>Contribution</span>,Your <span className='text-[#F4B512]'>Benefits</span></div>
+                        <div className='text-[1.6rem] font-normal mb-[4rem]'>Your contributions at Meow accumulate as Meow Reputation, the key to unlocking opportunities and wealth.</div>
+                        <div className='flex justify-between w-[31.5rem] h-[4.6rem]'>
+                            <div className='box-border bg-[#F4B512] w-[18rem] font-semibold py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#FFFFFF] '>Start Contribute <ArrowRightOutlined /></div>
+                            <div className='box-border bg-[#DAE0E6] font-semibold w-[12.3rem]  py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#272D37]'>Learn More</div>
                         </div>
                     </div>
-                    <div className='w-[560px] h-[560px] bg-[pink]'><Image height={560} src={home2}></Image></div>
+                    <div className='w-[56rem] h-[56rem] bg-[pink]'><Image height={560} src={home2}></Image></div>
                 </div>
             </div>
 
-            <div className='box-border h-[480px] bg-[#FFFFFF] py-[64px] px-[80px]'>
-                <div className=' h-[80px] text-center mb-[64px]' >
-                    <div className='font-bold text-[32px]'>Meow Markets</div>
-                    <div className='mt-[16px]'>Meow will expand its permissionless lending business on multiple blockchains.</div>
+            <div className='box-border h-[48rem] bg-[#FFFFFF] py-[6.4rem] px-[8rem]'>
+                <div className=' h-[8rem] text-center mb-[6.4rem]' >
+                    <div className='font-bold text-[3.2rem]'>Meow Markets</div>
+                    <div className='mt-[1.6rem]'>Meow will expand its permissionless lending business on multiple blockchains.</div>
                 </div>
-                <div className='flex justify-between box-border h-[208px]  px-[32px]'>
-                    <div className='w-[560px] h-[208px] text-center'>
+                <div className='flex justify-between box-border h-[20.8rem]  px-[3.2rem]'>
+                    <div className='w-[56rem] h-[20.8rem] text-center'>
 
-                        <div className='h-[60px]' > <Image width={60} src={Eth}></Image></div>
-                        <div className='mt-[20px] mb-[12px] text-[22px] font-semibold'>ETH</div>
+                        <div className='h-[6rem]' > <Image width={60} src={Eth}></Image></div>
+                        <div className='mt-[2rem] mb-[1.2rem] text-[2.2rem] font-semibold'>ETH</div>
                         <div className='text-[#5F6D7E]'>Efficiently unleash cross-media information without cross-media value. Quickly timely deliverables for real-time schemas. </div>
-                        <div className='text-[#F4B512] mt-[16px] ' onClick={() => { router.push("EthMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
+                        <div className='text-[#F4B512] mt-[1.6rem] ' onClick={() => { router.push("EthMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
-                    <div className='w-[560px] h-[208px]  text-center'>
-                        <div className='h-[60px]'><Image width={60} src={Scroll}></Image></div>
-                        <div className='mt-[20px] mb-[12px] text-[22px] font-semibold'>Scoll</div>
+                    <div className='w-[56rem] h-[20.8rem]  text-center'>
+                        <div className='h-[6rem]'><Image width={60} src={Scroll}></Image></div>
+                        <div className='mt-[2rem] mb-[1.2rem] text-[2.2rem] font-semibold'>Scoll</div>
                         <div className='text-[#5F6D7E]'>Completely pursue scalable customer cross- media through potentialities. Holistically quickly installed portals. </div>
-                        <div className='text-[#F4B512] mt-[16px]' onClick={() => { router.push("ScrollMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
+                        <div className='text-[#F4B512] mt-[1.6rem]' onClick={() => { router.push("ScrollMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
                 </div>
             </div>
 
-            <div className='box-border bg-[#FAFBFC] h-[336px] py-[64px] text-center'>
-                <div className='font-bold text-[32px]'>Your Funds, Our Priority - Meow Ensures Safety</div>
-                <div className='mt-[16px]'>Audited by the Scroll ecosystem's leading security firms, security of the Meow Protocol is the highest</div>
-                <div className='mb-[44px]'>priority.</div>
-                <div className='h-[60px]'> <Image height={60} src={home3}></Image></div>
+            <div className='box-border bg-[#FAFBFC] h-[33.6rem] py-[6.4rem] text-center'>
+                <div className='font-bold text-[3.2rem]'>Your Funds, Our Priority - Meow Ensures Safety</div>
+                <div className='mt-[1.6rem]'>Audited by the Scroll ecosystem's leading security firms, security of the Meow Protocol is the highest</div>
+                <div className='mb-[4.4rem]'>priority.</div>
+                <div className='h-[6rem]'> <Image height={60} src={home3}></Image></div>
             </div>
 
             {/* <div className='box-border h-[328px] py-[64px] px-[80px] text-center  ' >

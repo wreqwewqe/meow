@@ -1,7 +1,8 @@
 import '../styles/globals.css';
+import { useEffect } from "react"
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import "../utils/rem"
+
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { configureChains, createConfig, sepolia, WagmiConfig, Chain } from 'wagmi';
@@ -105,7 +106,34 @@ const wagmiConfig = createConfig({
 
 
 function MyApp({ Component, pageProps }) {
+  function setRem(designSize) {
+    // 给html赋值
+    const html = document && document.getElementsByTagName("html")[0];
+    // 获取html宽度和body的宽度
+    const clientW =
+      document.documentElement.clientWidth || document.body.clientWidth;
+    // console.log(clientW);
+    //html.style.fontSize=clientW/rem*100*2+'px'
 
+    let rem = (clientW * 10) / designSize;
+    // console.log(rem);
+
+    html.style.fontSize = rem + "px";
+  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // 在客户端执行的代码
+      // 使用 document 对象等
+      setRem(1440);
+      // };
+
+      // 当屏幕尺寸发生大小变化时候事件
+      window.onresize = function () {
+        setRem(1440);
+        console.log("66666")
+      };
+    }
+  }, [])
   return (
     <GlobalContextProvider>
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
