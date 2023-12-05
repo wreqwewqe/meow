@@ -14,7 +14,8 @@ import { PoolABI } from '../ABIs/LendingPool';
 import { total, calculateInterest, rayMul, rayToWad, rayDiv } from '../utils/getPrice';
 import { CoreABI } from '../ABIs/LendingPoolCore';
 import { PriceOracleABI } from '../ABIs/PriceOralce';
-import axios from 'axios'
+// import axios from 'axios'
+import {get} from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS, EthereumCode, ScrollCode } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import { useRouter } from 'next/router'
@@ -22,7 +23,7 @@ import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 import Eth from "../public/eth.png"
 import Scroll from "../public/scroll.png"
 export default function Dashboard() {
-    axios.defaults.baseURL = BaseURI
+    // axios.defaults.baseURL = BaseURI
     const [targetChain, setTargetChain] = useState("");
     const web3ModalRef = useRef();
     const [Supply, setSupply] = useState([]);
@@ -46,6 +47,7 @@ export default function Dashboard() {
     const [isChain, setIsChain] = useState(true)
     const [isError, setisError] = useState(false)
     const router = useRouter()
+    const [token,setToken] = useState(false)
     const { chains, isLoading, pendingChainId, switchNetwork, status } =
         useSwitchNetwork({
             chainId: targetChain,
@@ -102,7 +104,7 @@ export default function Dashboard() {
             let collateralBalance = 0
             let supplyAPRave = 0
             var borrowButtonEnable = true;
-            const borrowDatA = await axios.get('/borrow', { params: { address: address, net: net } })
+            const borrowDatA = await get('/v1/borrow', { params: { address: address, net: net } })
             const userData = borrowDatA.data.data.userData
             // console.log("ssssadasd");
             // console.log(userData);
@@ -316,7 +318,7 @@ export default function Dashboard() {
     useEffect(() => {
         // console.log("chainssssssssssssss",chains);
         if (targetChain) {
-            if (targetChain == "534352") {
+            if (targetChain == "534351") {
                 // switchNetwork();
                 onChangeToScroll(ethereum, setLoading)
             } else {
@@ -327,11 +329,12 @@ export default function Dashboard() {
 
     }, [targetChain])
     useEffect(() => {
-        if (address && chain.id) {
+        if (address && chain.id && token) {
+            console.log("wwwwwwwwwwwbhjajsdbakjsdkajsdhkj");
             setLoading(true)
             fetchData()
         }
-    }, [address])
+    }, [address,token])
 
     useEffect(() => {
         if (status == "loading" && targetChain != chain.id.toString()) {
@@ -346,7 +349,7 @@ export default function Dashboard() {
     useEffect(() => {
         setError("")
         if (chain) {
-            if (address && chain.id) {
+            if (address && chain.id && token) {
                 setLoading(true)
                 fetchData()
             }
@@ -519,7 +522,7 @@ export default function Dashboard() {
     // }
     return (
         <div className='min-h-full '>
-            <Header></Header>
+            <Header setToken={setToken}></Header>
             {address ? <div className='box-border  py-[64px] px-[11.2rem] '>
                 <div className='h-[11.8rem] mb-[6.4rem]'>
                     <Popover content={content} placement="bottom">

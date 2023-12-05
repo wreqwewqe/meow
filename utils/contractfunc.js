@@ -8,10 +8,10 @@ import { ATokenABI } from "../ABIs/AToken";
 import { ERC20ABI } from '../ABIs/ERC20';
 import {ETHEREUM_ADDRESS} from "../utils/constants"
 import { CoreABI } from '../ABIs/LendingPoolCore';
-import axios from 'axios';
+import {post} from 'axios';
 import { BaseURI, EthereumCode } from './constants';
 import { total } from './getPrice'
-axios.defaults.baseURL = BaseURI;
+// axios.defaults.baseURL = BaseURI;
 
 
 
@@ -34,7 +34,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             setSupplyStatu("finish")
             setDoneStatu("finish")
 
-            await axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
             return error
@@ -58,7 +58,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             await tx.wait();
             setSupplyStatu("finish")
             setDoneStatu("finish")
-            await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         } catch (error) {
             return error
@@ -88,7 +88,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             const decimals = await ERC20Contract.decimals();
             const tx = await ERC20Contract.redeem(BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)))
             await tx.wait()
-            await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         }catch(error){
           return error
@@ -110,7 +110,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
         try {
             const tx = await poolContract.borrow(ETHEREUM_ADDRESS, BigNumber.from(Value).mul(BigNumber.from(10).pow(16)),rateMode,0);
             await tx.wait();
-            await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
             return error
@@ -126,7 +126,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             const decimals = await ERC20Contract.decimals();
             const tx = await poolContract.borrow(assetAddress, BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)),rateMode,0);
             await tx.wait();
-            await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         } catch (error) {
             return error
@@ -152,7 +152,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             await tx.wait();
             setSupplyStatu("finish")
             setDoneStatu("finish")
-            await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         }catch(error){
             return error
@@ -180,7 +180,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             await tx.wait();
             setSupplyStatu("finish")
             setDoneStatu("finish")
-            await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
             return error
@@ -196,7 +196,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
                 await tx.wait();
                 setSupplyStatu("finish")
                 setDoneStatu("finish")
-                await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+                await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
                 return ""
             }catch(error){
                 return error
@@ -218,7 +218,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
                 await tx.wait();
                 setSupplyStatu("finish")
                 setDoneStatu("finish")
-                await  axios.get('/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+                await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
                 return ""
               } catch (error) {
                 return error
@@ -234,15 +234,18 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
         method: 'wallet_addEthereumChain',
         params: [
           {
-            chainId: "0x82750",
-            chainName: 'Scroll',
+            // chainId: "0x82750",
+            chainId:"0x8274f",
+            chainName: 'Scroll Sepolia',
             nativeCurrency: {
                 name: 'Ether',
                 symbol: 'ETH', // 2-6 characters long
                 decimals: 18
             },
-            rpcUrls: ['https://rpc.scroll.io/'],
-            blockExplorerUrls: ['https://scrollscan.com/']
+            // rpcUrls: ['https://rpc.scroll.io/'],
+            rpcUrls:["https://sepolia-rpc.scroll.io/"],
+            // blockExplorerUrls: ['https://scrollscan.com/']
+            blockExplorerUrls:["https://sepolia.scrollscan.com"],
           }
         ]
       }).then((res) => {
@@ -260,9 +263,10 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             );
               console.log("address:",provider);
             const userData = await PoolContract.getUserAccountData(address);
-            console.log("userdata",userData);
+            console.log("userdata",sessionStorage.getItem("token"));
+
             const healthFactor = total((userData.healthFactor).div(BigNumber.from(10).pow(16)));
-            await axios.post('/user',{
+            await post('/v1/user',{
                 "address":address,
                 "healthFactor":healthFactor,
                 "ltv":userData.ltv.toString(),

@@ -6,7 +6,7 @@ import { Progress, Skeleton } from "antd"
 import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
-import axios from 'axios'
+import {axios} from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
@@ -16,7 +16,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Referenc
 import { intersetRate } from "../utils/constants"
 
 export default function EthDetails() {
-    axios.defaults.baseURL = BaseURI
+    // axios.defaults.baseURL = BaseURI
     const rcharts = useRef();
     const [asset, setAsset] = useState("");
     const [network, setNetwork] = useState("");
@@ -98,7 +98,7 @@ export default function EthDetails() {
     const fetchAssetData = async () => {
         try {
             const provider = await getProviderOrSigner(true, web3ModalRef);
-            const Data = await axios.get('/details', { params: { asset: asset, address: address, net: network } })
+            const Data = await axios.get('/v1/details', { params: { asset: asset, address: address, net: network } })
             const data = Data.data.data.assetdata
             const availableBorrow = Data.data.data.availableBorrow
             const E2 = BigNumber.from(100)

@@ -11,7 +11,8 @@ const ScrollCode = 534351
 const EthereumScan = "https://goerli.etherscan.io"
 const ScrollScan = "https://sepolia.scrollscan.com/"
 // const BaseURI = 'https://api.bittesseract.com/api/v1/';
-const BaseURI = "http://127.0.0.1:8000/api/v1"
+// const BaseURI = "http://127.0.0.1:8000/api/v1"
+const BaseURI = "http://10.251.253.170:8000/api"
 const intersetRate = [
     {"name":"0%","Utilization Rate":0, "Borrow APR, variable":3},
     {"Utilization Rate":1, "Borrow APR, variable":3.0625},

@@ -41,29 +41,29 @@ export default function Home() {
             <div className='box-border h-[48rem] bg-[#FFFFFF] py-[6.4rem] px-[8rem]'>
                 <div className=' h-[8rem] text-center mb-[6.4rem]' >
                     <div className='font-bold text-[3.2rem]'>Meow Markets</div>
-                    <div className='mt-[1.6rem]'>Meow will expand its permissionless lending business on multiple blockchains.</div>
+                    <div className='mt-[1.6rem] text-[1.8rem]'>Meow will expand its permissionless lending business on multiple blockchains.</div>
                 </div>
                 <div className='flex justify-between box-border h-[20.8rem]  px-[3.2rem]'>
                     <div className='w-[56rem] h-[20.8rem] text-center'>
 
                         <div className='h-[6rem]' > <Image width={60} src={Eth}></Image></div>
                         <div className='mt-[2rem] mb-[1.2rem] text-[2.2rem] font-semibold'>ETH</div>
-                        <div className='text-[#5F6D7E]'>Efficiently unleash cross-media information without cross-media value. Quickly timely deliverables for real-time schemas. </div>
-                        <div className='text-[#F4B512] mt-[1.6rem] ' onClick={() => { router.push("EthMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
+                        <div className='text-[#5F6D7E] text-[1.2rem]'>Efficiently unleash cross-media information without cross-media value. Quickly timely deliverables for real-time schemas. </div>
+                        <div className='text-[#F4B512] mt-[1.6rem] text-[1.8rem]' onClick={() => { router.push("EthMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
                     <div className='w-[56rem] h-[20.8rem]  text-center'>
                         <div className='h-[6rem]'><Image width={60} src={Scroll}></Image></div>
                         <div className='mt-[2rem] mb-[1.2rem] text-[2.2rem] font-semibold'>Scoll</div>
-                        <div className='text-[#5F6D7E]'>Completely pursue scalable customer cross- media through potentialities. Holistically quickly installed portals. </div>
-                        <div className='text-[#F4B512] mt-[1.6rem]' onClick={() => { router.push("ScrollMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
+                        <div className='text-[#5F6D7E] text-[1.2rem]'>Completely pursue scalable customer cross- media through potentialities. Holistically quickly installed portals. </div>
+                        <div className='text-[#F4B512] mt-[1.6rem] text-[1.8rem]' onClick={() => { router.push("ScrollMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
                 </div>
             </div>
 
             <div className='box-border bg-[#FAFBFC] h-[33.6rem] py-[6.4rem] text-center'>
                 <div className='font-bold text-[3.2rem]'>Your Funds, Our Priority - Meow Ensures Safety</div>
-                <div className='mt-[1.6rem]'>Audited by the Scroll ecosystem's leading security firms, security of the Meow Protocol is the highest</div>
-                <div className='mb-[4.4rem]'>priority.</div>
+                <div className='mt-[1.6rem] text-[1.8rem]'>Audited by the Scroll ecosystem's leading security firms, security of the Meow Protocol is the highest</div>
+                <div className='mb-[4.4rem] text-[1.8rem]'>priority.</div>
                 <div className='h-[6rem]'> <Image height={60} src={home3}></Image></div>
             </div>
 

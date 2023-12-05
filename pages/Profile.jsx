@@ -8,10 +8,10 @@ import exclaim_point from "../public/github.jpg"
 import { Popover, Input, message } from 'antd';
 import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
-import axios from 'axios'
+import {axios} from '../utils/funcaxios'
 import { BigNumber } from 'ethers'
 export default function Profile() {
-    axios.defaults.baseURL = BaseURI
+    // axios.defaults.baseURL = BaseURI
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -32,7 +32,7 @@ export default function Profile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/Profile', { params: { address: address } });
+                const response = await axios.get('/v1/Profile', { params: { address: address } });
                 if (response.data.data.token == "" || response.data.data.token == "0") {
                     response.data.data.token = 0
                 } else {

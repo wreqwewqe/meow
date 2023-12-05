@@ -7,7 +7,7 @@ import github from "../../public/github.png"
 import medium from "../../public/medium.png"
 export default function Footer() {
     return (
-        <div className='min-w-full box-border   h-[26.4rem] py-[6.4rem] px-[11.2rem] text-[#5F6D7E] '>
+        <div className='min-w-full box-border   h-[26.4rem] py-[6.4rem] px-[11.2rem] text-[#5F6D7E] text-[1.5rem]'>
             <div className='flex justify-between'>
                 <Image src={logo} height={38}></Image>
                 <div className='flex justify-between items-center font-medium  w-[42.8rem]'>

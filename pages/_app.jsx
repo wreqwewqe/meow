@@ -16,6 +16,7 @@ import {
 import { publicProvider } from 'wagmi/providers/public';
 import { infuraProvider } from 'wagmi/providers/infura'
 import { GlobalContextProvider } from '../GlobalContext';
+import {post,get} from '../utils/funcaxios'
 export const avalanche = {
   id: 43_114,
   name: 'Avalanche',

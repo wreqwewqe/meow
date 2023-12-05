@@ -17,8 +17,9 @@ import {
     DownOutlined
 } from '@ant-design/icons';
 import { EthereumCode, ScrollCode, EthereumScan, ScrollScan } from '../../utils/constants';
+import {post} from '../../utils/funcaxios';
 
-function Header({ isHome = true }) {
+function Header({ isHome = true, setToken}) {
     const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
@@ -37,17 +38,15 @@ function Header({ isHome = true }) {
     const redirectToExternalPage = () => {
         window.open((chain.id == EthereumCode ? EthereumScan : ScrollScan) + "/address/" + address)
     };
-    // useEffect(() => {
-    //     if (chain && address) {
-    //         const queryString = window.location.search;
-    //         const queryParams = new URLSearchParams(queryString);
-    //         var code = queryParams.get('code');
-    //         // console.log("code:",code?code:"");
-    //         if ((chain.id == EthereumCode || chain.id == ScrollCode)) {
-    //             userMessage(web3ModalRef, address, chain, code?code:"")
-    //         }
-    //     }
-    // }, [address, chain])
+    useEffect(() => {
+        if (address) {
+            post("/auth",{"address":address}).then((res)=>{
+                console.log("wwwwwwwwwwwwwwwww",res.data.token);
+                sessionStorage.setItem('token',"Bearer "+res.data.token)
+                setToken(true)
+            })
+        }
+    }, [address])
     const market = () => (<div className='w-[200px] font-bold'>
         <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} width={40} className='mr-[20px]'></Image> Ethereum Market</div>
         <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} width={40} className='mr-[20px]'></Image>Scroll Market</div>

@@ -4,13 +4,13 @@ import Footer from '../components/Footer'
 import { Button, Table } from "antd"
 import { Skeleton } from 'antd'
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
-import axios from 'axios'
+import {axios} from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { total, total4 } from '../utils/getPrice'
 import { useRouter } from 'next/router';
 import { BigNumber } from 'ethers'
 export default function EthMarket() {
-    axios.defaults.baseURL = BaseURI
+    // axios.defaults.baseURL = BaseURI
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -115,9 +115,6 @@ export default function EthMarket() {
             </div>)
         }
     ];
-    if (error) {
-        return <p>Error: {error.message}</p>;
-    }
     return (
         <div className='min-h-full'>
             <Header></Header>
