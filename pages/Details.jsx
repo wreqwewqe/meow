@@ -6,7 +6,7 @@ import { Progress, Skeleton } from "antd"
 import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
-import {axios} from '../utils/funcaxios'
+import {post,get} from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
@@ -16,7 +16,6 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Referenc
 import { intersetRate } from "../utils/constants"
 
 export default function EthDetails() {
-    // axios.defaults.baseURL = BaseURI
     const rcharts = useRef();
     const [asset, setAsset] = useState("");
     const [network, setNetwork] = useState("");
@@ -51,8 +50,8 @@ export default function EthDetails() {
 
     const fetchData = async () => {
         try {
-            const Data = await axios.get('/detail', { params: { asset: asset, net: network } })
-            const data = Data.data.data.assetdata
+            const Data = await get('/detail', {  asset: asset, net: network  })
+            const data = Data.data.assetdata
             console.log(data);
             const E2 = BigNumber.from(100)
 
@@ -97,10 +96,10 @@ export default function EthDetails() {
 
     const fetchAssetData = async () => {
         try {
-            const provider = await getProviderOrSigner(true, web3ModalRef);
-            const Data = await axios.get('/v1/details', { params: { asset: asset, address: address, net: network } })
-            const data = Data.data.data.assetdata
-            const availableBorrow = Data.data.data.availableBorrow
+            const provider = await getProviderOrSigner(false, web3ModalRef);
+            const Data = await get('/v1/details', { asset: asset, address: address, net: network  })
+            const data = Data.data.assetdata
+            const availableBorrow = Data.data.availableBorrow
             const E2 = BigNumber.from(100)
 
 
@@ -169,7 +168,7 @@ export default function EthDetails() {
             }
             const borrowdata = {}
             borrowdata.name = [data["Asset"], data["Name"]]
-            borrowdata.healthFactor = Data.data.data.healthFactor
+            borrowdata.healthFactor = Data.data.healthFactor
             borrowdata.assetAddress = data["TokenAddress"]
             borrowdata.available = assetDate.availableBorrow
             borrowdata.buttonEnable = borrowEnable
@@ -187,7 +186,7 @@ export default function EthDetails() {
             }
             var supplydata = {}
             supplydata.name = [data["Asset"], data["Name"]]
-            supplydata.healthFactor = Data.data.data.healthFactor
+            supplydata.healthFactor = Data.data.healthFactor
             supplydata.assetAddress = data["TokenAddress"]
             supplydata.APY = assetDate.supplyapy
             supplydata.collateral = collateral

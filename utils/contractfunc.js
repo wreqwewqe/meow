@@ -8,10 +8,9 @@ import { ATokenABI } from "../ABIs/AToken";
 import { ERC20ABI } from '../ABIs/ERC20';
 import {ETHEREUM_ADDRESS} from "../utils/constants"
 import { CoreABI } from '../ABIs/LendingPoolCore';
-import {post} from 'axios';
+import {post,get} from '../utils/funcaxios';
 import { BaseURI, EthereumCode } from './constants';
 import { total } from './getPrice'
-// axios.defaults.baseURL = BaseURI;
 
 
 
@@ -34,7 +33,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             setSupplyStatu("finish")
             setDoneStatu("finish")
 
-            await axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
             return error
@@ -58,7 +57,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             await tx.wait();
             setSupplyStatu("finish")
             setDoneStatu("finish")
-            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         } catch (error) {
             return error
@@ -88,7 +87,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             const decimals = await ERC20Contract.decimals();
             const tx = await ERC20Contract.redeem(BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)))
             await tx.wait()
-            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         }catch(error){
           return error
@@ -110,7 +109,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
         try {
             const tx = await poolContract.borrow(ETHEREUM_ADDRESS, BigNumber.from(Value).mul(BigNumber.from(10).pow(16)),rateMode,0);
             await tx.wait();
-            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
             return error
@@ -126,7 +125,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             const decimals = await ERC20Contract.decimals();
             const tx = await poolContract.borrow(assetAddress, BigNumber.from(Value).mul(BigNumber.from(10).pow(decimals-2)),rateMode,0);
             await tx.wait();
-            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         } catch (error) {
             return error
@@ -152,7 +151,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             await tx.wait();
             setSupplyStatu("finish")
             setDoneStatu("finish")
-            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
         }catch(error){
             return error
@@ -180,7 +179,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
             await tx.wait();
             setSupplyStatu("finish")
             setDoneStatu("finish")
-            await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+            await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
             return ""
           } catch (error) {
             return error
@@ -196,7 +195,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
                 await tx.wait();
                 setSupplyStatu("finish")
                 setDoneStatu("finish")
-                await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+                await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
                 return ""
             }catch(error){
                 return error
@@ -218,7 +217,7 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
                 await tx.wait();
                 setSupplyStatu("finish")
                 setDoneStatu("finish")
-                await  axios.get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
+                await  get('/v1/updateAsset',{params:{address:assetAddress,net:chain.id==EthereumCode?"Ethereum":"Scroll"}})
                 return ""
               } catch (error) {
                 return error

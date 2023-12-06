@@ -19,7 +19,7 @@ import {
 import { EthereumCode, ScrollCode, EthereumScan, ScrollScan } from '../../utils/constants';
 import {post} from '../../utils/funcaxios';
 
-function Header({ isHome = true, setToken}) {
+function Header({ isHome = true}) {
     const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
@@ -43,7 +43,6 @@ function Header({ isHome = true, setToken}) {
             post("/auth",{"address":address}).then((res)=>{
                 console.log("wwwwwwwwwwwwwwwww",res.data.token);
                 sessionStorage.setItem('token',"Bearer "+res.data.token)
-                setToken(true)
             })
         }
     }, [address])

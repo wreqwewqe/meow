@@ -4,13 +4,12 @@ import Footer from '../components/Footer'
 import { Button, Table } from "antd"
 import { Skeleton } from 'antd'
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
-import {axios} from '../utils/funcaxios'
+import {post,get} from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { total, total4 } from '../utils/getPrice'
 import { useRouter } from 'next/router';
 import { BigNumber } from 'ethers'
 export default function EthMarket() {
-    // axios.defaults.baseURL = BaseURI
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -23,8 +22,8 @@ export default function EthMarket() {
             var totalMarket = BigNumber.from(0);
             var totalBorrow = BigNumber.from(0);
             let assetRow = []
-            const response = await axios.get('/market', { params: { net: "Scroll" } });
-            let marketdata = response.data.data
+            const response = await get('/market', {  net: "Scroll"  });
+            let marketdata = response.data
             console.log(marketdata);
             for (let index = 0; index < marketdata.length; index++) {
                 totalMarket = totalMarket.add(BigNumber.from(marketdata[index]['TotalSupplied']));
@@ -122,7 +121,7 @@ export default function EthMarket() {
         <div className='min-h-full'>
             <Header></Header>
             <div className='box-border  py-[6.4rem] px-[11.2rem] rounded-[1rem]'>
-                <div className='text-[3.2rem] font-bold w-[31.7rem]'>Ethereum Market </div>
+                <div className='text-[3.2rem] font-bold w-[31.7rem]'>Scroll Market </div>
                 <div className='flex mt-[1.6rem] mb-[0.8rem] text-[1.6rem] font-normal text-[#5F6D7E] '>
                     <div className='w-[17.4rem] mr-[1.6rem]'>Total market size</div>
                     <div className='w-[17.4rem] mr-[1.6rem]'>Total avalible</div>

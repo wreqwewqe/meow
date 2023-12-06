@@ -23,7 +23,6 @@ import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 import Eth from "../public/eth.png"
 import Scroll from "../public/scroll.png"
 export default function Dashboard() {
-    // axios.defaults.baseURL = BaseURI
     const [targetChain, setTargetChain] = useState("");
     const web3ModalRef = useRef();
     const [Supply, setSupply] = useState([]);
@@ -104,12 +103,13 @@ export default function Dashboard() {
             let collateralBalance = 0
             let supplyAPRave = 0
             var borrowButtonEnable = true;
-            const borrowDatA = await get('/v1/borrow', { params: { address: address, net: net } })
-            const userData = borrowDatA.data.data.userData
+            const borrowDatA = await get('/v1/borrow', { address: address, net: net } )
+            console.log("borrowDatA",borrowDatA.data.userData);
+            const userData = borrowDatA.data.userData
             // console.log("ssssadasd");
             // console.log(userData);
-            const data = borrowDatA.data.data.borrowData
-            const price = borrowDatA.data.data.borrowData[0].ETHUsd
+            const data = borrowDatA.data.borrowData
+            const price = borrowDatA.data.borrowData[0].ETHUsd
             const healthFactor = userData.HealthFactor
             const E16 = BigNumber.from(10).pow(16)
             const bigZero = BigNumber.from(0)
@@ -329,7 +329,7 @@ export default function Dashboard() {
 
     }, [targetChain])
     useEffect(() => {
-        if (address && chain.id && token) {
+        if (address && chain.id && sessionStorage.getItem("token")) {
             console.log("wwwwwwwwwwwbhjajsdbakjsdkajsdhkj");
             setLoading(true)
             fetchData()
@@ -349,7 +349,7 @@ export default function Dashboard() {
     useEffect(() => {
         setError("")
         if (chain) {
-            if (address && chain.id && token) {
+            if (address && chain.id && sessionStorage.getItem("token")) {
                 setLoading(true)
                 fetchData()
             }

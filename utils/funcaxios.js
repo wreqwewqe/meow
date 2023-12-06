@@ -3,14 +3,14 @@ import { BaseURI } from './constants';
 
 const service =axios.create({
     baseURL:BaseURI,
-    timeout:600000
+    timeout:600000,
 })
-// axios.defaults.baseURL = BaseURI
 service.interceptors.request.use(function (config) {
   config.headers = {
     'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json'
   };
+  config.baseURL=BaseURI
   console.log("我是拦截器");
   console.log("woshitoken",sessionStorage.getItem("token"));
    //注意使用token的时候需要引入cookie方法或者用本地localStorage等方法，推荐js-cookie
