@@ -101,9 +101,9 @@ export default function Profile() {
                                 <div className='basis-[13%] text-[#3d331b]'>{index + 1}</div>
                                 <div className='basis-[80%] flex items-center'>
                                     <Blockies className='w-[4.8rem] h-[4.8rem] rounded-[50%] bg-[#F4B5121A] mr-[1.2rem]' seed={item.Address.toLowerCase()} size={10} scale={4} />
-                                    <div >{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
+                                    <div className={item.Address.toLowerCase()==address.toLowerCase()?"text-[#F4B512]":""}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
                                 </div>
-                                <div className='basis-[6.7%]'>{item.Quantity}</div>
+                                <div className={item.Address.toLowerCase()==address.toLowerCase()?"text-[#F4B512] basis-[6.7%]":" basis-[6.7%]"}>{item.Quantity}</div>
                             </div>
                         ))}
                     </div>
