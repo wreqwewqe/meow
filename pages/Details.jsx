@@ -6,11 +6,7 @@ import { Progress, Skeleton } from "antd"
 import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
-<<<<<<< HEAD
-import { axios } from '../utils/funcaxios'
-=======
-import {post,get} from '../utils/funcaxios'
->>>>>>> 0e2ed5233f18b775704e5dd3d40580ead41e48eb
+import { post, get } from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
@@ -54,7 +50,7 @@ export default function EthDetails() {
 
     const fetchData = async () => {
         try {
-            const Data = await get('/detail', {  asset: asset, net: network  })
+            const Data = await get('/detail', { asset: asset, net: network })
             const data = Data.data.assetdata
             console.log(data);
             const E2 = BigNumber.from(100)
@@ -101,7 +97,7 @@ export default function EthDetails() {
     const fetchAssetData = async () => {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
-            const Data = await get('/v1/details', { asset: asset, address: address, net: network  })
+            const Data = await get('/v1/details', { asset: asset, address: address, net: network })
             const data = Data.data.assetdata
             const availableBorrow = Data.data.availableBorrow
             const E2 = BigNumber.from(100)
