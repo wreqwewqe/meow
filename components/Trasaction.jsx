@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Modal, Input, notification, Button, Steps, ConfigProvider, message } from "antd"
 import { LoadingOutlined, SmileOutlined } from '@ant-design/icons';
-import {axios} from '../utils/funcaxios';
+import {post,get} from '../utils/funcaxios';
 import {total} from "../utils/getPrice"
 import { DataProviderABI } from "../ABIs/LendingPoolDataProvider";
 import { PoolABI } from "../ABIs/LendingPool";
@@ -98,10 +98,10 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                 provider
             );
             const reserveData = await poolContract.getUserReserveData(data.assetAddress,address);
-            await axios.post("/v1/updateBorrow",{"asset":data.ERC20Name,"balance":reserveData.principalBorrowBalance.toString(),"user":address,"rateMode":rateMode,"net":chain.id==EthereumCode?"Ethereum":"Scroll"})
+            await post("/v1/updateBorrow",{"asset":data.ERC20Name,"balance":reserveData.principalBorrowBalance.toString(),"user":address,"rateMode":rateMode,"net":chain.id==EthereumCode?"Ethereum":"Scroll"})
             const userData = await PoolContract.getUserAccountData(address);
             const healthFactor = total((userData.healthFactor).div(BigNumber.from(10).pow(16)));
-            await axios.post('/v1/user',{
+            await post('/v1/user',{
                 "address":address,
                 "healthFactor":healthFactor,
                 "ltv":userData.ltv.toString(),
@@ -148,7 +148,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             provider
             );
             const userData = await poolContract.getUserReserveData(data.assetAddress,address);
-            await axios.post("/v1/updateBorrow",{"asset":data.ERC20Name,"balance":userData.principalBorrowBalance.toString(),"user":address,"net":chain.id==EthereumCode?"Ethereum":"Scroll"})
+            await post("/v1/updateBorrow",{"asset":data.ERC20Name,"balance":userData.principalBorrowBalance.toString(),"user":address,"net":chain.id==EthereumCode?"Ethereum":"Scroll"})
             window.location.reload()
         } else {
             // console.log(result);
@@ -165,10 +165,13 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
     }
 
-    const handlePrice = (event) => {
-        var price = (event.target.value * data.price / 100).toFixed(2)
+    const handlePrice = () => {
+        var price = (value * data.price / 100).toFixed(2)
         setInput(price)
     }
+    useEffect(()=>{
+        handlePrice()
+    },[value])
 
     const checkValueSupply = (event) => {
         event.target.value = event.target.value.match(/^\d*(\.?\d{0,2})/g)
@@ -233,6 +236,9 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
 
     }
+    const clickMax = (maxValue)=>{
+        setValue(maxValue)
+    }
     if(title=="Borrow"){
         return(
             <div><Modal title={title+" "+data.name[0]} open={open} onOk={handleOk} onCancel={handleCancel} footer="">
@@ -250,7 +256,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Available</span> {data.available}<span className='text-[#F4B512] cursor-pointer'> Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Available</span> {data.available}<span className='text-[#F4B512] cursor-pointer' onClick={()=>clickMax(data.available)}> Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>
@@ -278,7 +284,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Wallet Balance </span>{data.walletBalance}<span className='text-[#F4B512] cursor-pointer'> Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Wallet Balance </span>{data.walletBalance}<span className='text-[#F4B512] cursor-pointer'onClick={()=>clickMax(data.walletBalance)}> Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>
@@ -348,7 +354,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Supply Balance</span> {data.Balance} <span className='text-[#F4B512] cursor-pointer'>Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Supply Balance</span> {data.Balance} <span className='text-[#F4B512] cursor-pointer' onClick={()=>clickMax(data.Balance)}>Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>
@@ -380,7 +386,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Wallet Balance</span> {data.WalletBalance} <span className='text-[#F4B512] cursor-pointer'>Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Wallet Balance</span> {data.WalletBalance} <span className='text-[#F4B512] cursor-pointer'onClick={()=>clickMax(data.WalletBalance<data.balance?data.balance:data.WalletBalance)}>Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>

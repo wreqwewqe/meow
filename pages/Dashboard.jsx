@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
-import { Popover, Skeleton, Button, message } from "antd"
+import { Popover, Skeleton, Button, message, ConfigProvider} from "antd"
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
 import { PoolABI } from '../ABIs/LendingPool';
@@ -23,7 +23,6 @@ import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 import Eth from "../public/eth.png"
 import Scroll from "../public/scroll.png"
 export default function Dashboard() {
-    // axios.defaults.baseURL = BaseURI
     const [targetChain, setTargetChain] = useState("");
     const web3ModalRef = useRef();
     const [Supply, setSupply] = useState([]);
@@ -104,12 +103,13 @@ export default function Dashboard() {
             let collateralBalance = 0
             let supplyAPRave = 0
             var borrowButtonEnable = true;
-            const borrowDatA = await get('/v1/borrow', { params: { address: address, net: net } })
-            const userData = borrowDatA.data.data.userData
+            const borrowDatA = await get('/v1/borrow', { address: address, net: net } )
+            console.log("borrowDatA",borrowDatA.data.userData);
+            const userData = borrowDatA.data.userData
             // console.log("ssssadasd");
             // console.log(userData);
-            const data = borrowDatA.data.data.borrowData
-            const price = borrowDatA.data.data.borrowData[0].ETHUsd
+            const data = borrowDatA.data.borrowData
+            const price = borrowDatA.data.borrowData[0].ETHUsd
             const healthFactor = userData.HealthFactor
             const E16 = BigNumber.from(10).pow(16)
             const bigZero = BigNumber.from(0)
@@ -165,7 +165,7 @@ export default function Dashboard() {
                     if (ERC20Balance == 0) {
                         buttonEnable = true;
                     }
-                    assetSupplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "key": assetSupplies.length + 1, "name": [data[index]["Name"], ERC20Name], "ERC20Name": ERC20Name, "balance": ERC20Balance, "APY": (BigNumber.from(data[index]["SupplyAPY"]).div(E25).toNumber() / 100).toFixed(2), "collateral": collateral, "buttonEnable": buttonEnable, "assetAddress": data[index]["TokenAddress"], "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "Balance": 0 })
+                    assetSupplies.push({ "balancegtzero":ERC20Balance==0?false:true,"net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "key": assetSupplies.length + 1, "name": [data[index]["Name"], ERC20Name], "ERC20Name": ERC20Name, "balance": ERC20Balance, "APY": (BigNumber.from(data[index]["SupplyAPY"]).div(E25).toNumber() / 100).toFixed(2), "collateral": collateral, "buttonEnable": buttonEnable, "assetAddress": data[index]["TokenAddress"], "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "Balance": 0 })
                 } else {
                     var ERC20Name = data[index]["Asset"]
                     var collateral = ""
@@ -192,7 +192,7 @@ export default function Dashboard() {
                     } else {
                         collateral = "——"
                     }
-                    supplies.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "withdrawIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
+                    supplies.push({ "balancegtzero":ERC20Balance==0?false:true,"net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "withdrawIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": supplies.length + 1, "name": [data[index]["Name"], ERC20Name], "totalDeposit": assetBalance, "ERC20Name": ERC20Name, "balance": assetBalance, "APY": assetAPY, "collateral": collateral, "walletBalance": ERC20Balance, "price": assetPriceUSD, "healthFactor": healthFactor, "assetAddress": data[index]["TokenAddress"], "Balance": assetBalance, "aTokenAddress": data[index]["ATokenAddress"] })
                 }
 
                 if (data[index]["Balance"] == "" || data[index]["Balance"] === "0") {
@@ -203,7 +203,7 @@ export default function Dashboard() {
 
                     if (assetPrice.eq(bigZero) || userData["AvailableBorrow"] == "0" || data[index]["AvailableLiquidity"] == "0") {
                         console.log(data[index]["Name"]);
-                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
+                        assetBorrows.push({ "balancegtzero":ERC20Balance==0?false:true,"net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": (0).toFixed(2), "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": true })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
@@ -213,7 +213,7 @@ export default function Dashboard() {
                             console.log("下", data[index]["Name"]);
                             availableBorrow = (BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"] - 2)).toNumber() / 100).toFixed(2)
                         }
-                        assetBorrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": availableBorrow, "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": borrowButtonEnable })
+                        assetBorrows.push({ "balancegtzero":availableBorrow==0?false:true,"net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": assetBorrows.length + 1, "name": [data[index]["Name"], ERC20Name], "price": assetPriceUSD, "balance": 0, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "ERC20Name": ERC20Name, "available": availableBorrow, "APYV": (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2), "APYS": (BigNumber.from(data[index]["BorrowAPYs"]).div(E25).toNumber() / 100).toFixed(2), "buttonEnable": borrowButtonEnable })
                     }
                 } else {
                     var ERC20Name = data[index]["Asset"]
@@ -240,7 +240,7 @@ export default function Dashboard() {
                     var TotalAssetBorrowAPY = totalAssetBorrowAPY + borrowAPY * borrowBalance * assetPriceUSD;
                     totalAssetBorrowAPY = Math.floor(TotalAssetBorrowAPY);
                     if (assetPrice.eq(bigZero) || data[index]["AvailableLiquidity"] == "0") {
-                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": (0).toFixed(2), "WalletBalance": ERC20Balance })
+                        borrows.push({ "balancegtzero":false,"net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": (0).toFixed(2), "WalletBalance": ERC20Balance })
                     } else {
                         var availableBorrow = 0
                         if (BigNumber.from(userData["AvailableBorrow"]).div(assetPrice).lt(BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"])))) {
@@ -250,7 +250,7 @@ export default function Dashboard() {
                             console.log("下", data[index]["Name"]);
                             availableBorrow = (BigNumber.from(data[index]["AvailableLiquidity"]).div(BigNumber.from(10).pow(data[index]["Decimals"] - 2)).toNumber() / 100).toFixed(2)
                         }
-                        borrows.push({ "net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": availableBorrow, "WalletBalance": ERC20Balance })
+                        borrows.push({ "balancegtzero":availableBorrow==0?false:true,"net": chain.id == EthereumCode ? "Ethereum" : "Scroll", "borrowIsable": healthFactor > 1 || healthFactor == "\u00A0\u00A0\u00A0\u00A0\u221E", "key": borrows.length + 1, "name": [data[index]["Name"], ERC20Name], "totalBorrow": currentBorrowBalancE, "ERC20Name": ERC20Name, "balance": borrowBalance, "APY": borrowAPY, "APYType": borrowRateMode, "price": assetPriceUSD, "assetAddress": data[index]["TokenAddress"], "healthFactor": healthFactor, "available": availableBorrow, "WalletBalance": ERC20Balance })
                     }
                 }
             }
@@ -329,7 +329,7 @@ export default function Dashboard() {
 
     }, [targetChain])
     useEffect(() => {
-        if (address && chain.id && token) {
+        if (address && chain.id && sessionStorage.getItem("token")) {
             console.log("wwwwwwwwwwwbhjajsdbakjsdkajsdhkj");
             setLoading(true)
             fetchData()
@@ -349,7 +349,7 @@ export default function Dashboard() {
     useEffect(() => {
         setError("")
         if (chain) {
-            if (address && chain.id && token) {
+            if (address && chain.id && sessionStorage.getItem("token")) {
                 setLoading(true)
                 fetchData()
             }
@@ -412,7 +412,7 @@ export default function Dashboard() {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.withdrawIsable ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
-                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer'disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
             </div>)
         }
     ];
@@ -478,7 +478,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                {/* <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button> */}
+                <button className={record.balancegtzero? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
                 <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
@@ -512,7 +513,7 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.borrowIsable ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable}>Borrow</button>
+                <button className={record.borrowIsable && record.balancegtzero? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable||!record.balancegtzero}>Borrow</button>
                 <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
