@@ -170,7 +170,10 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         setInput(price)
     }
     useEffect(()=>{
-        handlePrice()
+        if(value!=""){
+            handlePrice()
+        }
+
     },[value])
 
     const checkValueSupply = (event) => {

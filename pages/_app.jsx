@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import { useEffect } from "react"
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
@@ -13,10 +13,13 @@ import {
   mainnet,
 
 } from 'wagmi/chains';
+import {rainbowWallet,bitgetWallet,metaMaskWallet,coinbaseWallet,walletConnectWallet,injectedWallet} from '@rainbow-me/rainbowkit/wallets';
 import { publicProvider } from 'wagmi/providers/public';
+import { JoyIdWallet } from '@joyid/rainbowkit' 
 import { infuraProvider } from 'wagmi/providers/infura'
 import { GlobalContextProvider } from '../GlobalContext';
 import {post,get} from '../utils/funcaxios'
+import { ScrollCode } from '../utils/constants';
 export const avalanche = {
   id: 43_114,
   name: 'Avalanche',
@@ -78,11 +81,36 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   ],
   [alchemyProvider({ apiKey: "jdW0grMF_4PlT-jVioNYaeDnLPYeWG_W" }), publicProvider()]
 );
-const { connectors } = getDefaultWallets({
-  appName: 'ob',
-  projectId: 'ea55b96e1fd90837f19b3dba416b5c97',
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: 'ob',
+//   projectId: 'ea55b96e1fd90837f19b3dba416b5c97',
+//   chains,
+// });
+const  connectors  = connectorsForWallets([{
+  // appName: 'ob',
+  // projectId: 'ea55b96e1fd90837f19b3dba416b5c97',
+  // chains,
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains:chains }),
+      metaMaskWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains:chains }),
+      rainbowWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains:chains }),
+      walletConnectWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains:chains }),
+      coinbaseWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains:chains }),
+      bitgetWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains:chains }),
+      // JoyIdWallet({
+      //   chains,
+      //   options: {
+      //     // name of your app
+      //     name: "JoyID demo",
+      //     // logo of your app
+      //     logo: "https://fav.farm/🆔",
+      //     // JoyID app url that your app is integrated with
+      //     joyidAppURL: "https://testnet.joyid.dev",
+      //   },
+    // }),
+    ],
+}]);
 // const connector = new WalletConnectConnector({
 //   chains: [mainnet, optimism, polygon],
 //   options: {
@@ -139,7 +167,7 @@ function MyApp({ Component, pageProps }) {
     <GlobalContextProvider>
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
       <WagmiConfig config={wagmiConfig} >
-        <RainbowKitProvider chains={chains} modalSize='compact' locale='en' >
+        <RainbowKitProvider chains={chains} modalSize='compact' locale='en' initialChain={ScrollCode}>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </WagmiConfig>

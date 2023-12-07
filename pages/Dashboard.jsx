@@ -349,6 +349,7 @@ export default function Dashboard() {
     useEffect(() => {
         setError("")
         if (chain) {
+            console.log("chainiddddddddddddddddddddddddddddddd",chain.id);
             if (address && chain.id && sessionStorage.getItem("token")) {
                 setLoading(true)
                 fetchData()

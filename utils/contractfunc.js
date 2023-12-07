@@ -260,9 +260,8 @@ const deposit = async (assetAddress,Value,web3ModalRef,setApproveStatu,setSupply
                 PoolABI.abi,
                 provider
             );
-              console.log("address:",provider);
+              console.log("address:",chain.id);
             const userData = await PoolContract.getUserAccountData(address);
-            console.log("userdata",sessionStorage.getItem("token"));
 
             const healthFactor = total((userData.healthFactor).div(BigNumber.from(10).pow(16)));
             await post('/v1/user',{
