@@ -6,7 +6,7 @@ import { Progress, Skeleton } from "antd"
 import { WalletOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { getProviderOrSigner } from '../utils/ProviderOrSigner';
-import {axios} from '../utils/funcaxios'
+import { axios } from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { BigNumber, Contract, ethers } from 'ethers'
 import ERC20, { ERC20ABI } from '../ABIs/ERC20';
