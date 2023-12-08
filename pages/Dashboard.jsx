@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import ShowList from "../components/ShowList"
 import Transaction from "../components/Trasaction"
 import Image from 'next/image';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton} from '@rainbow-me/rainbowkit';
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
 import { Popover, Skeleton, Button, message, ConfigProvider} from "antd"
@@ -17,7 +17,7 @@ import { PriceOracleABI } from '../ABIs/PriceOralce';
 // import axios from 'axios'
 import {get} from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS, EthereumCode, ScrollCode } from '../utils/constants';
-import { BigNumber, Contract, ethers } from 'ethers'
+import { BigNumber, Contract,  ethers,providers } from 'ethers'
 import { useRouter } from 'next/router'
 import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 import Eth from "../public/eth.png"
@@ -47,6 +47,7 @@ export default function Dashboard() {
     const [isError, setisError] = useState(false)
     const router = useRouter()
     const [token,setToken] = useState(false)
+    
     const { chains, isLoading, pendingChainId, switchNetwork, status } =
         useSwitchNetwork({
             chainId: targetChain,
@@ -315,6 +316,8 @@ export default function Dashboard() {
             setLoading(false);
         }
     };
+
+    
     useEffect(() => {
         // console.log("chainssssssssssssss",chains);
         if (targetChain) {
@@ -350,6 +353,7 @@ export default function Dashboard() {
         setError("")
         if (chain) {
             console.log("chainiddddddddddddddddddddddddddddddd",chain.id);
+            // window.ethereum.removeAllListener()
             if (address && chain.id && sessionStorage.getItem("token")) {
                 setLoading(true)
                 fetchData()
