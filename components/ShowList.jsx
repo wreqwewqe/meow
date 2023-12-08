@@ -18,7 +18,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
     return (
         (
             data && data.length > 0 ?
-                <div className=' box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#b0b6bd] rounded-[0.5rem]  '>
+                <div className=' box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#EAEBF0] rounded-[5px]  '>
                     <div className='text-[2.2rem] font-semibold mb-[0.8rem] '>{title}</div>
                     {about_me && data.length > 0 ? <div className='flex '>
                         <div className='mr-[0.6rem] text-[#5F6D7E] border border-solid border-[#b0b6bd] py-[0.3rem] px-[0.5rem] '>Balance <span className='text-[#272D37]'>${header[0]}</span></div>
@@ -35,7 +35,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                         (<div>
                             {title == "Your supplies" ? <Image src={bowl} height={32}></Image> : <Image src={light} height={32}></Image>}
                             <div className='mt-[2.4rem] mb-[0.8rem] text-[2.2rem] font-bold'>{title}</div>
-                            <div className='text-[#5F6D7E]'>{title == "Your supplies" ? "Nothing supplied yet" : "Nothing borrowed yet"}</div>
+                            <div className='text-[#5F6D7E] text-[16px]'>{title == "Your supplies" ? "Nothing supplied yet" : "Nothing borrowed yet"}</div>
                         </div>)
                         : (<div className='mt-[2.4rem] mb-[0.8rem] text-[2.2rem] font-bold'>{title}</div>)}
                 </div>

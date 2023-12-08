@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import { Button, Table } from "antd"
 import { Skeleton } from 'antd'
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
-import {post,get} from '../utils/funcaxios'
+import { post, get } from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { total, total4 } from '../utils/getPrice'
 import { useRouter } from 'next/router';
@@ -22,7 +22,7 @@ export default function EthMarket() {
             var totalMarket = BigNumber.from(0);
             var totalBorrow = BigNumber.from(0);
             let assetRow = []
-            const response = await get('/market', {  net: "Scroll"  });
+            const response = await get('/market', { net: "Scroll" });
             let marketdata = response.data
             console.log(marketdata);
             for (let index = 0; index < marketdata.length; index++) {
@@ -74,37 +74,37 @@ export default function EthMarket() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' ><div className='text-center'>{text[0]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Total supplied</div>,
             dataIndex: 'total_supplied',
             key: 'total_supplied',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[1]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' ><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Supply APY</div>,
             dataIndex: 'supply_apy',
             key: 'supply_apy',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] text-center'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Total borrowed</div>,
             dataIndex: 'total_borrowed',
             key: 'total_borrowed',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text[1]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Borrow APY,variable</div>,
             dataIndex: 'variable',
             key: 'variable',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] text-center'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Borrow APY,stable</div>,
             dataIndex: 'stable',
             key: 'stable',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text}</div>%</div>)
         },
         {
             title: "",

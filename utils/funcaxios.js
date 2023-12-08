@@ -11,18 +11,13 @@ service.interceptors.request.use(function (config) {
     'Content-Type': 'application/json'
   };
   config.baseURL = BaseURI
-  console.log("我是拦截器");
-  console.log("woshitoken", sessionStorage.getItem("token"));
   //注意使用token的时候需要引入cookie方法或者用本地localStorage等方法，推荐js-cookie
   //  const token = JSON.parse(window.sessionStorage.getItem('token')); //这里取token之前，你肯定需要先拿到token,存一下
   if (sessionStorage.getItem("token")) {
     //  config.params = {'token':token} //如果要求携带在参数中
-    console.log("akjshdgjkahsgdkajhsgduywquiwfgquiyweuqiy6333333333333333333");
     config.headers.Authorization = sessionStorage.getItem("token"); //如果要求携带在请求头中
   }
-  config.headers.Authorization = "666"; //如果要求携带在请求头中
   // 在发送请求之前做些什么
-  console.log("configs", config);
   return config;
 }, function (error) {
   // 对请求错误做些什么

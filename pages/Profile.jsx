@@ -8,9 +8,9 @@ import exclaim_point from "../public/github.jpg"
 import { Popover, Input, message } from 'antd';
 import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
-import {post,get} from '../utils/funcaxios'
+import { post, get } from '../utils/funcaxios'
 import { BigNumber } from 'ethers'
-import clipboardCopy from 'clipboard-copy';
+// import clipboardCopy from 'clipboard-copy';
 export default function Profile() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -20,22 +20,22 @@ export default function Profile() {
     const content2 = (<div className='text-[1.4rem] font-medium' >Reputation Token</div>)
     const content3 = (<div className='text-[1.4rem] font-medium' >Invite your friends to join Meow, and you can earn more rewards.</div>)
     const copy_address = () => {
-        if(navigator.clipboard){
+        if (navigator.clipboard) {
             navigator.clipboard.writeText(address).then(() => {
                 message.success("copy success!");
             })
-        }else{
+        } else {
             clipboardCopy(address)
             message.success("copy success!");
         }
-        
+
     }
     const copy_link = () => {
-        if(navigator.clipboard){
+        if (navigator.clipboard) {
             navigator.clipboard.writeText(data.inviteCode).then(() => {
                 message.success("copy success!");
             })
-        }else{
+        } else {
             clipboardCopy(data.inviteCode)
             message.success("copy success!");
         }
@@ -43,7 +43,7 @@ export default function Profile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await get('/v1/Profile', {  address: address  });
+                const response = await get('/v1/Profile', { address: address });
                 if (response.data.token == "" || response.data.token == "0") {
                     response.data.token = 0
                 } else {
@@ -90,7 +90,7 @@ export default function Profile() {
                         <div className='text-[2.4rem] font-bold'>Monthly $Meow Earning Ranking</div>
                         <div className='text-[1.6rem] font-bold'>My Monthly $Meow Earning: <span className='text-[#F4B512]'>{loading ? "" : data.monthIntegral}</span></div>
                     </div>
-                    <div className='flex justify-between text-[#5F6D7E] tet-[1.6rem] h-[4.4rem]  border-solid border-x-0 border-t-0  border-b-1 border-[#EAEBF0] mb-[0.6rem]'>
+                    <div className='flex justify-between text-[#5F6D7E] text-[1.6rem]  h-[4.4rem]  border-solid border-x-0 border-t-0  border-b-1 border-[#EAEBF0] mb-[0.6rem]'>
                         <div className='basis-[13%]'>Number</div>
                         <div className='basis-[80%]'>Wallet Address</div>
                         <div className='basis-[6.7%]'>Quantity</div>
@@ -101,9 +101,9 @@ export default function Profile() {
                                 <div className='basis-[13%] text-[#3d331b]'>{index + 1}</div>
                                 <div className='basis-[80%] flex items-center'>
                                     <Blockies className='w-[4.8rem] h-[4.8rem] rounded-[50%] bg-[#F4B5121A] mr-[1.2rem]' seed={item.Address.toLowerCase()} size={10} scale={4} />
-                                    <div className={item.Address.toLowerCase()==address.toLowerCase()?"text-[#F4B512]":""}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
+                                    <div className={item.Address.toLowerCase() == address.toLowerCase() ? "text-[#F4B512]" : ""}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
                                 </div>
-                                <div className={item.Address.toLowerCase()==address.toLowerCase()?"text-[#F4B512] basis-[6.7%]":" basis-[6.7%]"}>{item.Quantity}</div>
+                                <div className={item.Address.toLowerCase() == address.toLowerCase() ? "text-[#F4B512] text-right basis-[6.7%]" : " basis-[6.7%]"}>{item.Quantity}</div>
                             </div>
                         ))}
                     </div>

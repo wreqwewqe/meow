@@ -4,11 +4,12 @@ import Footer from '../components/Footer'
 import { Button, Table } from "antd"
 import { Skeleton } from 'antd'
 import { CheckOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons';
-import {post,get} from '../utils/funcaxios'
+import { post, get } from '../utils/funcaxios'
 import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { total, total4 } from '../utils/getPrice'
 import { useRouter } from 'next/router';
 import { BigNumber } from 'ethers'
+import E from "../public/eth.png"
 export default function EthMarket() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ export default function EthMarket() {
             var totalMarket = BigNumber.from(0);
             var totalBorrow = BigNumber.from(0);
             let assetRow = []
-            const response = await get('/market', { net: "Ethereum"  });
+            const response = await get('/market', { net: "Ethereum" });
             let marketdata = response.data
             console.log(marketdata);
             for (let index = 0; index < marketdata.length; index++) {
@@ -74,43 +75,48 @@ export default function EthMarket() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
-            render: (text) => (<div className='font-bold text-[1.6rem] ' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] ' >
+                <Image src={E} width={20}></Image>
+                <div>
+                    <div className='text-center'>{text[0]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div>
+                </div>
+            </div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]' text-center>Total supplied</div>,
             dataIndex: 'total_supplied',
             key: 'total_supplied',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[1]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' ><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Supply APY</div>,
             dataIndex: 'supply_apy',
             key: 'supply_apy',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text}</div>%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Total borrowed</div>,
             dataIndex: 'total_borrowed',
             key: 'total_borrowed',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text[1]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Borrow APY,variable</div>,
             dataIndex: 'variable',
             key: 'variable',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] text-center'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Borrow APY,stable</div>,
             dataIndex: 'stable',
             key: 'stable',
-            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] text-center'>{text}%</div>)
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
 
-                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.asset[0] + '&&net=Ethereum')}>Details</Button>
+                <Button className='py-[0.5rem] px-[1rem] rounded-[0.6rem] border border-solid border-[#EAEBF0] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.asset[0] + '&&net=Ethereum')}>Details</Button>
             </div>)
         }
     ];
