@@ -288,7 +288,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Wallet Balance </span>{data.walletBalance}<span className='text-[#F4B512] cursor-pointer' onClick={() => clickMax(data.walletBalance)}> Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6] whitespace-nowrap '>Wallet Balance </span>{data.walletBalance}<span className='text-[#F4B512] cursor-pointer' onClick={() => clickMax(data.walletBalance)}> Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>
@@ -390,7 +390,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6]'>Wallet Balance</span> {data.WalletBalance} <span className='text-[#F4B512] cursor-pointer' onClick={() => clickMax(data.WalletBalance < data.balance ? data.balance : data.WalletBalance)}>Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6] whitespace-nowrap '>Wallet Balance</span> {data.WalletBalance} <span className='text-[#F4B512] cursor-pointer' onClick={() => clickMax(data.WalletBalance < data.balance ? data.balance : data.WalletBalance)}>Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>

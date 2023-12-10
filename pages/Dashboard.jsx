@@ -21,6 +21,9 @@ import { BigNumber, Contract, ethers, providers } from 'ethers'
 import { useRouter } from 'next/router'
 import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 import Eth from "../public/eth.png"
+import Weth from "../public/eth.png"
+import Usdc from "../public/eth.png"
+import Dai from "../public/eth.png"
 import Scroll from "../public/scroll.png"
 export default function Dashboard() {
     const [targetChain, setTargetChain] = useState("");
@@ -52,8 +55,10 @@ export default function Dashboard() {
         useSwitchNetwork({
             chainId: targetChain,
         })
+
     const { address, isConnecting, isDisconnected } = useAccount()
     const { chain } = useNetwork()
+    console.log("chainss", chain)
     const fetchData = async () => {
         try {
             const provider = await getProviderOrSigner(false, web3ModalRef);
@@ -386,6 +391,7 @@ export default function Dashboard() {
         </div>
     );
     const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
+    let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "Dai" ? Dai : text == "WETH" ? Weth : Eth)
 
 
     const your_supply_columns = [
@@ -393,22 +399,22 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Balance</div>,
             dataIndex: 'balance',
             key: 'balance',
-            render: (text) => (<div className='font-semibold'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            render: (text) => (<div className='font-semibold'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>Can be Collateral</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]  whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
             render: (text) => <div className='text-center'> {text} </div>
@@ -416,8 +422,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.withdrawIsable ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
-                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <button className={record.withdrawIsable ? ' text-[1.4rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
             </div>)
         }
     ];
@@ -426,31 +432,31 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Debt</div>,
             dataIndex: 'balance',
             key: 'balance',
-            render: (text) => (<div className='font-semibold'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            render: (text) => (<div className='font-semibold'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>APY type</div>,
             dataIndex: 'APYType',
             key: 'APYType',
-            render: (text) => (<div className='font-semibold'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
-                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
+                <Button className=' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
+                <Button className=' text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
             </div>)
         }
     ];
@@ -460,66 +466,66 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Wallet balance</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] whitespace-nowrap '>Wallet balance</div>,
             dataIndex: 'balance',
             key: 'balance',
-            render: (text) => (<div className='font-semibold'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            render: (text) => (<div className='font-semibold'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>Can be Collateral</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
-            render: (text) => <div className='text-center'> {text} </div>
+            render: (text) => <div className='text-center text-[1.6rem]'> {text} </div>
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
                 {/* <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button> */}
-                <button className={record.balancegtzero ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
-                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <button className={record.balancegtzero ? ' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
 
     const borrow_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem]' >{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Available</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Available</div>,
             dataIndex: 'available',
             key: 'available',
-            render: (text) => (<div className='font-semibold'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY,variable</div>,
             dataIndex: 'APYV',
             key: 'APYV',
-            render: (text) => (<div className='font-semibold'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY,stable</div>,
             dataIndex: 'APYS',
             key: 'APYS',
-            render: (text) => (<div className='font-semibold'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.borrowIsable && record.balancegtzero ? 'bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
-                <Button className='py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem]' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <button className={record.borrowIsable && record.balancegtzero ? 'text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.4rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem]' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];

@@ -2,8 +2,8 @@ import React from 'react'
 import { Table, Skeleton } from "antd"
 import Image from 'next/image';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import bowl from "../public/bowl.jpg"
-import light from "../public/light.jpg"
+import bowl from "../public/bowl.png"
+import light from "../public/light.png"
 export default function ShowList({ title, about_me, data, columns, header, supply = true, loading }) {
     console.log("a", loading);
     if (loading) {
@@ -14,7 +14,6 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
             </div>
         )
     }
-
     return (
         (
             data && data.length > 0 ?
@@ -26,7 +25,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                         <div className='text-[#5F6D7E]  border border-solid border-[#b0b6bd] py-[0.3rem] px-[0.5rem]'>{supply ? "Collateral" : "Borrow power used"} <span className='text-[#272D37]'>{header[2]}</span></div>
                     </div> : ""}
 
-                    <div className='  rounded-[1px] border border-solid border-[#b0b6bd] mt-[0.8rem] overflow-auto' >
+                    <div className='  rounded-[1px] border border-solid border-[#EAEBF0] mt-[0.8rem] overflow-auto' >
                         <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={data} pagination={false} />
                     </div>
                 </div> :

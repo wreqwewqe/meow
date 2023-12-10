@@ -20,8 +20,8 @@ export default function Home() {
                 <div>Purring into the Future of Lending</div>
                 <div className='text-[#F4B512]'>Borrow,Save,Earn</div>
             </div>
-            <div className='box-border h-[48.3rem]  '>
-                <Image height={483} className='w-full' src={home1}></Image>
+            <div className='box-border  '>
+                <Image height={569} className='w-full' src={home1}></Image>
             </div>
             <div className=' box-border h-[68.8rem] bg-[#FAFBFC] py-[6.4rem] flex justify-center'>
                 <div className=' flex justify-between box-border w-[128rem] h-[56rem] px-[3.2rem] py-[1px]'>
@@ -34,7 +34,7 @@ export default function Home() {
                             <div className='box-border bg-[#DAE0E6] font-semibold w-[12.3rem]  py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#272D37]'>Learn More</div>
                         </div>
                     </div>
-                    <div className='w-[56rem] h-[56rem] bg-[pink]'><Image height={560} src={home2}></Image></div>
+                    <div className='w-[56rem] h-[56rem]'><Image width={560} src={home2}></Image></div>
                 </div>
             </div>
 

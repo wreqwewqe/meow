@@ -298,7 +298,7 @@ export default function EthDetails() {
                             </div>
                             <div className='flex mb-[2rem] font-bold'>
                                 <div className='text-[#272D37] mr-[3rem]'>Collateral</div>
-                                <div className='text-[green]'>Can be Collateral</div>
+                                <div className='text-[green] whitespace-nowrap '>Can be Collateral</div>
                             </div>
                             <div className='flex justify-between'>
                                 <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
@@ -349,7 +349,7 @@ export default function EthDetails() {
                                 <div className='flex mb-[2rem]'>
                                     <WalletOutlined className='text-[2rem] mr-[3rem]' />
                                     <div>
-                                        <div className='text-[#5F6D7E]'>Wallet balance</div>
+                                        <div className='text-[#5F6D7E] whitespace-nowrap '>Wallet balance</div>
                                         <div><span className='font-bold mt-[0.5rem]'>{detailData.balance} </span>{detailData.coin}</div>
                                     </div>
                                 </div>

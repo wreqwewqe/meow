@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useAccount, useConnect, useSwitchNetwork } from 'wagmi'
 import Image from 'next/image';
-import copy from "../public/github.jpg"
+import copy from "../public/copy.png"
 import exclaim_point from "../public/github.jpg"
 import { Popover, Input, message } from 'antd';
 import Blockies from 'react-blockies';
@@ -28,7 +28,6 @@ export default function Profile() {
             clipboardCopy(address)
             message.success("copy success!");
         }
-
     }
     const copy_link = () => {
         if (navigator.clipboard) {
@@ -90,20 +89,20 @@ export default function Profile() {
                         <div className='text-[2.4rem] font-bold'>Monthly $Meow Earning Ranking</div>
                         <div className='text-[1.6rem] font-bold'>My Monthly $Meow Earning: <span className='text-[#F4B512]'>{loading ? "" : data.monthIntegral}</span></div>
                     </div>
-                    <div className='flex justify-between text-[#5F6D7E] text-[1.6rem]  h-[4.4rem]  border-solid border-x-0 border-t-0  border-b-1 border-[#EAEBF0] mb-[0.6rem]'>
+                    <div className='flex justify-between text-[#5F6D7E] text-[1.6rem]  h-[4.4rem]  border-solid border-x-0 border-t-0  border-b-1 border-[#EAEBF0] '>
                         <div className='basis-[13%]'>Number</div>
-                        <div className='basis-[80%]'>Wallet Address</div>
+                        <div className='basis-[80%] whitespace-nowrap '>Wallet Address</div>
                         <div className='basis-[6.7%]'>Quantity</div>
                     </div>
                     <div className='overflow-y-auto h-[55.2rem] no_scroll'>
                         {loading ? "" : data.top50.map((item, index) => (
-                            <div className='flex justify-between items-center h-[7.2rem] box-border pb-[2.4rem] border-solid border-x-0 border-t-0  border-b-1 border-[#EAEBF0] mb-[2.4rem] text-[1.6rem] font-bold'>
+                            <div className={' flex justify-between items-center h-[7.2rem] box-border   border-solid border-x-0 border-t-0  border-b-1 border-[#EAEBF0] text-[1.6rem] font-bold ' + (item.Address.toLowerCase() == address.toLowerCase() ? "bg-[#F4B512]/[0.3]" : "")}>
                                 <div className='basis-[13%] text-[#3d331b]'>{index + 1}</div>
                                 <div className='basis-[80%] flex items-center'>
                                     <Blockies className='w-[4.8rem] h-[4.8rem] rounded-[50%] bg-[#F4B5121A] mr-[1.2rem]' seed={item.Address.toLowerCase()} size={10} scale={4} />
                                     <div className={item.Address.toLowerCase() == address.toLowerCase() ? "text-[#F4B512]" : ""}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
                                 </div>
-                                <div className={item.Address.toLowerCase() == address.toLowerCase() ? "text-[#F4B512] text-right basis-[6.7%]" : " basis-[6.7%]"}>{item.Quantity}</div>
+                                <div className={item.Address.toLowerCase() == address.toLowerCase() ? " text-right basis-[6.7%]" : "  text-right basis-[6.7%]"}>{item.Quantity}</div>
                             </div>
                         ))}
                     </div>
