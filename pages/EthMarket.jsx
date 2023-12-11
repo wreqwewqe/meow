@@ -77,13 +77,13 @@ export default function EthMarket() {
     let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
     const columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
             render: (text) => (<div className='font-bold text-[1.6rem] flex items-center' >
-                <Image src={findIcon(text[0])} width={30}></Image>
+                <Image src={findIcon(text[0])} width={45}></Image>
                 <div className='ml-[1rem]'>
-                    <div>{text[0]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div>
+                    <div>{text[0]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem] items-center'>{text[1]}</div>
                 </div>
             </div>)
         },
@@ -121,7 +121,7 @@ export default function EthMarket() {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
 
-                <Button className='py-[0.5rem] px-[1rem] rounded-[0.6rem] border border-solid border-[#EAEBF0] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.asset[0] + '&&net=Ethereum')}>Details</Button>
+                <Button className='text-[1.4rem] py-[0.5rem] px-[1rem] rounded-[0.6rem] border border-solid border-[#EAEBF0] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.asset[0] + '&&net=Ethereum')}>Details</Button>
             </div>)
         }
     ];

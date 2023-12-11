@@ -422,8 +422,8 @@ export default function Dashboard() {
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.withdrawIsable ? ' text-[1.4rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <button className={record.withdrawIsable ? ' text-[1.4rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none' : 'text-[1.4rem] bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
             </div>)
         }
     ];
@@ -432,7 +432,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Debt</div>,
@@ -456,7 +456,7 @@ export default function Dashboard() {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
                 <Button className=' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
-                <Button className=' text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
+                <Button className=' text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
             </div>)
         }
     ];
@@ -466,7 +466,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] whitespace-nowrap '>Wallet balance</div>,
@@ -490,8 +490,8 @@ export default function Dashboard() {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
                 {/* <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button> */}
-                <button className={record.balancegtzero ? ' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <button className={record.balancegtzero ? ' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.4rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
@@ -501,7 +501,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Available</div>,
@@ -525,7 +525,7 @@ export default function Dashboard() {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.borrowIsable && record.balancegtzero ? 'text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.4rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem]' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem] flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];

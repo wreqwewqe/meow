@@ -12,8 +12,8 @@ const EthereumScan = "https://goerli.etherscan.io"
 const ScrollScan = "https://sepolia.scrollscan.com/"
 // const BaseURI = 'https://api.bittesseract.com/api/v1/';
 // const BaseURI = "http://127.0.0.1:8000/api/v1"
-// const BaseURI = "http://10.251.253.170:8000/api"
-const BaseURI = "http://yvqput.natappfree.cc/api"
+const BaseURI = "http://10.251.253.170:8000/api"
+// const BaseURI = "http://yvqput.natappfree.cc/api"
 
 const intersetRate = [
     { "name": "0%", "Utilization Rate": 0, "Borrow APR, variable": 3 },
