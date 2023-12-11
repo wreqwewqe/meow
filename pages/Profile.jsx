@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import { useAccount, useConnect, useSwitchNetwork } from 'wagmi'
 import Image from 'next/image';
 import copy from "../public/copy.png"
-import exclaim_point from "../public/github.jpg"
+import exclaim_point from "../public/exclaim_point.png"
 import { Popover, Input, message } from 'antd';
 import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
@@ -70,11 +70,11 @@ export default function Profile() {
                 <div className='mb-[6.4rem]'><Image src={copy} onClick={copy_address} className='cursor-pointer mr-[8px]' height={15}></Image><span className='text-[1.6rem] text-[#5F6D7E]'>Copy address to clipboard</span></div>
                 <div className='flex justify-between mb-[3.2rem]'>
                     <div className='px-[3.2rem] py-[2.4rem] border-solid border border-[#EAEBF0] rounded-[0.5rem] w-[46%] box-border'>
-                        <div className='mb-[2.4rem]'>$ MEO <Popover content={content1}><Image src={exclaim_point} className='cursor-pointer' height={15} /></Popover></div>
+                        <div className='mb-[2.4rem] flex items-center'>$ MEO <Popover content={content1}><Image src={exclaim_point} className='cursor-pointer ml-[0.7rem]' height={15} /></Popover></div>
                         <div className='text-[2.2rem] font-bold'>{loading ? "" : data.integral}</div>
                     </div>
                     <div className='px-[3.2rem] py-[2.4rem] border-solid border border-[#EAEBF0] rounded-[0.5rem] w-[46%] box-border'>
-                        <div className='mb-[2.4rem]'>$ Meow <Popover content={content2}><Image src={exclaim_point} className='cursor-pointer' height={15} /></Popover></div>
+                        <div className='mb-[2.4rem] flex items-center'>$ Meow <Popover content={content2}><Image src={exclaim_point} className='cursor-pointer ml-[0.7rem]' height={15} /></Popover></div>
                         <div className='text-[2.2rem] font-bold'>{loading ? "" : data.token}</div>
                     </div >
                 </div>
