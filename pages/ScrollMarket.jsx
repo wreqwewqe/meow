@@ -9,6 +9,11 @@ import { BaseURI, ETHEREUM_ADDRESS } from '../utils/constants';
 import { total, total4 } from '../utils/getPrice'
 import { useRouter } from 'next/router';
 import { BigNumber } from 'ethers'
+import Eth from "../public/eth.png"
+import Weth from "../public/WETH.png"
+import Usdc from "../public/USDC.png"
+import Dai from "../public/DAI.png"
+import Image from 'next/image';
 export default function EthMarket() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -68,34 +73,40 @@ export default function EthMarket() {
 
         fetchData();
     }, [])
-
+    let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
     const columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
-            render: (text) => (<div className='font-bold text-[1.6rem]' ><div className='text-center'>{text[0]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center' >
+                <Image src={findIcon(text[0])} width={30}></Image>
+                <div className='ml-[1rem]'>
+                    <div >{text[0]}</div>
+                    <div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div>
+                </div>
+            </div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Total supplied</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Total supplied</div>,
             dataIndex: 'total_supplied',
             key: 'total_supplied',
-            render: (text) => (<div className='font-bold text-[1.6rem]' ><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]' ><div className='text-center '>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem] text-center'>${text[0]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Supply APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Supply APY</div>,
             dataIndex: 'supply_apy',
             key: 'supply_apy',
             render: (text) => (<div className='font-bold text-[1.6rem] text-center'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Total borrowed</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Total borrowed</div>,
             dataIndex: 'total_borrowed',
             key: 'total_borrowed',
-            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem]'>${text[0]}</div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem] text-center'>${text[0]}</div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Borrow APY,variable</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Borrow APY,variable</div>,
             dataIndex: 'variable',
             key: 'variable',
             render: (text) => (<div className='font-bold text-[1.6rem] text-center'>{text}%</div>)
@@ -104,7 +115,7 @@ export default function EthMarket() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Borrow APY,stable</div>,
             dataIndex: 'stable',
             key: 'stable',
-            render: (text) => (<div className='font-bold text-[1.6rem]'><div className='text-center'>{text}</div>%</div>)
+            render: (text) => (<div className='font-bold text-[1.6rem]'>{text}%</div>)
         },
         {
             title: "",
