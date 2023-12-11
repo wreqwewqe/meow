@@ -21,9 +21,9 @@ import { BigNumber, Contract, ethers, providers } from 'ethers'
 import { useRouter } from 'next/router'
 import { onChangeToScroll, userMessage } from '../utils/contractfunc'
 import Eth from "../public/eth.png"
-import Weth from "../public/eth.png"
-import Usdc from "../public/eth.png"
-import Dai from "../public/eth.png"
+import Weth from "../public/WETH.png"
+import Usdc from "../public/USDC.png"
+import Dai from "../public/DAI.png"
 import Scroll from "../public/scroll.png"
 export default function Dashboard() {
     const [targetChain, setTargetChain] = useState("");
