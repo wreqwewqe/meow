@@ -26,7 +26,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                     </div> : ""}
 
                     <div className='  rounded-[1px] border border-solid border-[#EAEBF0] mt-[0.8rem] overflow-auto' >
-                        <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={data} pagination={false} />
+                        <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={data} pagination={false} scroll={{ x:'max-content'}}/>
                     </div>
                 </div> :
                 <div className='box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#b0b6bd] rounded-[0.5rem]'>
