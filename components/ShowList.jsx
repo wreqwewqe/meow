@@ -25,7 +25,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                         <div className='text-[#5F6D7E]  border border-solid border-[#b0b6bd] py-[0.3rem] px-[0.5rem]'>{supply ? "Collateral" : "Borrow power used"} <span className='text-[#272D37]'>{header[2]}</span></div>
                     </div> : ""}
 
-                    <div className='  rounded-[1px] border border-solid border-[#EAEBF0] mt-[0.8rem] overflow-auto' >
+                    <div className='  rounded-[1px] border border-solid border-[#EAEBF0] mt-[0.8rem] overflow-x-scroll no_scroll' >
                         <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={data} pagination={false} />
                     </div>
                 </div> :

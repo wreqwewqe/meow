@@ -399,7 +399,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.4rem]  overflow-hidden whitespace-nowrap'>{text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Balance</div>,
@@ -568,17 +568,17 @@ export default function Dashboard() {
                     </div>
                 </div> */}
                 <div className='columns-2'>
-                    <div className='inline-block w-full  mb-[1rem]' >
+                    <div className='inline-block w-full  mb-[1rem] ' >
                         <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
                     </div>
                     <div className='inline-block w-full  '>
                         <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
                     </div >
-                    <div className=' inline-block w-full  mb-[1rem]'>
+                    <div className=' inline-block w-full  mb-[1rem] '>
                         <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
                     </div>
 
-                    <div className='inline-block w-full  '>
+                    <div className='inline-block w-full '>
                         <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
                     </div>
                 </div>
