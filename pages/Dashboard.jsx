@@ -399,7 +399,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length>4?text[0].slice(0,3)+"...":text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length>4?text[1].slice(0,3)+"...":text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] text-center'>Balance</div>,
@@ -417,7 +417,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]  whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
-            render: (text) => <div className='text-center'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            render: (text) => <div className='text-center'>&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         },
         {
             title: "",
@@ -432,7 +432,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem]'>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length>4?text[0].slice(0,3)+"...":text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem]'>{text[1].length>4?text[1].slice(0,3)+"...":text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Debt</div>,
@@ -466,7 +466,7 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length>4?text[0].slice(0,3)+"...":text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length>4?text[1].slice(0,3)+"...":text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] whitespace-nowrap '>Wallet balance</div>,
@@ -501,25 +501,25 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length>4?text[0].slice(0,3)+"...":text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length>4?text[1].slice(0,3)+"...":text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] '>Available</div>,
             dataIndex: 'available',
             key: 'available',
-            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}&nbsp;&nbsp;</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY,variable</div>,
             dataIndex: 'APYV',
             key: 'APYV',
-            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;&nbsp;&nbsp;{text}%&nbsp;&nbsp;&nbsp;&nbsp;</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}%&nbsp;&nbsp;&nbsp;</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY,stable</div>,
             dataIndex: 'APYS',
             key: 'APYS',
-            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;&nbsp;{text}%&nbsp;&nbsp;&nbsp;</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}%&nbsp;&nbsp;</div>)
         },
         {
             title: "",
