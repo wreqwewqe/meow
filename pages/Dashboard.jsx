@@ -384,10 +384,10 @@ export default function Dashboard() {
         <div className='w-[31.7rem] text-[1.8rem] font-medium'>
             <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("5");
-            }}> <Image width={40} src={Eth} className='mr-[1.3rem]'></Image> Ethereum Market</p>
+            }}> <Image style={{ width: 'auto', maxHeight: '4rem' }} src={Eth} className='mr-[1.3rem]'></Image> Ethereum Market</p>
             <p className='cursor-pointer flex items-center' onClick={() => {
                 setTargetChain("534351");
-            }}> <Image width={40} src={Scroll} className='mr-[1.3rem]'></Image>Scroll Market</p>
+            }}> <Image style={{ width: 'auto', maxHeight: '4rem' }} src={Scroll} className='mr-[1.3rem]'></Image>Scroll Market</p>
         </div>
     );
     const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
@@ -396,136 +396,136 @@ export default function Dashboard() {
 
     const your_supply_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={40} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.4rem]  overflow-hidden whitespace-nowrap'>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Balance</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] text-center'>Balance</div>,
             dataIndex: 'balance',
             key: 'balance',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] text-center' >APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]  whitespace-nowrap '>Can be Collateral</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]  whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
-            render: (text) => <div className='text-center'> {text} </div>
+            render: (text) => <div className='text-center'>&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.withdrawIsable ? ' text-[1.4rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
+                <button className={record.withdrawIsable ? ' text-[1.2rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[0.5rem] mr-[0.6rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
+                <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center ' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
             </div>)
         }
     ];
     const your_borrow_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem]'>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Debt</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Debt</div>,
             dataIndex: 'balance',
             key: 'balance',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] w-[10rem] '>APY type</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] w-[10rem] '>APY type</div>,
             dataIndex: 'APYType',
             key: 'APYType',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}</div>)
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <Button className=' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
-                <Button className=' text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
+                <Button className=' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
+                <Button className=' text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
             </div>)
         }
     ];
 
     const supply_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] whitespace-nowrap '>Wallet balance</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] whitespace-nowrap '>Wallet balance</div>,
             dataIndex: 'balance',
             key: 'balance',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}%</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] whitespace-nowrap '>Can be Collateral</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
-            render: (text) => <div className='text-center text-[1.6rem]'> {text} </div>
+            render: (text) => <div className='text-center text-[1.2rem]'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
                 {/* <Button className=' bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button> */}
-                <button className={record.balancegtzero ? ' text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <button className={record.balancegtzero ? ' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
+                <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];
 
     const borrow_columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            render: (text) => (<div className='font-bold text-[1.6rem] flex items-center ' ><Image width={30} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0]}<div className='font-normal text-[#c8cad3] text-[1.6rem] '>{text[1]}</div></div></div>)
+            render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Available</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] '>Available</div>,
             dataIndex: 'available',
             key: 'available',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}&nbsp;&nbsp;</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY,variable</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY,variable</div>,
             dataIndex: 'APYV',
             key: 'APYV',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}%&nbsp;&nbsp;&nbsp;</div>)
         },
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem]'>APY,stable</div>,
+            title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY,stable</div>,
             dataIndex: 'APYS',
             key: 'APYS',
-            render: (text) => (<div className='font-semibold text-[1.6rem]'>{text}%</div>)
+            render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}%&nbsp;&nbsp;</div>)
         },
         {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
-                <button className={record.borrowIsable && record.balancegtzero ? 'text-[1.4rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.4rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem]' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
+                <button className={record.borrowIsable && record.balancegtzero ? 'text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
+                <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem] flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
             </div>)
         }
     ];

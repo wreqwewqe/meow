@@ -248,8 +248,8 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                 <div>
                     <div className='font-medium text-[16px] mb-[12px]'>Borrow APY Rate</div>
                     <div className="box-border p-[4px] bg-[#919AA6] flex" onClick={rate_change}>
-                        <div ref={stable} className='basis-1/2  rounded-[6px] font-bold text-center cursor-pointer' >Stable</div>
                         <div ref={variable} className='basis-1/2 bg-[white] rounded-[6px] font-bold text-center cursor-pointer' >Variable</div>
+                        <div ref={stable} className='basis-1/2  rounded-[6px] font-bold text-center cursor-pointer' >Stable</div>
 
                     </div>
                 </div>
