@@ -258,24 +258,25 @@ export default function EthDetails() {
             <div className=' box-border py-[6.4rem] px-[11.2rem] mb-[6.4rem]'>
                 <div className='font-bold text-[3.2rem] mb-[1.6rem]'>{asset} Market</div>
                 <div className='flex justify-between w-[80rem] mb-[6.4rem]'>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>{asset}</div>
+                    <div >
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-[1.6rem]'>{asset}</div>
                         <div className='text-[#272D37] text-[2.2rem] font-bold'>{detailData.name}</div>
                     </div>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Reserve Size</div>
+                    <div className=' w-[10rem] pl-[1.6rem] border-solid border-[white] border-l-[#EAEBF0]'>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-[1.6rem]'>Reserve Size</div>
                         <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.size}</div>
+
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Available liquidity</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-[1.6rem]'>Available liquidity</div>
                         <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.totalsupply}</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Utilization Rate</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-[1.6rem]'>Utilization Rate</div>
                         <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.ur}%</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Oracle price</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-[1.6rem]'>Oracle price</div>
                         <div className='text-[#272D37] text-[2.2rem] font-bold'>${detailData["oraclePrice"]}</div>
                     </div>
                 </div>
@@ -345,7 +346,7 @@ export default function EthDetails() {
                     {infoEnable ? <div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
                         : (<div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'>
                             <div className='text-[#272D37] text-[2.6rem] mb-[2.4rem] font-bold'>Your Info</div>
-                            <div className='box-border p-[1rem] border-solid border-[1px] border-[#EAEBF0]'>
+                            <div className='box-border p-[1rem] border-solid border-[0.5px] border-[#EAEBF0]'>
                                 <div className='flex mb-[2rem]'>
                                     <WalletOutlined className='text-[2rem] mr-[3rem]' />
                                     <div>
@@ -353,7 +354,7 @@ export default function EthDetails() {
                                         <div><span className='font-bold mt-[0.5rem]'>{detailData.balance} </span>{detailData.coin}</div>
                                     </div>
                                 </div>
-                                <hr className='mb-[2rem] border-[#EAEBF0]' />
+                                <div className='border-solid border-[white] border-t-[#EAEBF0] mb-[2rem]'></div>
                                 <div className='flex justify-between items-center'>
                                     <div>
                                         <div>Avaliable to supply</div>
