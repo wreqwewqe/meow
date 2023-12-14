@@ -346,7 +346,7 @@ export default function EthDetails() {
                     {infoEnable ? <div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
                         : (<div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'>
                             <div className='text-[#272D37] text-[2.6rem] mb-[2.4rem] font-bold'>Your Info</div>
-                            <div className='box-border p-[1rem] border-solid border-[1px] border-[#EAEBF0]'>
+                            <div className='box-border p-[1rem] border-solid border-[0.5px] border-[#EAEBF0]'>
                                 <div className='flex mb-[2rem]'>
                                     <WalletOutlined className='text-[2rem] mr-[3rem]' />
                                     <div>
