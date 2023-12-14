@@ -76,7 +76,7 @@ export default function EthMarket() {
     let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
     const columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
             render: (text) => (<div className='font-bold text-[1.6rem] flex items-center' >
@@ -121,7 +121,7 @@ export default function EthMarket() {
             title: "",
             render: (text, record) => (<div className='flex font-semibold '>
 
-                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.asset[0] + '&&net=Ethereum')}>Details</Button>
+                <Button className='text-[1.4rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.asset[0] + '&&net=Scroll')}>Details</Button>
             </div>)
         }
     ];

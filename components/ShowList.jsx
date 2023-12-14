@@ -17,7 +17,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
     return (
         (
             data && data.length > 0 ?
-                <div className=' box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#EAEBF0] rounded-[5px]  '>
+                <div className=' box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#EAEBF0] rounded-[0.5rem]  '>
                     <div className='text-[2.2rem] font-semibold mb-[0.8rem] '>{title}</div>
                     {about_me && data.length > 0 ? <div className='flex '>
                         <div className='mr-[0.6rem] text-[#5F6D7E] border border-solid border-[#b0b6bd] py-[0.3rem] px-[0.5rem] '>Balance <span className='text-[#272D37]'>${header[0]}</span></div>
@@ -29,7 +29,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                         <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={data} pagination={false} />
                     </div>
                 </div> :
-                <div className='box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#b0b6bd] rounded-[0.5rem]'>
+                <div className='box-border py-[2.4rem] px-[3.2rem] border border-solid border-[#EAEBF0] rounded-[0.5rem]'>
                     {title == "Your supplies" || title == "Your borrows" ?
                         (<div>
                             {title == "Your supplies" ? <Image src={bowl} height={32}></Image> : <Image src={light} height={32}></Image>}

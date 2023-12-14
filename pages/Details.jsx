@@ -256,27 +256,28 @@ export default function EthDetails() {
         <div className='min-h-full '>
             <Header></Header>
             <div className=' box-border py-[6.4rem] px-[11.2rem] mb-[6.4rem]'>
-                <div className='font-bold text-[3.2rem] mb-[1.6rem]'>{asset} Market</div>
+                <div className='font-bold text-[3.2rem] mb-[1.6rem]'>{network} Market</div>
                 <div className='flex justify-between w-[80rem] mb-[6.4rem]'>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>{asset}</div>
-                        <div className='text-[#272D37] text-[2.2rem] font-bold'>{detailData.name}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] '>{asset}</div>
+                        <div className='text-[#272D37] text-[2.2rem] font-bold '>{detailData.name}</div>
+                    </div>
+                    <hr className=' mx-0 border-[#EAEBF0] border-solid vertical-line ' />
+                    <div >
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Reserve Size</div>
+                        <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.size}</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Reserve Size</div>
-                        <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.size}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Available liquidity</div>
+                        <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.totalsupply}</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Available liquidity</div>
-                        <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.totalsupply}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Utilization Rate</div>
+                        <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.ur}%</div>
                     </div>
                     <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Utilization Rate</div>
-                        <div className='text-[#272D37] text-[2.2rem]  font-bold'>{detailData.ur}%</div>
-                    </div>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem]'>Oracle price</div>
-                        <div className='text-[#272D37] text-[2.2rem] font-bold'>${detailData["oraclePrice"]}</div>
+                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Oracle price</div>
+                        <div className='text-[#272D37] text-[2.2rem] font-bold text-center'>${detailData["oraclePrice"]}</div>
                     </div>
                 </div>
                 <div className='flex justify-between'>
@@ -353,7 +354,7 @@ export default function EthDetails() {
                                         <div><span className='font-bold mt-[0.5rem]'>{detailData.balance} </span>{detailData.coin}</div>
                                     </div>
                                 </div>
-                                <hr className='mb-[2rem] border-[#EAEBF0]' />
+                                <hr className='mb-[2rem] border-[#EAEBF0] border-solid' />
                                 <div className='flex justify-between items-center'>
                                     <div>
                                         <div>Avaliable to supply</div>

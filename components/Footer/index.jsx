@@ -26,10 +26,10 @@ export default function Footer() {
             <div className='h-[0.1rem] bg-[#EAEBF0] mt-[3.2rem]'></div>
             <div className='flex justify-between mt-[3.2rem]'>
                 <div>© 2023 Meow. All Rights Reserved.</div>
-                <div className='flex justify-between w-[30.2rem]'>
+                {/* <div className='flex justify-between w-[30.2rem]'>
                     <div>Privacy Policy</div>
                     <div>Terms & Conditions</div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

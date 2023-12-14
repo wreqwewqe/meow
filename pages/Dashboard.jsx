@@ -583,7 +583,7 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div> : <div className=' text-center h-[40rem]'>
-                <div className='mt-[20rem] font-bold text-[2.4rem] mb-[6.4rem]'>please,connet your wallet</div>
+                <div className='mt-[20rem] font-bold text-[2.4rem] mb-[6.4rem]'>Please,connet your wallet</div>
                 <ConnectButton.Custom>
                     {({
                         account,

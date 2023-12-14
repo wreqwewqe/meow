@@ -94,9 +94,9 @@ const connectors = connectorsForWallets([{
   wallets: [
     injectedWallet({ chains: chains }),
     metaMaskWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
-    rainbowWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
-    walletConnectWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
-    coinbaseWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
+    // rainbowWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
+    // walletConnectWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
+    // coinbaseWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
     bitgetWallet({ projectId: 'ea55b96e1fd90837f19b3dba416b5c97', chains: chains }),
     // JoyIdWallet({
     //   chains,

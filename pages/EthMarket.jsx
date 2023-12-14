@@ -77,7 +77,7 @@ export default function EthMarket() {
     let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
     const columns = [
         {
-            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] text-center'>Asset</div>,
+            title: <div className=' text-[#c8cad3] text-[1.2rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'asset',
             key: 'asset',
             render: (text) => (<div className='font-bold text-[1.6rem] flex items-center' >
