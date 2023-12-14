@@ -15,12 +15,12 @@ export default function Home() {
     return (
         <div  >
             <Header isHome={false}></Header>
-            <div className='text-center box-border text-[5.2rem] font-bold  h-[27.6rem]  py-[4.8rem] px-[27rem]'>
+            <div className='text-center box-border text-[5.2rem] font-bold  h-[27.6rem]  py-[4.8rem] px-[27rem] mt-[-2rem] mb-[1.5rem]'>
                 <div>Meow Protocol</div>
                 <div>Purring into the Future of Lending</div>
-                <div className='text-[#F4B512]'>Borrow,Save,Earn</div>
+                <div className='text-[#F4B512]'>Deposit,Borrow,Earn</div>
             </div>
-            <div className='box-border  '>
+            <div className='box-border  mb-[-0.3rem]'>
                 <Image height={569} className='w-full' src={home1}></Image>
             </div>
             <div className=' box-border h-[68.8rem] bg-[#FAFBFC] py-[6.4rem] flex justify-center'>
@@ -34,7 +34,7 @@ export default function Home() {
                             <div className='box-border bg-[#DAE0E6] font-semibold w-[12.3rem]  py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#272D37]'>Learn More</div>
                         </div>
                     </div>
-                    <div className='w-[56rem] h-[56rem]'><Image width={560} src={home2}></Image></div>
+                    <div className='w-[56rem] h-[56rem] mt-[10rem]'><Image style={{width:'80%',height:'60%'}} src={home2}></Image></div>
                 </div>
             </div>
 

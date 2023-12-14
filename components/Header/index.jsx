@@ -47,7 +47,7 @@ function Header({ isHome = true}) {
         }
     }, [address])
     const market = () => (<div className='w-[200px] font-bold'>
-        <div className='cursor-pointer flex items-center mb-[15px]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image> Ethereum Market</div>
+        <div className='cursor-pointer flex items-center mb-[1.5rem]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image> Ethereum Market</div>
         <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image>Scroll Market</div>
     </div>)
     const onClick = () => {
@@ -57,7 +57,7 @@ function Header({ isHome = true}) {
     const content = (conn) => (
         <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
             <div className='flex justify-between items-center w-[221px]'>
-                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
+                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[1.6rem]' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
                 <div className='flex justify-between  items-center w-[153px] h-[22px]'>
                     <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                     <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' onClick={copy_address} /></div>
