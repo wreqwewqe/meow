@@ -1,4 +1,4 @@
-const EthereumAddress = "0xF8ac9E7827f5f4597dbb21b92A1f3FCdcCA91A6a"
+const EthereumAddress = "0x99668Ffbd9C908C85093bA365e4Fb343E9a3A6A0"
 const ScrollAddress = "0xA9F657c846d4FE4e90ae7fFA7fA336B40ed87A81"
 const abi = [
     {

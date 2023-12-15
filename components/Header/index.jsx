@@ -81,12 +81,12 @@ function Header({ isHome = true}) {
         <div></div>
         <div className=' flex justify-between px-[3.2rem] h-full'>
             <div className=' flex  justify-between font-semibold  text-[1.5rem] items-center w-[58.8rem] '>
-                <div><Image src={logo} width={106}  ></Image></div>
+                <div><Image src={logo} style={{height:'80%',width:'61%'}}  ></Image></div>
                 <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
                 <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
                 <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>
-                <div className='cursor-pointer'>Docs</div>
-                <div className='cursor-pointer'>Security</div>
+                <div className='cursor-pointer' onClick={()=>{window.open("https://meowprotocol.gitbook.io/doc/","_blank")}}>Docs</div>
+                <div className='cursor-pointer' onClick={()=>{window.open("","_blank")}}>Security</div>
             </div>
             {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
             {/* <ConnectButton></ConnectButton> */}

@@ -13,6 +13,7 @@ const Home: NextPage = () => {
           name="description"
         />
         <link href="/favicon.ico" rel="icon" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"/>
       </Head>
 
       <main className={styles.main}>
@@ -59,6 +60,7 @@ const Home: NextPage = () => {
             <h2>Next.js Examples &rarr;</h2>
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </a>
+          
 
           <a
             className={styles.card}

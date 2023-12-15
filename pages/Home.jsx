@@ -21,7 +21,7 @@ export default function Home() {
                 <div className='text-[#F4B512]'>Deposit,Borrow,Earn</div>
             </div>
             <div className='box-border  mb-[-0.3rem]'>
-                <Image height={569} className='w-full' src={home1}></Image>
+                <Image style={{height:'20%'}} className='w-full' src={home1}></Image>
             </div>
             <div className=' box-border h-[68.8rem] bg-[#FAFBFC] py-[6.4rem] flex justify-center'>
                 <div className=' flex justify-between box-border w-[128rem] h-[56rem] px-[3.2rem] py-[1px]'>
@@ -30,8 +30,8 @@ export default function Home() {
                         <div className='text-[3.2rem] font-semibold mb-[1.6rem]'>Your <span className='text-[#F4B512]'>Contribution</span>,Your <span className='text-[#F4B512]'>Benefits</span></div>
                         <div className='text-[1.6rem] font-normal mb-[4rem]'>Your contributions at Meow accumulate as Meow Reputation, the key to unlocking opportunities and wealth.</div>
                         <div className='flex justify-between w-[31.5rem] h-[4.6rem]'>
-                            <div className='box-border bg-[#F4B512] w-[18rem] font-semibold py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#FFFFFF] '>Start Contribute <ArrowRightOutlined /></div>
-                            <div className='box-border bg-[#DAE0E6] font-semibold w-[12.3rem]  py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#272D37]'>Learn More</div>
+                            <div className='box-border bg-[#F4B512] w-[18rem] font-semibold py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#FFFFFF] ' onClick={() => { router.push("Dashboard") }} style={{ cursor: 'pointer' }}>Start Contribute <ArrowRightOutlined /></div>
+                            <div className='box-border bg-[#DAE0E6] font-semibold w-[12.3rem]  py-[1.2rem] px-[1.8rem] text-[1.5rem] rounded-[0.6rem] text-[#272D37]' onClick={()=>{window.open("https://meowprotocol.gitbook.io/doc/meow-reputation-system/introduction","_blank")}} style={{ cursor: 'pointer' }}>Learn More</div>
                         </div>
                     </div>
                     <div className='w-[56rem] h-[56rem] mt-[10rem]'><Image style={{width:'80%',height:'60%'}} src={home2}></Image></div>
