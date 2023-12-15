@@ -262,8 +262,8 @@ export default function EthDetails() {
                         <div className='text-[#5F6D7E] mb-[0.8rem] '>{asset}</div>
                         <div className='text-[#272D37] text-[2.2rem] font-bold '>{detailData.name}</div>
                     </div>
-                    <hr className=' mx-0 border-[#EAEBF0] border-solid vertical-line ' />
-                    <div >
+                    {/* <hr className=' mx-0 border-[#EAEBF0] border-solid vertical-line ' /> */}
+                    <div className='pl-[1.6rem]  border border-solid border-[white] border-l-[#EAEBF0]'>
                         <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Reserve Size</div>
                         <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.size}</div>
                     </div>
