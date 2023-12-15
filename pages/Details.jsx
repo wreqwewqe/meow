@@ -292,9 +292,9 @@ export default function EthDetails() {
                                     <div className='mb-[1rem]'>{detailData.totalsupply} of {detailData.size}</div>
                                     <div>${detailData.supplyprice} of ${detailData.sizeprice}</div>
                                 </div>
-                                <div>
-                                    <div className='mb-[1rem] text-[#5F6D7E] '>APY</div>
-                                    <div>{detailData.supplyapy}%</div>
+                                <div >
+                                    <div className='mb-[1rem] text-[#5F6D7E] pl-[3rem]'>APY</div>
+                                    <div className=' h-[4rem] flex justify-center items-center pl-[3rem] border border-solid border-[white] border-l-[#EAEBF0]'>{detailData.supplyapy}%</div>
                                 </div>
                             </div>
                             <div className='flex mb-[2rem] font-bold'>
