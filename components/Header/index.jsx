@@ -17,9 +17,9 @@ import {
     DownOutlined
 } from '@ant-design/icons';
 import { EthereumCode, ScrollCode, EthereumScan, ScrollScan } from '../../utils/constants';
-import {post} from '../../utils/funcaxios';
+import { post } from '../../utils/funcaxios';
 
-function Header({ isHome = true}) {
+function Header({ isHome = true }) {
     const web3ModalRef = useRef();
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
@@ -40,9 +40,9 @@ function Header({ isHome = true}) {
     };
     useEffect(() => {
         if (address) {
-            post("/auth",{"address":address}).then((res)=>{
-                console.log("wwwwwwwwwwwwwwwww",res.data.token);
-                sessionStorage.setItem('token',"Bearer "+res.data.token)
+            post("/auth", { "address": address }).then((res) => {
+                console.log("wwwwwwwwwwwwwwwww", res.data.token);
+                sessionStorage.setItem('token', "Bearer " + res.data.token)
             })
         }
     }, [address])
@@ -78,19 +78,16 @@ function Header({ isHome = true}) {
         </div>
     );
     return <div className='box-border  h-[8.6rem] py-[2rem] px-[6rem]'>
-        <div></div>
-        <div className=' flex justify-between px-[3.2rem] h-full'>
-            <div className=' flex  justify-between font-semibold  text-[1.5rem] items-center w-[58.8rem] '>
-                <div><Image src={logo} style={{height:'80%',width:'61%'}}  ></Image></div>
+        <div className='flex justify-between px-[3.2rem] h-full'>
+            <div className='hidden md:flex  justify-between font-semibold  text-[1.5rem] items-center w-[58.8rem] '>
+                <div><Image src={logo} style={{ height: '80%', width: '61%' }}  ></Image></div>
                 <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
                 <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
                 <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>
-                <div className='cursor-pointer' onClick={()=>{window.open("https://meowprotocol.gitbook.io/doc/","_blank")}}>Docs</div>
-                <div className='cursor-pointer' onClick={()=>{window.open("","_blank")}}>Security</div>
+                <div className='cursor-pointer' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/", "_blank") }}>Docs</div>
+                <div className='cursor-pointer' onClick={() => { window.open("", "_blank") }}>Security</div>
             </div>
-            {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
-            {/* <ConnectButton></ConnectButton> */}
-            {!isHome ? <button onClick={() => { router.push("/Dashboard") }} type="button" className={button_style}>Launch APP</button>
+            <div className='hidden md:block'>  {!isHome ? <button onClick={() => { router.push("/Dashboard") }} type="button" className={button_style}>Launch APP</button>
                 : <ConnectButton.Custom>
                     {({
                         account,
@@ -154,8 +151,89 @@ function Header({ isHome = true}) {
                             </div>
                         );
                     }}
-                </ConnectButton.Custom>}
+                </ConnectButton.Custom>}</div>
         </div>
+        <div className='md:hidden flex  justify-between'>
+            <div><Image src={logo} style={{ height: '100%', width: '61%' }} ></Image></div>
+            <div className=' text-[20px] cursor-pointer' onClick={() => { setShow(!show) }}>{show ? "X" : "三"}</div>
+        </div>
+        {
+            show ?
+                <div className='w-[100%] bg-[white]  relative z-40'>
+                    <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer' onClick={() => { router.push("/Home"); setShow(false) }}>Home</div>
+                    <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer' onClick={() => { router.push("/Dashboard"); setShow(false) }}>Dashboard</div>
+                    <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer'>Market</div>
+                    <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/", "_blank"); setShow(false) }}>Docs</div>
+                    <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer' onClick={() => { window.open("", "_blank"); setShow(false) }}>Security</div>
+                    <div className='p-[16px]' onClick={() => { setShow(false) }}><ConnectButton.Custom>
+                        {({
+                            account,
+                            chain,
+                            openAccountModal,
+                            openChainModal,
+                            openConnectModal,
+                            authenticationStatus,
+                            mounted,
+                        }) => {
+                            // Note: If your app doesn't use authentication, you
+                            // can remove all 'authenticationStatus' checks
+                            const ready = mounted && authenticationStatus !== 'loading';
+                            const connected =
+                                ready &&
+                                account &&
+                                chain &&
+                                (!authenticationStatus ||
+                                    authenticationStatus === 'authenticated');
+
+                            return (
+                                <div
+                                    {...(!ready && {
+                                        'aria-hidden': true,
+                                        'style': {
+                                            opacity: 0,
+                                            pointerEvents: 'none',
+                                            userSelect: 'none',
+                                        },
+                                    })}
+                                >
+                                    {(() => {
+                                        if (!connected) {
+                                            return (
+                                                <div className='text-center'>
+                                                    <button onClick={openConnectModal} type="button" className="px-[18px] py-[12px] bg-[#F4B512] border-none rounded-[6px] text-[white] cursor-pointer">
+                                                        Connect Wallet
+                                                    </button>
+                                                </div>
+                                            );
+                                        }
+
+                                        // if (chain.unsupported) {
+                                        //     return (
+                                        //         <button onClick={openChainModal} type="button" className={button_style}>
+                                        //             {account.displayName}
+                                        //         </button>
+                                        //     );
+                                        // }
+
+                                        return (
+                                            <Popover content={content(openConnectModal)}>
+                                                <div style={{ display: 'flex', gap: 12 }}>
+
+                                                    <button type="button" className={button_style}>
+                                                        {account.displayName}
+
+                                                    </button>
+                                                </div>
+                                            </Popover>
+                                        );
+                                    })()}
+                                </div>
+                            );
+                        }}
+                    </ConnectButton.Custom></div>
+                </div> :
+                <></>
+        }
     </div>
 }
 
