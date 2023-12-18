@@ -536,38 +536,23 @@ export default function Dashboard() {
         <div className='min-h-full '>
             <Header setToken={setToken}></Header>
             {address ? <div className='box-border  py-[64px] px-[11.2rem] '>
-                <div className='h-[11.8rem] mb-[6.4rem]'>
+                <div className=' mb-[64px]'>
                     <Popover content={content} placement="bottom">
-                        <div className='text-[3.2rem] font-bold w-[31.7rem]'>{chain.id == EthereumCode ? "Ethereum Market" : chain.id == ScrollCode ? "Scroll Market" : "Please select the network you want!"} <DownOutlined className='text-[1.6rem] cursor-pointer ' /> </div>
+                        <div className='text-[24px] md:text-[3.2rem] font-bold md:w-[31.7rem]'>{chain.id == EthereumCode ? "Ethereum Market" : chain.id == ScrollCode ? "Scroll Market" : "Please select the network you want!"} <DownOutlined className='ml-[16px] md:ml-[0] text-[20px] md:text-[1.6rem] cursor-pointer ' /> </div>
                     </Popover>
-                    <div className='flex mt-[1.6rem] mb-[0.8rem] text-[1.6rem] font-normal text-[#5F6D7E] '>
+                    <div className='flex justify-between md:justify-normal mt-[16px] mb-[8px] text-[16px] font-normal text-[#5F6D7E] '>
                         <div className='w-[17.4rem] mr-[1.6rem]'>Net worth</div>
                         <div className='w-[17.4rem] mr-[1.6rem]'>Net APY</div>
                         <div className='w-[17.rem]'>Health Factor</div>
                     </div>
-                    <div className='flex text-[2.2rem] text-[#272D37] font-semibold'>
+                    <div className='flex justify-between  md:justify-normal text-[22px] text-[#272D37] font-semibold '>
                         <div className='w-[17.4rem] mr-[1.6rem]'>{loading || isChain || isError ? "" : headBlockData[0]}</div>
                         <div className='w-[17.4rem] mr-[1.6rem]'>{loading || isChain || isError ? "" : headBlockData[1]}</div>
                         <div>{loading || isChain || isError ? "" : headBlockData[2]}</div>
                     </div>
                 </div>
-                {/* <div className='flex mb-[29px] justify-between'>
-                    <div className=' basis-[48%]'>
-                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
-                    </div>
-                    <div className=' basis-[48%]'>
-                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
-                    </div>
-                </div>
-                <div className='flex justify-between'>
-                    <div className=' basis-[48%]'>
-                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
-                    </div>
-                    <div className=' basis-[48%]'>
-                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
-                    </div>
-                </div> */}
-                <div className='columns-2'>
+
+                <div className='hidden md:block columns-2'>
                     <div className='inline-block w-full  mb-[1rem] ' >
                         <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
                     </div>
@@ -579,6 +564,21 @@ export default function Dashboard() {
                     </div>
 
                     <div className='inline-block w-full '>
+                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                </div>
+                <div className='md:hidden'>
+                    <div className='inline-block w-full  mb-[32px] ' >
+                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError}></ShowList>
+                    </div>
+                    <div className='inline-block w-full  mb-[32px]'>
+                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError}></ShowList>
+                    </div >
+                    <div className=' inline-block w-full mb-[32px] '>
+                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError}></ShowList>
+                    </div>
+
+                    <div className='inline-block w-full mb-[32px]'>
                         <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError}></ShowList>
                     </div>
                 </div>
