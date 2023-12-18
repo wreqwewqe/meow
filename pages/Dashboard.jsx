@@ -390,7 +390,7 @@ export default function Dashboard() {
             }}> <Image style={{ width: 'auto', maxHeight: '4rem' }} src={Scroll} className='mr-[1.3rem]'></Image>Scroll Market</p>
         </div>
     );
-    const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
+    const button_style = 'px-[18px] py-[12px] bg-[#F4B512]  rounded-[6px] text-[white] font-bold font-semibold cursor-pointer text-[15px] border-none';
     let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "Dai" ? Dai : text == "WETH" ? Weth : Eth)
 
 
@@ -583,7 +583,7 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div> : <div className=' text-center h-[40rem]'>
-                <div className='mt-[20rem] font-bold text-[2.4rem] mb-[6.4rem]'>Please,connet your wallet</div>
+                <div className='mt-[20rem] font-bold md:text-[2.4rem] mb-[6.4rem] text-[20px]'>Please,connet your wallet</div>
                 <ConnectButton.Custom>
                     {({
                         account,
@@ -649,7 +649,7 @@ export default function Dashboard() {
                         );
                     }}
                 </ConnectButton.Custom>
-                {/* <button className='box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
+                {/* <button className='md:hidden box-border bg-[#F4B512] w-[123px] h-[46px] rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none'>Connect wallet</button> */}
             </div>
             }
             <Transaction title={operation} open={open} setOpen={setOpen} data={boxData} web3modal={web3ModalRef} address={address} chain={chain}></Transaction>
