@@ -10,6 +10,7 @@ import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
 import { post, get } from '../utils/funcaxios'
 import { BigNumber } from 'ethers'
+import { create } from 'blockies';
 // import clipboardCopy from 'clipboard-copy';
 export default function Profile() {
     const [data, setData] = useState({});
@@ -66,6 +67,7 @@ export default function Profile() {
             <div className='box-border px-[11.2rem] py-[6.4rem]'>
                 {/* <div className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]'></div> */}
                 <Blockies className='w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] mb-[1.6rem]' seed={address ? address.toLowerCase() : ""} size={24} scale={4} />
+                {/* <img src={create({ seed: address }).toDataURL()}/> */}
                 <div suppressHydrationWarning className='text-[3.2rem] font-bold mb-[1.6rem]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                 <div className='mb-[6.4rem]'><Image src={copy} onClick={copy_address} className='cursor-pointer mr-[8px]' height={15}></Image><span className='text-[1.6rem] text-[#5F6D7E]'>Copy address to clipboard</span></div>
                 <div className='flex justify-between mb-[3.2rem]'>

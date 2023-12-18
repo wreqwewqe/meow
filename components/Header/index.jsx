@@ -24,7 +24,7 @@ function Header({ isHome = true}) {
     const { disconnect } = useDisconnect()
     const { chain, chains } = useNetwork()
     const { address, isConnecting, isDisconnected } = useAccount()
-    const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[6px] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
+    const button_style = 'box-border bg-[#F4B512] w-[12.3rem] h-[4.6rem] rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none';
     const { state, dispatch } = useGlobalContext();
     const [show, setShow] = useState(false);
     const [connectTest, setConnectTest] = useState();
@@ -46,33 +46,29 @@ function Header({ isHome = true}) {
             })
         }
     }, [address])
-    const market = () => (<div className='w-[200px] font-bold'>
-        <div className='cursor-pointer flex items-center mb-[1.5rem]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image> Ethereum Market</div>
-        <div className='cursor-pointer flex items-center' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image>Scroll Market</div>
+    const market = () => (<div className='w-[18rem] font-bold'>
+        <div className='cursor-pointer flex items-center mb-[1.5rem] text-[1.2rem]' onClick={() => { router.push("EthMarket") }}><Image src={Eth} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image> Ethereum Market</div>
+        <div className='cursor-pointer flex items-center text-[1.2rem]' onClick={() => { router.push("ScrollMarket") }}><Image src={Scroll} style={{ width: 'auto', maxHeight: '3rem' }} className='mr-[20px]'></Image>Scroll Market</div>
     </div>)
-    const onClick = () => {
-
-    }
-    console.log("hhh")
     const content = (conn) => (
-        <div className='box-border w-[317px] h-[322px] pt-[22px] pr-[20px] pb-[21px] pl-[21px]'>
-            <div className='flex justify-between items-center w-[221px]'>
-                <Blockies className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[1.6rem]' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
-                <div className='flex justify-between  items-center w-[153px] h-[22px]'>
-                    <div className='font-medium text-[18px]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
-                    <div ><CopyFilled className='w-[15px] h-[15px] cursor-pointer' onClick={copy_address} /></div>
+        <div className='box-border w-[31.7rem] h-[32.2rem] pt-[2.2rem] pr-[2rem] pb-[2.1rem] pl-[2.1rem]'>
+            <div className='flex justify-between items-center w-[22.1rem]'>
+                <Blockies className='w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] ' seed={address ? address.toLowerCase() : ""}  size={14} scale={4} />
+                <div className='flex justify-between  items-center w-[15.3rem] h-[2.2rem]'>
+                    <div className='font-medium text-[1.8rem]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
+                    <div ><CopyFilled className='w-[1.5rem] h-[1.5rem] cursor-pointer' onClick={copy_address} /></div>
                 </div>
             </div>
-            <div className='flex  justify-between  w-[244px] h-[28px] mt-[12px] mb-[24px] text-[#5F6D7E] text-center text-[14px] font-medium'>
+            <div className='flex  justify-between  w-[24.4rem] h-[2.8rem] mt-[1.2rem] mb-[2.4rem] text-[#5F6D7E] text-center text-[1.4rem] font-medium'>
                 {/* <div onClick={() => address()} className='cursor-pointer w-[130px] border border-solid border-[#EAEBF0] rounded-[2px]'>SWITCH WALLET</div> */}
-                <div onClick={() => disconnect()} className=' cursor-pointer  w-[108px] border border-solid border-[#EAEBF0] rounded-[2px]'>DISCONNECT</div>
+                <div onClick={() => disconnect()} className=' cursor-pointer  w-[10.8rem] border border-solid border-[#EAEBF0] rounded-[0.2rem]'>DISCONNECT</div>
             </div>
-            <div className='text-[16px]'>
-                <div className='h-[22px] mb-[16px] font-medium text-[#272D37] cursor-pointer' onClick={() => { router.push("/Profile") }}> My profile</div>
-                <div className='h-[1px] bg-[#EAEBF0] mb-[16px]'></div>
-                <div className='font-medium text-[14px] text-[#5F6D7E] mb-[6px]'>Network</div>
-                <div className='w-[85px] flex items-center justify-between mb-[16.5px] text-[#272D37] font-medium '><div className='w-[6px] h-[6px] rounded-[50%] bg-[#28DD24]'></div>{chain && chain.name || " "}</div>
-                <div className='h-[1px] bg-[#EAEBF0] mb-[24px]'></div>
+            <div className='text-[1.6rem]'>
+                <div className='h-[2.2rem] mb-[1.6rem] font-medium text-[#272D37] cursor-pointer' onClick={() => { router.push("/Profile") }}> My profile</div>
+                <div className='h-[0.1rem] bg-[#EAEBF0] mb-[1.6rem]'></div>
+                <div className='font-medium text-[1.4rem] text-[#5F6D7E] mb-[0.6rem]'>Network</div>
+                <div className='w-[8.5rem] flex items-center justify-between mb-[1.65rem] text-[#272D37] font-medium '><div className='w-[0.6rem] h-[0.6rem] rounded-[50%] bg-[#28DD24]'></div>{chain && chain.name || " "}</div>
+                <div className='h-[0.1rem] bg-[#EAEBF0] mb-[2.4rem]'></div>
                 <div className='font-medium text-[#272D37] cursor-pointer' onClick={redirectToExternalPage}>View on Explorer</div>
             </div>
         </div>
@@ -82,11 +78,11 @@ function Header({ isHome = true}) {
         <div className=' flex justify-between px-[3.2rem] h-full'>
             <div className=' flex  justify-between font-semibold  text-[1.5rem] items-center w-[58.8rem] '>
                 <div><Image src={logo} style={{height:'80%',width:'61%'}}  ></Image></div>
-                <div className={router.pathname.includes("Home") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Home") }}>Home</div>
-                <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
-                <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>
-                <div className='cursor-pointer' onClick={()=>{window.open("https://meowprotocol.gitbook.io/doc/","_blank")}}>Docs</div>
-                <div className='cursor-pointer' onClick={()=>{window.open("","_blank")}}>Security</div>
+                <div className={router.pathname.includes("Home") ? 'active cursor-pointer text-[1.6rem]' : "cursor-pointer text-[1.6rem]"} onClick={() => { router.push("/Home") }}>Home</div>
+                <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer text-[1.6rem]' : "cursor-pointer text-[1.6rem]"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
+                <div className={router.pathname.includes("Market") ? 'active cursor-pointer text-[1.6rem]' : "cursor-pointer text-[1.6rem]"} ><Popover content={market}>Market <DownOutlined style={{fontSize:"80%"}}/></Popover></div>
+                <div className='cursor-pointer text-[1.6rem]' onClick={()=>{window.open("https://meowprotocol.gitbook.io/doc/","_blank")}}>Docs</div>
+                <div className='cursor-pointer text-[1.6rem]' onClick={()=>{window.open("","_blank")}}>Security</div>
             </div>
             {/* <ConnectButton chainStatus="none" showBalance={false} /> */}
             {/* <ConnectButton></ConnectButton> */}
