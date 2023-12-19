@@ -105,7 +105,7 @@ export default function Profile() {
                                     <Blockies className='w-[4.8rem] h-[4.8rem] rounded-[50%] bg-[#F4B5121A] mr-[1.2rem]' seed={item.Address.toLowerCase()} size={10} scale={4} />
                                     <div className={item.Address.toLowerCase() == address.toLowerCase() ? "text-[#F4B512]" : ""}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
                                 </div>
-                                <div className={item.Address.toLowerCase() == address.toLowerCase() ? " text-right basis-[6.7%]" : "  text-right basis-[6.7%]"}>{item.Quantity}</div>
+                                <div className={item.Address.toLowerCase() == address.toLowerCase() ? " text-right basis-[6.7%] text-[#F4B512]" : "  text-right basis-[6.7%]"}>{item.Quantity}</div>
                             </div>
                         ))}
                     </div>
@@ -115,19 +115,20 @@ export default function Profile() {
                                 <div className='flex'>
                                     <div className='w-[65px]'>
                                         <div className='text-[12px] text-[#5F6D7E]'>{index + 1}</div>
-                                        <div className='text-[16px] text-[#F4B512]'>1</div>
+                                        {/* <div className='text-[16px] text-[#F4B512]'>1</div> */}
                                     </div>
                                     <div>
                                         <div className='text-[12px] text-[#5F6D7E]'>Wallet Address</div>
-                                        <div className='text-[16px] text-[#F4B512] flex items-center'>
-                                            <div className='w-[48px] h-[48px] bg-[#F4B512] mr-[12px] rounded-[50%]' ></div>
-                                            <div className='text-[16px] font-bold'>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
+                                        <div className='text-[16px] flex items-center'>
+                                            {/* <div className='w-[48px] h-[48px] bg-[#F4B512] mr-[12px] rounded-[50%]' ></div> */}
+                                            <Blockies className='w-[4.8rem] h-[4.8rem] rounded-[50%] bg-[#F4B5121A] mr-[1.2rem]' seed={item.Address.toLowerCase()} size={8} scale={4} />
+                                            <div className={item.Address.toLowerCase() == address.toLowerCase() ?'text-[16px] font-bold text-[#F4B512]':'text-[16px] font-bold'}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div className='text-[12px] text-[#5F6D7E] mt-[16px]'>Quantity</div>
-                                    <div className='text-[16px] font-bold'>{item.Quantity}</div>
+                                    <div className={item.Address.toLowerCase() == address.toLowerCase() ?'text-[16px] font-bold text-[#F4B512]':'text-[16px] font-bold'}>{item.Quantity}</div>
                                 </div>
                             </div>
                         ))}
@@ -135,6 +136,7 @@ export default function Profile() {
 
 
                     <div className='hidden md:block text-[1.6rem] text-[#5F6D7E]'>Display up to 50 lines</div>
+                    <div className='md:block text-[12px] text-[#5F6D7E]'>Display up to 50 lines</div>
                 </div>
             </div>
             <Footer></Footer>

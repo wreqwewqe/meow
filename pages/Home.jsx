@@ -15,23 +15,23 @@ export default function Home() {
     return (
         <div  >
             <Header isHome={false}></Header>
-            <div className='text-center box-border px-[16px] text-[36px] md:text-[5.2rem] font-bold  md:h-[27.6rem]  md:py-[4.8rem] md:px-[27rem] mt-[24px] md:mt-[-2rem] mb-[24px] md:mb-[1.5rem]'>
-                <div>Meow Protocol</div>
+            <div className='text-center box-border px-[16px] text-[36px] md:text-[5.2rem] font-bold  md:h-[27.6rem]  md:py-[4.8rem] md:px-[27rem] mt-[24px] md:mt-[-2rem] mb-[24px] md:mb-[6rem]'>
+                <div >Meow Protocol</div>
                 <div>Purring into the Future of Lending,</div>
-                <div className='text-[#F4B512] '>Deposit,Borrow,Earn</div>
+                <div className='text-[#F4B512] md:mb-[0.2rem]'>Deposit,Borrow,Earn</div>
             </div>
-            <div className='box-border  md:mb-[-0.3rem] mt-[24px] mb-[32px] md:mt-[0]'>
+            <div className='box-border  md:mb-[-0.3rem] mt-[1rem] mb-[20px] md:mt-[0.1rem]'>
                 <Image style={{ height: '20%' }} className='w-full' src={home1}></Image>
             </div>
             <div className='box-border px-[16px] md:h-[68.8rem] md:bg-[#FAFBFC] md:py-[6.4rem] md:flex md:justify-center'>
                 <div className=' md:flex md:justify-between md:box-border md:w-[128rem] md:h-[56rem] md:px-[3.2rem] md:py-[1px]'>
                     <div className=' md:mt-[16.2rem] md:w-[53.2rem]'>
-                        <div className='text-[28px] md:text-[3.2rem] font-semibold'>Meow Reputation for Progress</div>
+                        <div className='text-[2.8rem] md:text-[3.2rem] font-semibold'>Meow Reputation for Progress</div>
                         <div className='text-[28px] md:text-[3.2rem] font-semibold mb-[1.6rem]'>Your <span className='text-[#F4B512]'>Contribution</span>,Your <span className='text-[#F4B512]'>Benefits</span></div>
                         <div className='text-[16px] md:text-[1.6rem] font-normal mb-[4rem]'>Your contributions at Meow accumulate as Meow Reputation, the key to unlocking opportunities and wealth.</div>
                         <div className='flex '>
-                            <div className='box-border bg-[#F4B512] w-[180px] font-semibold py-[12px] px-[18px] text-[15px] rounded-[6px] text-[#FFFFFF] mr-[16px]' onClick={() => { router.push("Dashboard") }} style={{ cursor: 'pointer' }}>Start Contribute <ArrowRightOutlined /></div>
-                            <div className='box-border bg-[#DAE0E6] font-semibold  py-[12px] px-[18px] text-[15px] rounded-[6px] text-[#272D37]' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/meow-reputation-system/introduction", "_blank") }} style={{ cursor: 'pointer' }}>Learn More</div>
+                            <div className=' md:text-[1.4rem] md:w-[18rem] box-border bg-[#F4B512] w-[180px] font-semibold py-[12px] px-[18px] text-[15px] rounded-[6px] text-[#FFFFFF] mr-[16px]' onClick={() => { router.push("Dashboard") }} style={{ cursor: 'pointer' }}>Start Contribute <ArrowRightOutlined /></div>
+                            <div className=' md:text-[1.4rem] box-border bg-[#DAE0E6] font-semibold  py-[12px] px-[18px] text-[15px] rounded-[6px] text-[#272D37]' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/meow-reputation-system/introduction", "_blank") }} style={{ cursor: 'pointer' }}>Learn More</div>
                         </div>
                     </div>
                     <div className='hidden md:block md:w-[56rem] md:h-[56rem] mt-[10rem]'><Image style={{ width: '80%', height: '60%' }} src={home2}></Image></div>
@@ -51,7 +51,7 @@ export default function Home() {
                         <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Efficiently unleash cross-media information without cross-media value. Quickly timely deliverables for real-time schemas. </div>
                         <div className='text-[#F4B512] mt-[8px] md:mt-[1.6rem] text-[15px] md:text-[1.8rem]' onClick={() => { router.push("EthMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
-                    <div className=' text-center mt-[40px] md:mt-[0px]'>
+                    <div className=' text-center mt-[0px] md:mt-[0px]'>
                         <div className='md:h-[6rem]'><Image width={60} src={Scroll}></Image></div>
                         <div className='mt-[2rem] mb-[1.2rem] text-[20px] md:text-[2.2rem] font-semibold'>Scoll</div>
                         <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Completely pursue scalable customer cross- media through potentialities. Holistically quickly installed portals. </div>
