@@ -397,7 +397,9 @@ export default function Dashboard() {
     const button_style = 'px-[18px] py-[12px] bg-[#F4B512]  rounded-[6px] text-[white] font-bold font-semibold cursor-pointer text-[15px] border-none';
     let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "Dai" ? Dai : text == "WETH" ? Weth : Eth)
 
-
+    const test=()=>{
+        router.push('Home')
+      }
     const your_supply_columns = [
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
@@ -436,6 +438,8 @@ export default function Dashboard() {
             button2:"Supply",
             button1IsAble:loading || isChain || isError ? "" : supplies.map(obj =>obj['withdrawIsable'] ),
             button2IsAble:loading || isChain || isError ? "" : supplies.map(obj =>obj['balancegtzero'] ),
+            button1Func:(index)=>{ setOperation("Withdraw"); setBoxData(supplies[index]); setOpen(true) },
+            button2Func:(index)=>{ setOperation("Supply"); setBoxData(supplies[index]); setOpen(true) },
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.withdrawIsable ? ' text-[1.2rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[0.5rem] mr-[0.6rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
                 <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center ' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
@@ -480,6 +484,8 @@ export default function Dashboard() {
             button2:"Borrow",
             button1IsAble:Array(borrows.length).fill(true),
             button2IsAble:loading || isChain || isError ? "" : borrows.map(obj =>obj['borrowIsable'] ),
+            button1Func:(index)=>{ setOperation("Repay"); setBoxData(borrows[index]); setOpen(true) },
+            button2Func:(index)=>{ setOperation("Borrow"); setBoxData(borrows[index]); setOpen(true) },
             render: (text, record) => (<div className='flex font-semibold '>
                 <Button className=' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
                 <Button className=' text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
@@ -525,6 +531,8 @@ export default function Dashboard() {
             button2:"Details",
             button1IsAble:assetSupplies.map(obj =>obj['balancegtzero']),
             button2IsAble:Array(assetSupplies.length).fill(true),
+            button1Func:(index)=>{ setOperation("Supply"); setBoxData(assetSupplies[index]); setOpen(true) },
+            button2Func:(index)=>router.push('/Details?asset=' + assetSupplies[index].name[0] + '&&net=' + assetSupplies[index].net),
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.balancegtzero ? ' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
                 <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
@@ -570,6 +578,8 @@ export default function Dashboard() {
             button2:"Details",
             button1IsAble:assetBorrows.map(obj=>obj['borrowIsable'] && obj['balancegtzero']),
             button2IsAble:Array(assetBorrows.length).fill(true),
+            button1Func:(index)=>{ setOperation("Borrow"); setBoxData(assetBorrows[index]); setOpen(true) },
+            button2Func:(index)=>router.push('/Details?asset=' + assetBorrows[index].name[0] + '&&net=' + assetBorrows[index].net),
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.borrowIsable && record.balancegtzero ? 'text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
                 <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem] flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
@@ -586,9 +596,7 @@ export default function Dashboard() {
         });
         return selectedValues;}
       ));
-      const test=()=>{
-        router.push('Home')
-      }
+
     return (
         <div className='min-h-full '>
             <Header setToken={setToken}></Header>
@@ -611,17 +619,17 @@ export default function Dashboard() {
 
                 <div className='hidden md:block columns-2'>
                     <div className='inline-block w-full  mb-[1rem] ' >
-                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError} button1={setSupply}></ShowList>
+                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError} buttonfunc={()=>setSupply(["444"])}></ShowList>
                     </div>
                     <div className='inline-block w-full  '>
-                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError} button1={test}></ShowList>
+                        <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError} buttonfunc={test}></ShowList>
                     </div >
                     <div className=' inline-block w-full  mb-[1rem] '>
-                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError} button1={test}></ShowList>
+                        <ShowList title="Your borrows" about_me={true} data={borrows} columns={your_borrow_columns} header={borrowBox} supply={false} loading={loading || isChain || isError} buttonfunc={test}></ShowList>
                     </div>
 
                     <div className='inline-block w-full '>
-                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError} button1={test}></ShowList>
+                        <ShowList title="Assets to borrow" data={assetBorrows} columns={borrow_columns} loading={loading || isChain || isError} buttonfunc={test}></ShowList>
                     </div>
                 </div>
                 <div className='md:hidden'>

@@ -5,8 +5,8 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import bowl from "../public/bowl.png"
 import light from "../public/light.png"
 import eth from "../public/eth.png"
-export default function ShowList({ title, about_me, data, columns, header, supply = true, loading, button1 }) {
-    console.log("a", typeof(button1));
+export default function ShowList({ title, about_me, data, columns, header, supply = true, loading, buttonfunc }) {
+    console.log("a", typeof(buttonfunc));
     if (loading) {
         return (
             <div className='box-border w-[100%]  py-[2.4rem] px-[3.2rem] border border-solid border-[#b0b6bd] rounded-[0.5rem]  '>
@@ -51,8 +51,8 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                     
                                             <div className='flex flex-row-reverse text-[14px] font-bold '>
                     
-                                                <Button className='px-[9.5px] py-[5.5px] rounded-[6px] border border-solid border-[#b0b6bd] ' disabled={!columns[4].button2IsAble[index]} onClick={()=>button1(["222"])}>{columns[4].button2}</Button>
-                                                <button className={columns[4].button1IsAble[index]?'mr-[6px] px-[9.5px] py-[5.5px] bg-[#F4B512] text-[white] rounded-[6px] border-none ':'mr-[6px] px-[9.5px] py-[5.5px] bg-[#F4B512]/[0.6] text-[white] rounded-[6px] border-none'}disabled={!columns[4].button1IsAble[index]} onClick={()=>message.success("222")}>{columns[4].button1}</button>
+                                                <Button className='px-[9.5px] py-[5.5px] rounded-[6px] border border-solid border-[#b0b6bd] ' disabled={!columns[4].button2IsAble[index]} onClick={()=> columns[4].button2Func(index)}>{columns[4].button2}</Button>
+                                                <button className={columns[4].button1IsAble[index]?'mr-[6px] px-[9.5px] py-[5.5px] bg-[#F4B512] text-[white] rounded-[6px] border-none ':'mr-[6px] px-[9.5px] py-[5.5px] bg-[#F4B512]/[0.6] text-[white] rounded-[6px] border-none'}disabled={!columns[4].button1IsAble[index]} onClick={()=>columns[4].button1Func(index)}>{columns[4].button1}</button>
                                                 {/* <Button className=' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button> */}
                                                 {/* <Button className=' text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button> */}
                                             </div>
