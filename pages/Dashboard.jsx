@@ -395,7 +395,7 @@ export default function Dashboard() {
         </div>
     );
     const button_style = 'px-[18px] py-[12px] bg-[#F4B512]  rounded-[6px] text-[white] font-bold font-semibold cursor-pointer text-[15px] border-none';
-    let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "Dai" ? Dai : text == "WETH" ? Weth : Eth)
+    let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
 
     const test=()=>{
         router.push('Home')
