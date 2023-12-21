@@ -82,10 +82,10 @@ export default function EthMarket() {
             dataIndex: 'asset',
             key: 'asset',
             render: (text) => (<div className='font-bold text-[1.6rem] flex items-center' >
-                <Image src={findIcon(text[0])} style={{ width: 'auto', maxHeight: '3rem' }}></Image>
+                <Image src={findIcon(text[0])} style={{ width: 'auto', maxHeight: '4rem' }}></Image>
                 <div className='ml-[1rem]'>
-                    <div >{text[0]}</div>
-                    <div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[1]}</div>
+                    <div >{text[1]}</div>
+                    <div className='font-normal text-[#c8cad3] text-[1.6rem]'>{text[0]}</div>
                 </div>
             </div>)
         },

@@ -26,16 +26,7 @@ export default function EthMarket() {
     const [tborrows, setTborrows] = useState("");
     const router = useRouter()
 
-    const { chains, isLoading, pendingChainId, switchNetwork, status } =
-    useSwitchNetwork({
-        chainId: EthereumCode,
-    })
-    const { chain } = useNetwork()
-    useEffect(()=>{
-        if(chain.id!=EthereumCode){
-            switchNetwork()
-        }
-    },[chain])
+   
     const fetchData = async () => {
         try {
             var totalMarket = BigNumber.from(0);
@@ -96,7 +87,7 @@ export default function EthMarket() {
             render: (text) => (<div className='font-bold text-[1.6rem] flex items-center' >
                 <Image src={findIcon(text[0])} style={{ width: 'auto', maxHeight: '4rem' }}></Image>
                 <div className='ml-[1rem]'>
-                    <div>{text[0]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem] items-center'>{text[1]}</div>
+                    <div>{text[1]}</div><div className='font-normal text-[#c8cad3] text-[1.6rem] items-center'>{text[0]}</div>
                 </div>
             </div>)
         },

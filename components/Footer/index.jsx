@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <div className='min-w-full box-border   h-[26.4rem] py-[6.4rem] px-[11.2rem] text-[#5F6D7E] text-[15px]'>
             <div className='md:flex md:justify-between'>
-                <div className='hidden md:block '><Image src={logo} style={{ height: '80%', width: '100%' }}></Image></div>
+                <div className='hidden md:block '><Image src={logo} style={{ height: '90%', width: '100%' }}></Image></div>
                 <div className=' md:hidden mb-[24px]'><Image src={logo} style={{ height: '80%', width: '20%' }}></Image></div>
                 <div className='flex justify-between items-center font-medium  md:w-[42.8rem] mb-[24px] md:mb-[0]'>
                     <div className='cursor-pointer'>About Us</div>

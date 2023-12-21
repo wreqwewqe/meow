@@ -136,7 +136,7 @@ export default function Profile() {
 
 
                     <div className='hidden md:block text-[1.6rem] text-[#5F6D7E]'>Display up to 50 lines</div>
-                    <div className='md:block text-[12px] text-[#5F6D7E]'>Display up to 50 lines</div>
+                    <div className='md:hidden md:block text-[12px] text-[#5F6D7E]'>Display up to 50 lines</div>
                 </div>
             </div>
             <Footer></Footer>
