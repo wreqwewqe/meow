@@ -14,10 +14,12 @@ import { PoolABI } from '../ABIs/LendingPool';
 import { total, calculateInterest, rayMul, rayToWad, rayDiv } from '../utils/getPrice';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ReferenceLine } from 'recharts';
 import { intersetRate } from "../utils/constants"
+import { EthereumCode,ScrollCode } from '../utils/constants'
 
 export default function EthDetails() {
     const rcharts = useRef();
     const [asset, setAsset] = useState("");
+    const [targetChain,setTargetChain] = useState("")
     const [network, setNetwork] = useState("");
     const [detailData, setDetail] = useState({})
     const [loading, setLoading] = useState(true);
@@ -31,6 +33,32 @@ export default function EthDetails() {
     const [boxData, setBoxData] = useState()
     const [infoEnable, setInfoEnable] = useState(true)
     const { address, isConnecting, isDisconnected } = useAccount()
+
+    const { chains, isLoading, pendingChainId, switchNetwork, status } =
+    useSwitchNetwork({
+        chainId: targetChain,
+    })
+    useEffect(()=>{
+        if(targetChain!=""){
+            switchNetwork()
+        }
+    },[targetChain])
+
+    // useEffect(()=>{
+    //     if(window.ethereum){
+    //         if(network=="Scroll"){
+    //             if(chain.id!=ScrollCode){
+    //                 setTargetChain(ScrollCode)
+    //             }
+    //         }
+    //         if(network=="Ethereum"){
+    //             if(chain.id!=EthereumCode){
+    //                 setTargetChain(EthereumCode)
+    //             }
+    //         }
+    //     }
+    // },[network,chain])
+
     useEffect(() => {
         const queryString = window.location.search;
         const queryParams = new URLSearchParams(queryString);
@@ -38,6 +66,9 @@ export default function EthDetails() {
         var net = queryParams.get("net")
         if (assetname == null) {
             assetname = "ETH"
+        }
+        if(net==null){
+            net="Scroll"
         }
         setAsset(assetname);
         setNetwork(net)

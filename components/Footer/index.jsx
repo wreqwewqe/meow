@@ -18,10 +18,10 @@ export default function Footer() {
                     <div className='cursor-pointer' onClick={() => { window.open("https://t.me/Crypto0xCyril", "_blank") }}>Contact</div>
                 </div>
                 <div className='hidden md:flex justify-between md:w-[26.4rem] '>
-                    <Image className='cursor-pointer' src={x} style={{ height: '70%', width: '15.8%' }} onClick={() => { window.open("https://twitter.com/0xMeowProtocol", "_blank") }}></Image>
-                    <Image className='cursor-pointer' src={discord} style={{ height: '70%', width: '15.8%' }} onClick={() => { window.open("https://discord.gg/meowprotocol", "_blank") }}></Image>
-                    <Image className='cursor-pointer' src={github} style={{ height: '70%', width: '15.8%' }} onClick={() => { window.open("https://github.com/0xMeowProtocol", "_blank") }}></Image>
-                    <Image className='cursor-pointer' src={medium} style={{ height: '70%', width: '15.8%' }} onClick={() => { window.open("https://medium.com/@meowprotocol", "_blank") }}></Image>
+                    <Image className='cursor-pointer' src={x} style={{ height: '48px', width: '48px' }} onClick={() => { window.open("https://twitter.com/0xMeowProtocol", "_blank") }}></Image>
+                    <Image className='cursor-pointer' src={discord} style={{ height: '48px', width: '48px' }} onClick={() => { window.open("https://discord.gg/meowprotocol", "_blank") }}></Image>
+                    <Image className='cursor-pointer' src={github} style={{ height: '48px', width: '48px' }} onClick={() => { window.open("https://github.com/0xMeowProtocol", "_blank") }}></Image>
+                    <Image className='cursor-pointer' src={medium} style={{ height: '48px', width: '48px' }} onClick={() => { window.open("https://medium.com/@meowprotocol", "_blank") }}></Image>
                 </div>
                 <div className='md:hidden flex justify-between md:w-[26.4rem] '>
                     <Image className='cursor-pointer' src={x} style={{ height: '70%', width: '48px' }} onClick={() => { window.open("https://twitter.com/0xMeowProtocol", "_blank") }}></Image>
