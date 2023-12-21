@@ -15,6 +15,8 @@ import Eth from "../public/eth.png"
 import Weth from "../public/WETH.png"
 import Usdc from "../public/USDC.png"
 import Dai from "../public/DAI.png"
+import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
+import { EthereumCode,ScrollCode } from '../utils/constants'
 export default function EthMarket() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -23,6 +25,17 @@ export default function EthMarket() {
     const [available, setAvailable] = useState("");
     const [tborrows, setTborrows] = useState("");
     const router = useRouter()
+
+    const { chains, isLoading, pendingChainId, switchNetwork, status } =
+    useSwitchNetwork({
+        chainId: EthereumCode,
+    })
+    const { chain } = useNetwork()
+    useEffect(()=>{
+        if(chain.id!=EthereumCode){
+            switchNetwork()
+        }
+    },[chain])
     const fetchData = async () => {
         try {
             var totalMarket = BigNumber.from(0);

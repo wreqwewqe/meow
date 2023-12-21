@@ -14,6 +14,8 @@ import Weth from "../public/WETH.png"
 import Usdc from "../public/USDC.png"
 import Dai from "../public/DAI.png"
 import Image from 'next/image';
+import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
+import { EthereumCode,ScrollCode } from '../utils/constants'
 export default function EthMarket() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);

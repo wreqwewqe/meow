@@ -48,13 +48,15 @@ export default function Home() {
                     <div className='text-center'>
                         <div className='md:h-[6rem]' > <Image width={60} src={Eth}></Image></div>
                         <div className='mt-[16px] mb-[8px] md:mt-[2rem] md:mb-[1.2rem] text-[20px] md:text-[2.2rem] font-semibold'>ETH</div>
-                        <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Efficiently unleash cross-media information without cross-media value. Quickly timely deliverables for real-time schemas. </div>
+                        <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Efficiently unleash cross-media information without cross-media value. </div>
+                        <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Quickly timely deliverables for real-time schemas.</div>
                         <div className='text-[#F4B512] mt-[8px] md:mt-[1.6rem] text-[15px] md:text-[1.8rem]' onClick={() => { router.push("EthMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
                     <div className=' text-center mt-[0px] md:mt-[0px]'>
                         <div className='md:h-[6rem]'><Image width={60} src={Scroll}></Image></div>
                         <div className='mt-[2rem] mb-[1.2rem] text-[20px] md:text-[2.2rem] font-semibold'>Scoll</div>
-                        <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Completely pursue scalable customer cross- media through potentialities. Holistically quickly installed portals. </div>
+                        <div className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Completely pursue scalable customer cross- media through potentialities.  </div>
+                        <div  className='text-[#5F6D7E] text-[16px] md:text-[1.2rem]'>Holistically quickly installed portals.</div>
                         <div className='text-[#F4B512] mt-[8px] md:mt-[1.6rem] text-[15px] md:text-[1.8rem]' onClick={() => { router.push("ScrollMarket") }} style={{ cursor: 'pointer' }}>Go to Market <ArrowRightOutlined /></div>
                     </div>
                 </div>
