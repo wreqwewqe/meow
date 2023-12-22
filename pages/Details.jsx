@@ -14,12 +14,12 @@ import { PoolABI } from '../ABIs/LendingPool';
 import { total, calculateInterest, rayMul, rayToWad, rayDiv } from '../utils/getPrice';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ReferenceLine } from 'recharts';
 import { intersetRate } from "../utils/constants"
-import { EthereumCode,ScrollCode } from '../utils/constants'
+import { EthereumCode, ScrollCode } from '../utils/constants'
 
 export default function EthDetails() {
     const rcharts = useRef();
     const [asset, setAsset] = useState("");
-    const [targetChain,setTargetChain] = useState("")
+    const [targetChain, setTargetChain] = useState("")
     const [network, setNetwork] = useState("");
     const [detailData, setDetail] = useState({})
     const [loading, setLoading] = useState(true);
@@ -35,14 +35,14 @@ export default function EthDetails() {
     const { address, isConnecting, isDisconnected } = useAccount()
 
     const { chains, isLoading, pendingChainId, switchNetwork, status } =
-    useSwitchNetwork({
-        chainId: targetChain,
-    })
-    useEffect(()=>{
-        if(targetChain!=""){
+        useSwitchNetwork({
+            chainId: targetChain,
+        })
+    useEffect(() => {
+        if (targetChain != "") {
             switchNetwork()
         }
-    },[targetChain])
+    }, [targetChain])
 
     // useEffect(()=>{
     //     if(window.ethereum){
@@ -67,8 +67,8 @@ export default function EthDetails() {
         if (assetname == null) {
             assetname = "ETH"
         }
-        if(net==null){
-            net="Scroll"
+        if (net == null) {
+            net = "Scroll"
         }
         setAsset(assetname);
         setNetwork(net)
@@ -269,6 +269,7 @@ export default function EthDetails() {
         data.sort((a, b) => a["Utilization Rate"] - b["Utilization Rate"])
 
         return (
+
             <LineChart width={rcharts.current && rcharts.current.clientWidth * 0.9 || 0} height={300} data={data} margin={{ top: 20, right: 30, bottom: 20, left: 5 }}>
                 {/* <Line type="linear" dataKey="Utilization Rate" stroke="#8884d8" />Borrow APR, variable */}
                 <Line type="monotone" dataKey="Borrow APR, variable" stroke="#F4B512" dot={false} strokeWidth={2} />
@@ -286,121 +287,121 @@ export default function EthDetails() {
     return (
         <div className='min-h-full '>
             <Header></Header>
-            <div className=' box-border py-[6.4rem] px-[11.2rem] mb-[6.4rem]'>
-                <div className='font-bold text-[3.2rem] mb-[1.6rem]'>{network} Market</div>
-                <div className='flex justify-between w-[80rem] mb-[6.4rem]'>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem] '>{asset}</div>
-                        <div className='text-[#272D37] text-[2.2rem] font-bold '>{detailData.name}</div>
+            <div className=' box-border py-[64px] px-[11.2rem] mb-[64px]'>
+                <div className='font-bold text-[24px] md:text-[3.2rem] mb-[1.6rem]'>{network} Market</div>
+                <div className='flex justify-between flex-wrap md:w-[80rem] mb-[64px] '>
+                    <div className='w-[48%] md:flex-1 mt-[16px] md:mt-[0px]'>
+                        <div className='text-[#5F6D7E] mb-[8px] text-[16px]'>{asset}</div>
+                        <div className='text-[#272D37] text-[22px] font-bold '>{detailData.name}</div>
                     </div>
                     {/* <hr className=' mx-0 border-[#EAEBF0] border-solid vertical-line ' /> */}
-                    <div className='pl-[1.6rem]  border border-solid border-[white] border-l-[#EAEBF0]'>
-                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Reserve Size</div>
-                        <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.size}</div>
+                    <div className='w-[48%] md:flex-1 pl-[16px] mt-[16px] md:mt-[0px]  md:border md:border-solid border-[white] md:border-l-[#EAEBF0]'>
+                        <div className='text-[#5F6D7E] mb-[8px] md:text-center text-[16px]'>Reserve Size</div>
+                        <div className='text-[#272D37] text-[22px]  font-bold md:text-center'>{detailData.size}</div>
                     </div>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Available liquidity</div>
-                        <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.totalsupply}</div>
+                    <div className='w-[48%] md:flex-1 mt-[16px] md:mt-[0px]'>
+                        <div className='text-[#5F6D7E] mb-[8px] md:text-center text-[16px]'>Available liquidity</div>
+                        <div className='text-[#272D37] text-[22px]  font-bold md:text-center'>{detailData.totalsupply}</div>
                     </div>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Utilization Rate</div>
-                        <div className='text-[#272D37] text-[2.2rem]  font-bold text-center'>{detailData.ur}%</div>
+                    <div className='w-[48%] md:flex-1 mt-[16px] md:mt-[0px]'>
+                        <div className='text-[#5F6D7E] mb-[8px] md:text-center text-[16px]'>Utilization Rate</div>
+                        <div className='text-[#272D37] text-[22px]  font-bold md:text-center'>{detailData.ur}%</div>
                     </div>
-                    <div>
-                        <div className='text-[#5F6D7E] mb-[0.8rem] text-center'>Oracle price</div>
-                        <div className='text-[#272D37] text-[2.2rem] font-bold text-center'>${detailData["oraclePrice"]}</div>
+                    <div className='w-[48%] md:flex-1 mt-[16px] md:mt-[0px]'>
+                        <div className='text-[#5F6D7E] mb-[8px] md:text-center text-[16px]'>Oracle price</div>
+                        <div className='text-[#272D37] text-[22px] font-bold md:text-center'>${detailData["oraclePrice"]}</div>
                     </div>
                 </div>
-                <div className='flex justify-between'>
-                    <div className='basis-[64%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[0.1rem] border-[#EAEBF0]'>
-                        <div className='text-[2.6rem] font-bold mb-[2.4rem]'>Reserve status & configuration</div>
-                        <div className='text-[1.8rem] font-bold mb-[0.8rem]'>Supply Info</div>
-                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[2rem]'>
-                            <div className='w-[60%]  flex justify-between mb-[3rem]'>
+                <div className='md:flex md:justify-between'>
+                    <div className='basis-[64%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'>
+                        <div className='text-[24px] md:text-[2.6rem] font-bold mb-[24px]'>Reserve status & configuration</div>
+                        <div className='text-[18px] font-bold mb-[8px]'>Supply Info</div>
+                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[20px]'>
+                            <div className='md:w-[60%]  flex justify-between mb-[3rem] items-center'>
                                 <div> <Progress type="circle" percent={detailData.cycle} /></div>
-                                <div>
-                                    <div className='mb-[1rem] text-[#5F6D7E] text-[1.4rem]'>Total supplied</div>
-                                    <div className='mb-[1rem] text-[1.6rem] font-bold'>{detailData.totalsupply} of {detailData.size}</div>
-                                    <div className='text-[1.2rem] text-[#5F6D7E]'>${detailData.supplyprice} of ${detailData.sizeprice}</div>
+                                <div >
+                                    <div className='mb-[10px] text-[#5F6D7E] text-[14px]'>Total supplied</div>
+                                    <div className='mb-[10px] text-[16px] font-bold'>{detailData.totalsupply} of {detailData.size}</div>
+                                    <div className='text-[12px] text-[#5F6D7E]'>${detailData.supplyprice} of ${detailData.sizeprice}</div>
                                 </div>
                                 <div >
-                                    <div className='mb-[1rem] text-[#5F6D7E] pl-[3rem] text-[1.4rem]'>APY</div>
-                                    <div className=' font-bold text-[1.6rem] h-[4rem] flex justify-center items-center pl-[3rem] border border-solid border-[white] border-l-[#EAEBF0]'>{detailData.supplyapy}%</div>
+                                    <div className='mb-[1rem] text-[#5F6D7E] md:pl-[30px] text-[14px]'>APY</div>
+                                    <div className=' font-bold text-[16px] h-[40px] flex justify-center items-center md:pl-[30px] border border-solid border-[white] border-l-[#EAEBF0]'>{detailData.supplyapy}%</div>
                                 </div>
                             </div>
                             <div className='flex mb-[2rem] font-bold'>
-                                <div className='text-[#272D37] mr-[3rem] text-[1.4rem]'>Collateral</div>
-                                <div className='text-[green] whitespace-nowrap text-[1.4rem]'>Can be Collateral</div>
+                                <div className='text-[#272D37] mr-[30px] text-[14px]'>Collateral</div>
+                                <div className='text-[green] whitespace-nowrap text-[14px]'>Can be Collateral</div>
                             </div>
-                            <div className='flex justify-between'>
-                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
-                                    <div className='text-[#5F6D7E] mb-[1.5rem] text-[1.4rem]'>Max LTV</div>
-                                    <div className='text-[1.4rem]'>{detailData.ltv}%</div>
+                            <div className='md:flex md:justify-between'>
+                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[10px] mb-[8px] md:mb-[0px]'>
+                                    <div className='text-[#5F6D7E] mb-[15px] text-[14px]'>Max LTV</div>
+                                    <div className='text-[14px]'>{detailData.ltv}%</div>
                                 </div>
 
-                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
-                                    <div className='text-[#5F6D7E] mb-[1.5rem] text-[1.4rem]'>Liquidation threshold</div>
-                                    <div className='text-[1.4rem]'>{detailData.lt}%</div>
+                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[10px] mb-[8px] md:mb-[0px]'>
+                                    <div className='text-[#5F6D7E] mb-[15px] text-[14px]'>Liquidation threshold</div>
+                                    <div className='text-[14px]'>{detailData.lt}%</div>
                                 </div>
-                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[1rem]'>
-                                    <div className='text-[#5F6D7E]  mb-[1.5rem] text-[1.4rem]'>Liquidation penalty</div>
-                                    <div className='text-[1.4rem]'>{detailData.lp}%</div>
+                                <div className='basis-[32%] border-solid border-[1px] border-[#EAEBF0] box-border p-[10px] mb-[8px] md:mb-[0px]'>
+                                    <div className='text-[#5F6D7E]  mb-[15px] text-[14px]'>Liquidation penalty</div>
+                                    <div className='text-[14px]'>{detailData.lp}%</div>
                                 </div>
                             </div>
                         </div>
-                        <div className='text-[1.8rem] font-bold mb-[0.8rem] mt-[2.4rem]'>Borrow Info</div>
-                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[2rem]'>
-                            <div className='w-[60%]  flex justify-between mb-[3rem]'>
-                                <div>
-                                    <div className='mb-[1rem] text-[#5F6D7E] text-[1.4rem]'>Total borrowed</div>
-                                    <div className='mb-[1rem] font-bold text-[1.6rem]'>{detailData.totalBorrow}</div>
-                                    <div className='text-[1.2rem] text-[#5F6D7E]'>${detailData.borrowprice}</div>
+                        <div className='text-[18px] font-bold mb-[8px] mt-[24px]'>Borrow Info</div>
+                        <div className='border-[1px] border-solid border-[#EAEBF0] box-border p-[20px]'>
+                            <div className='md:w-[60%]  flex justify-between mb-[30px]'>
+                                <div className='pr-[15px] md:pr-[0px]'>
+                                    <div className='mb-[10px] text-[#5F6D7E] text-[14px]'>Total borrowed</div>
+                                    <div className='mb-[10px] font-bold text-[16px]'>{detailData.totalBorrow}</div>
+                                    <div className='text-[12px] text-[#5F6D7E]'>${detailData.borrowprice}</div>
                                 </div >
-                                <div className=' justify-center items-center pl-[3rem] border border-solid border-[white] border-l-[#EAEBF0]'>
-                                    <div className='mb-[1rem] text-[#5F6D7E] text-[1.4rem]'>APY,variable</div>
-                                    <div className='mb-[1rem] font-bold text-[1.6rem]'>{detailData.apyv}%</div>
+                                <div className=' md:justify-center  md:items-center px-[15px] md:pl-[30px] border border-solid border-[white] border-l-[#EAEBF0]'>
+                                    <div className='mb-[10px] text-[#5F6D7E] text-[14px]'>APY,variable</div>
+                                    <div className='mb-[10px] font-bold text-[16px]'>{detailData.apyv}%</div>
                                 </div>
-                                <div className=' justify-center items-center pl-[3rem] border border-solid border-[white] border-l-[#EAEBF0]'>
-                                    <div className='mb-[1rem] text-[#5F6D7E] text-[1.4rem]'>APY,stable</div>
-                                    <div className='font-bold text-[1.6rem]'>{detailData.apys}%</div>
+                                <div className=' md:justify-center md:items-center px-[15px] md:pl-[30px] border border-solid border-[white] border-l-[#EAEBF0]'>
+                                    <div className='mb-[1rem] text-[#5F6D7E] text-[14px]'>APY,stable</div>
+                                    <div className='font-bold text-[16px]'>{detailData.apys}%</div>
                                 </div>
                             </div>
                             {/* <div className='mt-[3rem] font-bold text-[1.4rem]'>Collateral Info</div> */}
                         </div>
-                        <div className='mt-[2.4rem] font-bold text-[1.8rem]'>Interest rate model</div>
-                        <div ref={rcharts} className='border border-solid border-[#EAEBF0] box-border p-[2rem]'>
-                            <div className='mb-[1rem] text-[1.4rem] text-[#5F6D7E]'>Utilzation Rate</div>
-                            <div className='mb-[2rem] font-bold text-[1.6rem]'>{detailData.ur}%</div>
+                        <div className='mt-[24px] font-bold text-[18px]'>Interest rate model</div>
+                        <div ref={rcharts} className='border border-solid border-[#EAEBF0] box-border p-[20px]'>
+                            <div className='mb-[10px] text-[14px] text-[#5F6D7E]'>Utilzation Rate</div>
+                            <div className='mb-[20px] font-bold text-[16px]'>{detailData.ur}%</div>
                             {render(detailData.ur, detailData.apyv)}
                         </div>
                     </div>
-                    {infoEnable ? <div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
-                        : (<div className='basis-[32%] box-border py-[2.4rem] px-[3.2rem] border-solid border-[1px] border-[#EAEBF0]'>
-                            <div className='text-[#272D37] text-[2.6rem] mb-[2.4rem] font-bold'>Your Info</div>
-                            <div className='box-border p-[1rem] border-solid border-[0.5px] border-[#EAEBF0]'>
-                                <div className='flex mb-[2rem]'>
-                                    <WalletOutlined className='text-[2rem] mr-[3rem]' />
+                    {infoEnable ? <div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'><Skeleton loading={true} active></Skeleton></div>
+                        : (<div className='basis-[32%] box-border py-[24px] px-[32px] border-solid border-[1px] border-[#EAEBF0]'>
+                            <div className='text-[#272D37] text-[26px] mb-[24px] font-bold'>Your Info</div>
+                            <div className='box-border p-[10px] border-solid border-[0.5px] border-[#EAEBF0]'>
+                                <div className='flex mb-[20px]'>
+                                    <WalletOutlined className='text-[20px] mr-[30px]' />
                                     <div>
-                                        <div className='text-[#5F6D7E] whitespace-nowrap text-[1.4rem]'>Wallet balance</div>
-                                        <div className='text-[1.6rem]'><span className='font-bold mt-[0.5rem] '>{detailData.balance} </span>{detailData.coin}</div>
+                                        <div className='text-[#5F6D7E] whitespace-nowrap text-[14px]'>Wallet balance</div>
+                                        <div className='text-[16px]'><span className='font-bold mt-[5px] '>{detailData.balance} </span>{detailData.coin}</div>
                                     </div>
                                 </div>
-                                <hr className='mb-[2rem] border-[#EAEBF0] border-solid' />
+                                <hr className='mb-[20px] border-[#EAEBF0] border-solid' />
                                 <div className='flex justify-between items-center'>
                                     <div>
-                                        <div className='text-[1.4rem] text-[#5F6D7E]'>Avaliable to supply</div>
-                                        <div className='text-[1.6rem] mt-[0.4rem]'><span className='font-bold mt-[0.5rem]'>{detailData.balance} </span>{detailData.coin}</div>
-                                        <div className='mt-[0.4rem] text-[1.2rem] text-[#5F6D7E]'>${detailData.balanceprice}</div>
+                                        <div className='text-[14px] text-[#5F6D7E]'>Avaliable to supply</div>
+                                        <div className='text-[16px] mt-[4px]'><span className='font-bold mt-[5px]'>{detailData.balance} </span>{detailData.coin}</div>
+                                        <div className='mt-[4px] text-[12px] text-[#5F6D7E]'>${detailData.balanceprice}</div>
                                     </div>
-                                    <div><button className='box-border bg-[#F4B512] p-[1rem]  rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none' onClick={() => { setOperation("Supply"); setBoxData(supplyData); setOpen(true) }}>Supply</button></div>
+                                    <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Supply"); setBoxData(supplyData); setOpen(true) }}>Supply</button></div>
                                 </div>
-                                <div className='flex justify-between mt-[2rem] items-center'>
+                                <div className='flex justify-between mt-[20px] items-center'>
                                     <div>
-                                        <div className='text-[#5F6D7E] text-[1.4rem]'>Avaliable to borrow</div>
-                                        <div className='text-[1.6rem] mt-[0.4rem]'><span className='font-bold mt-[0.5rem]'>{detailData.availableBorrow} </span>{detailData.coin}</div>
-                                        <div className='mt-[0.4rem] text-[#5F6D7E] text-[1.2rem]'>${detailData.availableprice}</div>
+                                        <div className='text-[#5F6D7E] text-[14px]'>Avaliable to borrow</div>
+                                        <div className='text-[16px] mt-[4px]'><span className='font-bold mt-[5px]'>{detailData.availableBorrow} </span>{detailData.coin}</div>
+                                        <div className='mt-[4px] text-[#5F6D7E] text-[12px]'>${detailData.availableprice}</div>
                                     </div>
-                                    <div><button className='box-border bg-[#F4B512] p-[1rem]  rounded-[0.6rem] text-[white] font-semibold cursor-pointer text-[1.5rem] border-none' onClick={() => { setOperation("Borrow"); setBoxData(borrowData); setOpen(true) }}>Borrow</button></div>
+                                    <div><button className='box-border bg-[#F4B512] p-[10px]  rounded-[6px] text-[white] font-semibold cursor-pointer text-[15px] border-none' onClick={() => { setOperation("Borrow"); setBoxData(borrowData); setOpen(true) }}>Borrow</button></div>
                                 </div>
                             </div>
                         </div>)}

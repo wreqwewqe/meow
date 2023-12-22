@@ -10,7 +10,7 @@ import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
 import { post, get } from '../utils/funcaxios'
 import { BigNumber } from 'ethers'
-import { create } from 'blockies';
+// import { create } from 'blockies';
 import MeowToken from "../public/meowtoken.png"
 // import clipboardCopy from 'clipboard-copy';
 export default function Profile() {
