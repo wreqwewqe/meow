@@ -11,6 +11,7 @@ import { BaseURI } from '../utils/constants';
 import { post, get } from '../utils/funcaxios'
 import { BigNumber } from 'ethers'
 import { create } from 'blockies';
+import MeowToken from "../public/meowtoken.png"
 // import clipboardCopy from 'clipboard-copy';
 export default function Profile() {
     const [data, setData] = useState({});
@@ -71,11 +72,11 @@ export default function Profile() {
                 <div className='mb-[64px]'><Image src={copy} onClick={copy_address} className='cursor-pointer mr-[8px]' height={15}></Image><span className='text-[16px]  text-[#5F6D7E]'>Copy address to clipboard</span></div>
                 <div className='md:flex md:justify-between mb-[32px]'>
                     <div className='px-[32px] py-[24px] border-solid border border-[#EAEBF0] rounded-[5px] mb-[32px] md:mb-[0px] md:w-[46%] box-border'>
-                        <div className='mb-[24px] flex items-center text-[16px] text-[#272D37] font-bold'>$ MEO <Popover content={content1}><Image src={exclaim_point} className='cursor-pointer ml-[0.6rem]' height={15} /></Popover></div>
+                        <div className='mb-[24px] flex items-center text-[16px] text-[#272D37] font-bold'><Image src={MeowToken} className='cursor-pointer  mr-[0.6rem]' height={60} />  $ MEO <Popover content={content2}></Popover></div>
                         <div className='text-[22px] font-bold'>{loading ? "" : data.integral}</div>
                     </div>
                     <div className='px-[32px] py-[24px] border-solid border border-[#EAEBF0] rounded-[5px] md:w-[46%] box-border'>
-                        <div className='mb-[24px] flex items-center text-[16px] text-[#272D37] font-bold'>$ Meow <Popover content={content2}><Image src={exclaim_point} className='cursor-pointer ml-[0.6rem]' height={15} /></Popover></div>
+                        <div className='mb-[24px] flex items-center text-[16px] text-[#272D37] font-bold'><Image src={MeowToken} className='cursor-pointer   mr-[0.6rem]' height={60} />  $ Meow <Popover content={content1}></Popover></div>
                         <div className='text-[22px] font-bold'>{loading ? "" : data.token}</div>
                     </div >
                 </div>
@@ -136,7 +137,7 @@ export default function Profile() {
 
 
                     <div className='hidden md:block text-[1.6rem] text-[#5F6D7E]'>Display up to 50 lines</div>
-                    <div className='md:block text-[12px] text-[#5F6D7E]'>Display up to 50 lines</div>
+                    <div className='md:hidden md:block text-[12px] text-[#5F6D7E]'>Display up to 50 lines</div>
                 </div>
             </div>
             <Footer></Footer>
