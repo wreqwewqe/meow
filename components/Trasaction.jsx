@@ -302,7 +302,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     }
     if (title == "Supply") {
         return (
-            <div><Modal title={title + " " + data.name[0]} open={open} onOk={handleOk} onCancel={handleCancel} footer="">
+            <div><Modal maskClosable={false} title={title + " " + data.name[0]} open={open} onOk={handleOk} onCancel={handleCancel} footer="">
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Amount</div>
                 <div className='relative zdy-input border border-solid border-[#E5E3E6] rounded-[6px]'>
                     <Input value={value} bordered={false} onChange={handlePrice} placeholder='Enther the Amount' type="text" onInput={checkValueSupply} suffix={
