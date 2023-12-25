@@ -4,7 +4,10 @@ import Image from 'next/image';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import bowl from "../public/bowl.png"
 import light from "../public/light.png"
-import eth from "../public/eth.png"
+import Eth from "../public/eth.png"
+import Weth from "../public/WETH.png"
+import Usdc from "../public/USDC.png"
+import Dai from "../public/DAI.png"
 export default function ShowList({ title, about_me, data, columns, header, supply = true, loading, buttonfunc }) {
     if (loading) {
         return (
@@ -14,6 +17,8 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
             </div>
         )
     }
+
+    let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
     return (
         (
             data && data.length > 0 ?
@@ -27,7 +32,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
                     {columns[0].data.map(((item, index) => (
                         <div className='block md:hidden '>
                             <div className='mb-[16px] flex'>
-                                <Image src={eth} width={38}></Image>
+                                <Image src={findIcon(columns[0].data[index][0])} width={38}></Image>
                                 <div className='ml-[10px]'>
                                     <div className='text-[12px] text-[#5F6D7E]'>Asset</div>
                                     <div className='text-[16px] font-bold'>{columns[0].data[index][0]}</div>

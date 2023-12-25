@@ -6,8 +6,8 @@
  * @LastEditTime: 2023-05-05 16:29:40
  */
 const ETHEREUM_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-const EthereumCode = 1
-const ScrollCode = 534352
+const EthereumCode = 5
+const ScrollCode = 534351
 const EthereumScan = "https://etherscan.io"
 const ScrollScan = "https://scrollscan.com/"
 // const BaseURI = 'https://api.bittesseract.com/api/v1/';

@@ -318,6 +318,7 @@ export default function Dashboard() {
 
         } catch (error) {
             setError(error);
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -338,8 +339,9 @@ export default function Dashboard() {
 
     }, [targetChain])
     useEffect(() => {
+        console.log("ssssssssssssssssssssssssss");
         if (address && chain.id && sessionStorage.getItem("token")) {
-            // console.log("wwwwwwwwwwwbhjajsdbakjsdkajsdhkj");
+            console.log("wwwwwwwwwwwbhjajsdbakjsdkajsdhkj");
             setLoading(true)
             fetchData()
         }
@@ -388,10 +390,10 @@ export default function Dashboard() {
     const content = (
         <div className=' text-[18px] font-medium'>
             <p className='cursor-pointer flex items-center' onClick={() => {
-                setTargetChain("1");
+                setTargetChain("5");
             }}> <Image style={{ width: 'auto', maxHeight: '40px' }} src={Eth} className='mr-[1.3rem]'></Image> Ethereum Market</p>
             <p className='cursor-pointer flex items-center' onClick={() => {
-                setTargetChain("534352");
+                setTargetChain("534351");
             }}> <Image style={{ width: 'auto', maxHeight: '40px' }} src={Scroll} className='mr-[1.3rem]'></Image>Scroll Market</p>
         </div>
     );
