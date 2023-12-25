@@ -6,7 +6,6 @@ import bowl from "../public/bowl.png"
 import light from "../public/light.png"
 import eth from "../public/eth.png"
 export default function ShowList({ title, about_me, data, columns, header, supply = true, loading, buttonfunc }) {
-    console.log("a", typeof(buttonfunc));
     if (loading) {
         return (
             <div className='box-border w-[100%]  py-[2.4rem] px-[3.2rem] border border-solid border-[#b0b6bd] rounded-[0.5rem]  '>

@@ -66,7 +66,7 @@ export default function Home() {
                 <div className='font-bold text-[24px] md:text-[3.2rem]'>Your Funds, Our Priority - Meow Ensures Safety</div>
                 <div className='mt-[12px] md:mt-[1.6rem] text-[16px] md:text-[1.8rem]'>Audited by the Scroll ecosystem's leading security firms, security of the Meow Protocol is the highest priority.</div>
                 {/* <div className='mb-[4.4rem] text-[1.8rem]'>priority.</div> */}
-                <div className='mt-[32px] md:mt-[4.4rem]'> <Image height={60} src={home3}></Image></div>
+                <div className='mt-[32px] md:mt-[4.4rem]'onClick={() => { window.open("https://veridise.com/audits/", "_blank") }}> <Image height={60} src={home3}></Image></div>
             </div>
             <Footer></Footer>
         </div>

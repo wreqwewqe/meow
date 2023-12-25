@@ -31,7 +31,7 @@ export default function EthMarket() {
             let assetRow = []
             const response = await get('/market', { net: "Scroll" });
             let marketdata = response.data
-            console.log(marketdata);
+            // console.log(marketdata);
             for (let index = 0; index < marketdata.length; index++) {
                 totalMarket = totalMarket.add(BigNumber.from(marketdata[index]['TotalSupplied']));
                 totalBorrow = totalBorrow.add(BigNumber.from(marketdata[index]['TotalBorrowed']));

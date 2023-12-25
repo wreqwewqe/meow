@@ -52,7 +52,7 @@ export default function Profile() {
                 }
                 response.data.inviteCode = "https://meowprotocol.xyz/Dashboard?code=" + response.data.inviteCode
                 setData(response.data);
-                console.log(data.top50);
+                // console.log(data.top50);
             } catch (error) {
                 setError(error);
             } finally {

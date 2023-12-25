@@ -83,7 +83,7 @@ export default function EthDetails() {
         try {
             const Data = await get('/detail', { asset: asset, net: network })
             const data = Data.data.assetdata
-            console.log(data);
+            // console.log(data);
             const E2 = BigNumber.from(100)
 
             const assetDate = {}
@@ -236,13 +236,13 @@ export default function EthDetails() {
     };
     useEffect(() => {
         if (asset !== "" && network !== "") {
-            console.log("我进来了");
+            // console.log("我进来了");
             fetchData();
         }
     }, [asset, network])
     useEffect(() => {
         if (asset !== "" && network !== "" && address) {
-            console.log("我也进来了");
+            // console.log("我也进来了");
             fetchAssetData();
         }
     }, [chain, asset, address])

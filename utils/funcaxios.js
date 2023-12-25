@@ -38,7 +38,7 @@ export default service;
 /* 统一封装get请求 */
 export const get = (url, params, config = { baseURL: BaseURI }) => {
 
-  console.log("hhhhhhhhhhhhhs", config)
+  // console.log("hhhhhhhhhhhhhs", config)
   return new Promise((resolve, reject) => {
     service({
       method: 'get',
@@ -55,7 +55,7 @@ export const get = (url, params, config = { baseURL: BaseURI }) => {
 
 /* 统一封装post请求  */
 export const post = (url, data, config = { baseURL: BaseURI }) => {
-  console.log("hhhhhhhhhhhhhs", config)
+  // console.log("hhhhhhhhhhhhhs", config)
   return new Promise((resolve, reject) => {
     service({
       method: 'post',

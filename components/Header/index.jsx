@@ -41,7 +41,7 @@ function Header({ isHome = true }) {
     useEffect(() => {
         if (address) {
             post("/auth", { "address": address }).then((res) => {
-                console.log("wwwwwwwwwwwwwwwww", res.data.token);
+                // console.log("wwwwwwwwwwwwwwwww", res.data.token);
                 sessionStorage.setItem('token', "Bearer " + res.data.token)
             })
         }
@@ -81,7 +81,7 @@ function Header({ isHome = true }) {
                 <div className={router.pathname.includes("Dashboard") ? 'active cursor-pointer' : "cursor-pointer"} onClick={() => { router.push("/Dashboard") }}>Dashboard</div>
                 <div className={router.pathname.includes("Market") ? 'active cursor-pointer' : "cursor-pointer"} ><Popover content={market}>Market <DownOutlined /></Popover></div>
                 <div className='cursor-pointer' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/", "_blank") }}>Docs</div>
-                <div className='cursor-pointer' onClick={() => { window.open("", "_blank") }}>Security</div>
+                <div className='cursor-pointer' onClick={() => { window.open("https://f8t2x8b2.rocketcdn.me/wp-content/uploads/2023/12/VAR-0xMeowProtocol-231127-V2.pdf", "_blank") }}>Security</div>
             </div>
             <div className='hidden md:block'>  {!isHome ? <button onClick={() => { router.push("/Dashboard") }} type="button" className={button_style}>Launch APP</button>
                 : <ConnectButton.Custom>

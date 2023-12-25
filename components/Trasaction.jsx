@@ -15,7 +15,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     const stable = useRef();
     const [input, setInput] = useState(0)
     const [loading, setLoading] = useState(false)
-    const [rateMode, setRateMode] = useState(1)
+    const [rateMode, setRateMode] = useState(2)
     const [approveStatu, setApproveStatu] = useState("wait")
     const [supplyStatu, setSupplyStatu] = useState("wait")
     const [doneStatu, setDoneStatu] = useState("wait")
@@ -26,19 +26,17 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             return
         }
         setLoading(true)
-        const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain)
+        const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain,address)
         setLoading(false)
         if (result == "") {
             window.location.reload()
         } else {
-            // console.log(result);
             setApproveStatu("wait")
             setDoneStatu("wait")
             setSupplyStatu("wait")
             if (result.code != "ACTION_REJECTED") {
 
                 try {
-                    console.log(result.error.message);
                     message.error(result.error.message + " Please try again!")
                 } catch (error) {
                     message.error("Transaction failed, please try again!")
@@ -54,7 +52,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             return
         }
         setLoading(true)
-        const result = await redeem(data.assetAddress, data.aTokenAddress, web3modal, value, chain)
+        const result = await redeem(data.assetAddress, data.aTokenAddress, web3modal, value, chain,address,setSupplyStatu, setDoneStatu)
         setLoading(false)
         if (result == "") {
             window.location.reload()
@@ -81,8 +79,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         // console.log("ratemode:"+rateMode);
         setLoading(true)
-        console.log("ratemode:" + data.assetAddress);
-        const result = await borrow(data.assetAddress, value, web3modal, rateMode, chain)
+        const result = await borrow(data.assetAddress, value, web3modal, rateMode, chain,address,setSupplyStatu, setDoneStatu)
         // console.log(result.error.message);
         setLoading(false)
         if (result == "") {
@@ -120,8 +117,10 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             setSupplyStatu("wait")
             if (result.code != "ACTION_REJECTED") {
                 try {
+                    console.log(result);
                     message.error(result.error.message + " Please try again!")
                 } catch (error) {
+                    console.log(result);
                     message.error("Transaction failed, please try again!")
                 }
             }
@@ -135,10 +134,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         setLoading(true)
         var addValue = Number(value)
-        if (data.ERC20Name != "ETH" && value == data.balance) {
-            addValue = Number(value) + 1
-        }
-        const result = await repay(data.assetAddress, addValue, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain)
+        const result = await repay(data.assetAddress, addValue, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain,address)
         setLoading(false)
         if (result == "") {
             const provider = await getProviderOrSigner(true, web3modal);
@@ -151,7 +147,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
             await post("/v1/updateBorrow", { "asset": data.ERC20Name, "balance": userData.principalBorrowBalance.toString(), "user": address, "net": chain.id == EthereumCode ? "Ethereum" : "Scroll" })
             window.location.reload()
         } else {
-            // console.log(result);
+            console.log(result);
             setApproveStatu("wait")
             setDoneStatu("wait")
             setSupplyStatu("wait")
@@ -172,7 +168,10 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     useEffect(() => {
         if (value != "") {
             handlePrice()
+        }else{
+            setInput(0)
         }
+
 
     }, [value])
 
@@ -223,12 +222,12 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         setSupplyStatu("wait")
     }
     const onChange = (values) => {
-        console.log("values", values.target.value);
+        // console.log("values", values.target.value);
         setValue(values.target.value)
     }
     const rate_change = (e) => {
-        console.log('e', e.target == stable.current);
-        console.log("variable", variable)
+        // console.log('e', e.target == stable.current);
+        // console.log("variable", variable)
         variable.current.style.backgroundColor = "#919AA6";
         stable.current.style.backgroundColor = '#919AA6'
         e.target.style.backgroundColor = "white"
@@ -270,6 +269,29 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     </div>
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
+                {supplyStatu == "wait" ? "" :
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                colorPrimary: '#F4B512'
+                            },
+                        }}
+                    >
+                        <Steps
+                            items={[
+                                {
+                                    title: 'Borrow',
+                                    status: supplyStatu,
+                                    icon: supplyStatu == "finish" ? <SmileOutlined /> : supplyStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                                {
+                                    title: 'Done',
+                                    status: doneStatu,
+                                    icon: doneStatu == "finish" ? <SmileOutlined /> : doneStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                            ]}
+                        />
+                    </ConfigProvider>}
                 {value ?
                     <Button className='bg-[#F4B512] text-[white] h-[44px] font-bold rounded-[6px] mb-[8px] w-full' onClick={handleBorrow} loading={loading}>{title + " " + value + " " + data.name[1]}</Button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
@@ -372,6 +394,29 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     </div>
                     <div className='text-[#919AA6] text-right'>Liquidation at &lt; 1.0 </div>
                 </div>
+                {supplyStatu == "wait" ? "" :
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                colorPrimary: '#F4B512'
+                            },
+                        }}
+                    >
+                        <Steps
+                            items={[
+                                {
+                                    title: 'Withdraw',
+                                    status: supplyStatu,
+                                    icon: supplyStatu == "finish" ? <SmileOutlined /> : supplyStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                                {
+                                    title: 'Done',
+                                    status: doneStatu,
+                                    icon: doneStatu == "finish" ? <SmileOutlined /> : doneStatu == "wait" ? "" : <LoadingOutlined />
+                                },
+                            ]}
+                        />
+                    </ConfigProvider>}
                 {value ?
                     <Button className='bg-[#F4B512] text-[white] h-[44px] font-bold rounded-[6px] mb-[8px] w-full' onClick={handleRedeem} loading={loading}>{title.split(" ")[0] + " " + value + " " + data.name[1]}</Button>
                     : <div className='bg-[#F4B512]/[0.6] text-[white] box-border py-[12px] font-bold text-center rounded-[6px] mb-[8px]'>Enter An Amount</div>
@@ -390,7 +435,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                             <div className='font-bold text-[20px] text-right'>{data.name[1]}</div>
                         </div>
                     }></Input>
-                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6] whitespace-nowrap '>Wallet Balance</span> {data.WalletBalance} <span className='text-[#F4B512] cursor-pointer' onClick={() => clickMax(data.WalletBalance < data.balance ? data.balance : data.WalletBalance)}>Max</span></div></div>
+                    <div className='flex justify-between box-border px-[10px] mb-[5px]'><div className='text-[#D7D7D7] '>${input} </div> <div><span className='text-[14px] text-[#919AA6] whitespace-nowrap '>Wallet Balance</span> {data.WalletBalance} <span className='text-[#F4B512] cursor-pointer' onClick={() => {clickMax(parseFloat(data.WalletBalance) < parseFloat(data.balance) ? data.WalletBalance : data.balance)}}>Max</span></div></div>
                 </div>
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Transaction OverView</div>
                 <div className='border border-solid border-[#E5E3E6] rounded-[6px] box-border py-[12px] px-[16px] mb-[20px]'>

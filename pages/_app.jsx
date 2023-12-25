@@ -159,7 +159,7 @@ function MyApp({ Component, pageProps }) {
       // 当屏幕尺寸发生大小变化时候事件
       window.onresize = function () {
         setRem(1440);
-        console.log("66666")
+        // console.log("66666")
       };
     }
   }, [])
