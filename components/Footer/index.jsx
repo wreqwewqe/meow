@@ -12,9 +12,9 @@ export default function Footer() {
                 <div className='hidden md:block '><Image src={logo} style={{ height: '90%', width: '100%' }}></Image></div>
                 <div className=' md:hidden mb-[24px]'><Image src={logo} style={{ height: '80%', width: '20%' }}></Image></div>
                 <div className='flex justify-between items-center font-medium  md:w-[42.8rem] mb-[24px] md:mb-[0]'>
-                    <div className='cursor-pointer'>About Us</div>
+                    <div className='cursor-pointer' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/", "_blank") }}>About Us </div>
                     <div className='cursor-pointer' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/", "_blank") }}>White Paper</div>
-                    <div className='cursor-pointer' onClick={() => { window.open("", "_blank") }}>Security</div>
+                    <div className='cursor-pointer' onClick={() => { window.open("https://f8t2x8b2.rocketcdn.me/wp-content/uploads/2023/12/VAR-0xMeowProtocol-231127-V2.pdf", "_blank") }}>Security</div>
                     <div className='cursor-pointer' onClick={() => { window.open("https://t.me/Crypto0xCyril", "_blank") }}>Contact</div>
                 </div>
                 <div className='hidden md:flex justify-between md:w-[26.4rem] '>

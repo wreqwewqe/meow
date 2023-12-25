@@ -1,5 +1,5 @@
 export async function query_amount(data) {
-    console.log("dddddddddddddddddddddd", data.address)
+    // console.log("dddddddddddddddddddddd", data.address)
     let result = await fetch("/api/query_amount", {
         headers: {
             Accept: 'application/vnd.dpexpo.v1+json' //设置请求头

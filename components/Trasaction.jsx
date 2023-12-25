@@ -16,6 +16,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     const [input, setInput] = useState(0)
     const [loading, setLoading] = useState(false)
     const [rateMode, setRateMode] = useState(2)
+    // const [rateMode, setRateMode] = useState(2)
     const [approveStatu, setApproveStatu] = useState("wait")
     const [supplyStatu, setSupplyStatu] = useState("wait")
     const [doneStatu, setDoneStatu] = useState("wait")
@@ -27,6 +28,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         setLoading(true)
         const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain,address)
+        // const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain,address)
         setLoading(false)
         if (result == "") {
             window.location.reload()
@@ -53,6 +55,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         setLoading(true)
         const result = await redeem(data.assetAddress, data.aTokenAddress, web3modal, value, chain,address,setSupplyStatu, setDoneStatu)
+        // const result = await redeem(data.assetAddress, data.aTokenAddress, web3modal, value, chain,address,setSupplyStatu, setDoneStatu)
         setLoading(false)
         if (result == "") {
             window.location.reload()
@@ -80,6 +83,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         // console.log("ratemode:"+rateMode);
         setLoading(true)
         const result = await borrow(data.assetAddress, value, web3modal, rateMode, chain,address,setSupplyStatu, setDoneStatu)
+        // const result = await borrow(data.assetAddress, value, web3modal, rateMode, chain,address,setSupplyStatu, setDoneStatu)
         // console.log(result.error.message);
         setLoading(false)
         if (result == "") {
@@ -121,6 +125,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     message.error(result.error.message + " Please try again!")
                 } catch (error) {
                     console.log(result);
+                    console.log(result);
                     message.error("Transaction failed, please try again!")
                 }
             }
@@ -134,9 +139,6 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         setLoading(true)
         var addValue = Number(value)
-        if (data.ERC20Name != "ETH" && value == data.balance) {
-            addValue = Number(value) + 1
-        }
         const result = await repay(data.assetAddress, addValue, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain,address)
         setLoading(false)
         if (result == "") {
@@ -174,6 +176,9 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }else{
             setInput(0)
         }
+        // }else{
+        //     setInput(0)
+        // }
 
 
     }, [value])
@@ -305,7 +310,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     }
     if (title == "Supply") {
         return (
-            <div><Modal title={title + " " + data.name[0]} open={open} onOk={handleOk} onCancel={handleCancel} footer="">
+            <div><Modal maskClosable={false} title={title + " " + data.name[0]} open={open} onOk={handleOk} onCancel={handleCancel} footer="">
                 <div className='mt-[20px] mb-[12px] text-[16px] font-semibold'>Amount</div>
                 <div className='relative zdy-input border border-solid border-[#E5E3E6] rounded-[6px]'>
                     <Input value={value} bordered={false} onChange={handlePrice} placeholder='Enther the Amount' type="text" onInput={checkValueSupply} suffix={

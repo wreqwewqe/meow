@@ -10,7 +10,7 @@ import Blockies from 'react-blockies';
 import { BaseURI } from '../utils/constants';
 import { post, get } from '../utils/funcaxios'
 import { BigNumber } from 'ethers'
-import { create } from 'blockies';
+// import { create } from 'blockies';
 import MeowToken from "../public/meowtoken.png"
 // import clipboardCopy from 'clipboard-copy';
 export default function Profile() {
@@ -52,7 +52,7 @@ export default function Profile() {
                 }
                 response.data.inviteCode = "https://meowprotocol.xyz/Dashboard?code=" + response.data.inviteCode
                 setData(response.data);
-                console.log(data.top50);
+                // console.log(data.top50);
             } catch (error) {
                 setError(error);
             } finally {
@@ -123,13 +123,13 @@ export default function Profile() {
                                         <div className='text-[16px] flex items-center'>
                                             {/* <div className='w-[48px] h-[48px] bg-[#F4B512] mr-[12px] rounded-[50%]' ></div> */}
                                             <Blockies className='w-[4.8rem] h-[4.8rem] rounded-[50%] bg-[#F4B5121A] mr-[1.2rem]' seed={item.Address.toLowerCase()} size={8} scale={4} />
-                                            <div className={item.Address.toLowerCase() == address.toLowerCase() ?'text-[16px] font-bold text-[#F4B512]':'text-[16px] font-bold'}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
+                                            <div className={item.Address.toLowerCase() == address.toLowerCase() ? 'text-[16px] font-bold text-[#F4B512]' : 'text-[16px] font-bold'}>{item.Address.slice(0, 6) + "..." + item.Address.slice(-4)}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div className='text-[12px] text-[#5F6D7E] mt-[16px]'>Quantity</div>
-                                    <div className={item.Address.toLowerCase() == address.toLowerCase() ?'text-[16px] font-bold text-[#F4B512]':'text-[16px] font-bold'}>{item.Quantity}</div>
+                                    <div className={item.Address.toLowerCase() == address.toLowerCase() ? 'text-[16px] font-bold text-[#F4B512]' : 'text-[16px] font-bold'}>{item.Quantity}</div>
                                 </div>
                             </div>
                         ))}
