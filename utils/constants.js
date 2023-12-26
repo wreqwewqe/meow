@@ -11,7 +11,7 @@ const ScrollCode = 534351
 const EthereumScan = "https://etherscan.io"
 const ScrollScan = "https://scrollscan.com/"
 // const BaseURI = 'https://api.bittesseract.com/api/v1/';
-const BaseURI = "http://7y2s4t.natappfree.cc/api"
+const BaseURI = "http://127.0.0.1:8000/api"
 // const BaseURI = "https://api.meowprotocol.xyz/api"
 // const BaseURI = "http://yvqput.natappfree.cc/api"
 
