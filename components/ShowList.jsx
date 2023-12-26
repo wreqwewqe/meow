@@ -24,7 +24,7 @@ export default function ShowList({ title, about_me, data, columns, header, suppl
             data && data.length > 0 ?
                 <div className=' box-border py-[24px] px-[32px] border border-solid border-[#EAEBF0] rounded-[5px]  '>
                     <div className='md:text-[2.2rem] text-[16px]  font-semibold mb-[16px] md:mb-[8px] '>{title}</div>
-                    {about_me && data.length > 0 ? <div className='flex '>
+                    {about_me && data.length > 0 ? <div className='flex mb-[10px]'>
                         <div className='mr-[6px] text-[#5F6D7E] border border-solid border-[#b0b6bd] py-[3px] px-[5px] text-[16px]'>Balance <span className='text-[#272D37] text-[16px]'>${header[0]}</span></div>
                         <div className='mr-[6px] text-[#5F6D7E]  border border-solid border-[#b0b6bd] py-[3px] px-[5px] text-[16px]' >APY <span className='text-[#272D37] text-[16px]'>{header[1]}%</span></div>
                         <div className='text-[#5F6D7E]  border border-solid border-[#b0b6bd] py-[3px] px-[5px] text-[16px]'>{supply ? "Collateral" : "Borrow power used"} <span className='text-[#272D37] text-[16px]'>{header[2]}</span></div>

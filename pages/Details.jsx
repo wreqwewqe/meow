@@ -274,10 +274,10 @@ export default function EthDetails() {
                 {/* <Line type="linear" dataKey="Utilization Rate" stroke="#8884d8" />Borrow APR, variable */}
                 <Line type="monotone" dataKey="Borrow APR, variable" stroke="#F4B512" dot={false} strokeWidth={2} />
                 <CartesianGrid stroke="#ccc" strokeDasharray="3 3" vertical={false} />
-                <ReferenceLine x={currtenUR > 80 ? 80 : Number.isInteger(currtenUR) ? 81 : 80} stroke="#0062D2" label={{ value: "Optimal 80%", position: "top" }} strokeDasharray="3 3" />
-                <ReferenceLine x={currtenUR} stroke="#0062D2" label={{ value: `Currten ${currtenUR}%`, position: "insideTop" }} strokeDasharray="3 3" />
-                <XAxis dataKey="Utilization Rate" ticks={[0, 25, 50, 75, 100]} tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#ccc' }} tickLine={{ stroke: '#ccc', display: 'none' }} tick={{ fill: '#ccc' }} />
-                <YAxis tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#' }} tickLine={{ stroke: '#' }} tick={{ fill: '#ccc' }} />
+                <ReferenceLine x={currtenUR > 80 ? 80 : Number.isInteger(currtenUR) ? 81 : 80} stroke="#0062D2" label={{ value: "Optimal 80%", position: "top", fontSize: 12 }} strokeDasharray="3 3" />
+                <ReferenceLine x={currtenUR} stroke="#0062D2" label={{ value: `Currten ${currtenUR}%`, position: "insideTop", fontSize: 12 }} strokeDasharray="3 3" />
+                <XAxis dataKey="Utilization Rate" ticks={[0, 25, 50, 75, 100]} tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#ccc' }} tickLine={{ stroke: '#ccc', display: 'none' }} tick={{ fill: '#ccc', fontSize: 12 }} />
+                <YAxis tickFormatter={(value) => `${value}%`} axisLine={{ stroke: '#' }} tickLine={{ stroke: '#' }} tick={{ fill: '#ccc', fontSize: 12 }} />
                 <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#66ccff', strokeWidth: 2 }} />
                 {/* <Legend /> */}
             </LineChart>
