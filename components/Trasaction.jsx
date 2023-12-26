@@ -16,6 +16,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
     const [input, setInput] = useState(0)
     const [loading, setLoading] = useState(false)
     const [rateMode, setRateMode] = useState(2)
+    // const [rateMode, setRateMode] = useState(2)
     const [approveStatu, setApproveStatu] = useState("wait")
     const [supplyStatu, setSupplyStatu] = useState("wait")
     const [doneStatu, setDoneStatu] = useState("wait")
@@ -27,6 +28,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         setLoading(true)
         const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain, address)
+        // const result = await deposit(data.assetAddress, value, web3modal, setApproveStatu, setSupplyStatu, setDoneStatu, chain,address)
         setLoading(false)
         if (result == "") {
             window.location.reload()
@@ -53,6 +55,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         }
         setLoading(true)
         const result = await redeem(data.assetAddress, data.aTokenAddress, web3modal, value, chain, address, setSupplyStatu, setDoneStatu)
+        // const result = await redeem(data.assetAddress, data.aTokenAddress, web3modal, value, chain,address,setSupplyStatu, setDoneStatu)
         setLoading(false)
         if (result == "") {
             window.location.reload()
@@ -80,6 +83,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         // console.log("ratemode:"+rateMode);
         setLoading(true)
         const result = await borrow(data.assetAddress, value, web3modal, rateMode, chain, address, setSupplyStatu, setDoneStatu)
+        // const result = await borrow(data.assetAddress, value, web3modal, rateMode, chain,address,setSupplyStatu, setDoneStatu)
         // console.log(result.error.message);
         setLoading(false)
         if (result == "") {
@@ -120,6 +124,7 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
                     console.log(result);
                     message.error(result.error.message + " Please try again!")
                 } catch (error) {
+                    console.log(result);
                     console.log(result);
                     message.error("Transaction failed, please try again!")
                 }
@@ -171,6 +176,9 @@ export default function Trasaction({ title, open, setOpen, data, web3modal, addr
         } else {
             setInput(0)
         }
+        // }else{
+        //     setInput(0)
+        // }
 
 
     }, [value])

@@ -12,4 +12,4 @@
 // }
 // }
 // a()
-console.log(Number("3.55K"));
+console.log(Number("3.55K".charAt(0)));

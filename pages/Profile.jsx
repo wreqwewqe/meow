@@ -81,8 +81,11 @@ export default function Profile() {
                     </div >
                 </div>
                 <div className='box-border border-solid border p-[32px] border-[#EAEBF0] rounded-[5px] mb-[32px]'>
-                    <div className='text-[24px] font-bold mb-[12px] '>Invite My Friends <Popover content={content3}><Image src={exclaim_point} className='cursor-pointer' height={16} /></Popover></div>
-                    <div className='mb-[32px] md:flex md:mb-[2.4rem]'><Input className='md:mr-[2.3rem] mb-[26px] md:mb-[0px]' value={loading ? "" : data.inviteCode} readOnly></Input> <span className='md:box-border bg-[#F4B512] px-[20px] py-[12px] md:w-[11.9rem] min-[1px]:inline  rounded-[6px] text-[white] font-semibold cursor-pointer  text-[16px] border-none' onClick={copy_link}>Copy Link</span></div>
+                <div className='md:flex md:justify-between md:items-end mb-[16px]'>
+                <div className='text-[24px] font-bold mb-[12px] '>Invite My Friends <Popover content={content3}><Image src={exclaim_point} className='cursor-pointer' height={16} /></Popover></div>
+                        <div className='text-[16px] font-bold'>My Invited Number: <span className='text-[#F4B512]'>{loading ? "" : data.inviteNumber}</span></div>
+                    </div>
+                    <div className='mb-[32px] md:flex md:mb-[2.4rem]'><Input className='md:mr-[2.3rem] mb-[26px] md:mb-[0px]' value={loading ? "" : data.inviteCode} readOnly></Input> <span className='md:box-border bg-[#F4B512] px-[20px] py-[12px] md:w-[11.9rem] min-[1px]:inline  rounded-[6px] text-[white] font-semibold cursor-pointer  text-[1.4rem] border-none' onClick={copy_link}>Copy Link</span></div>
                     <div className='text-[16px] text-[#5F6D7E]'>Copy the link above to start inviting friends</div>
                 </div>
 

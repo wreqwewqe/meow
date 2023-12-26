@@ -26,7 +26,7 @@ export default function Home() {
             <div className='box-border px-[16px] md:h-[68.8rem] md:bg-[#FAFBFC] md:py-[6.4rem] md:flex md:justify-center'>
                 <div className=' md:flex md:justify-between md:box-border md:w-[128rem] md:h-[56rem] md:px-[3.2rem] md:py-[1px]'>
                     <div className=' md:mt-[16.2rem] md:w-[53.2rem]'>
-                        <div className='text-[2.8rem] md:text-[3.2rem] font-semibold'>Meow Reputation for Progress</div>
+                        <div className='text-[28px] md:text-[2.8rem] md:text-[3.2rem] font-semibold'>Meow Reputation for Progress</div>
                         <div className='text-[28px] md:text-[3.2rem] font-semibold mb-[1.6rem]'>Your <span className='text-[#F4B512]'>Contribution</span>,Your <span className='text-[#F4B512]'>Benefits</span></div>
                         <div className='text-[16px] md:text-[1.6rem] font-normal mb-[4rem]'>Your contributions at Meow accumulate as Meow Reputation, the key to unlocking opportunities and wealth.</div>
                         <div className='flex '>
