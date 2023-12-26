@@ -237,6 +237,7 @@ export default function Dashboard() {
                     } else {
                         borrowRateMode = "Variable";
                         const userlastindex = await poolCore.getUserVariableBorrowCumulativeIndex(data[index]["TokenAddress"], address)
+                        console.log(data[index]["Name"],"aaaaaaaaaaaaa:",userlastindex);
                         borrowAPY = (BigNumber.from(data[index]["BorrowAPYv"]).div(E25).toNumber() / 100).toFixed(2);
                         cumlatedInterest = rayDiv(rayMul(calculateInterest(BigNumber.from(data[index]["BorrowAPYv"]), parseInt(data[index]["LastUpdate"])), BigNumber.from(data[index]["LastIndex"])), userlastindex)
                     }

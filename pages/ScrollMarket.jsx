@@ -149,15 +149,15 @@ export default function EthMarket() {
                 <div className='md:hidden flex flex-wrap mt-[16px] '>
                     <div className='w-[50%] '>
                         <div className='text-[16px] text-[#5F6D7E]'>Total market size</div>
-                        <div className='text-[22px] text-[#272D37] mt-[8px]'>${marketsize}</div>
+                        <div className='text-[22px] text-[#272D37] mt-[8px] font-bold'>${marketsize}</div>
                     </div>
                     <div className='w-[50%]'>
                         <div className='text-[16px] text-[#5F6D7E]'>Total avalible</div>
-                        <div className='text-[22px] text-[#272D37] mt-[8px]'>${available}</div>
+                        <div className='text-[22px] text-[#272D37] mt-[8px] font-bold'>${available}</div>
                     </div>
                     <div className='mt-[8px]'>
                         <div className='text-[16px] text-[#5F6D7E]'>Total borrows</div>
-                        <div className='text-[22px] text-[#272D37] mt-[8px]'>${tborrows}</div>
+                        <div className='text-[22px] text-[#272D37] mt-[8px] font-bold'>${tborrows}</div>
                     </div>
                 </div>
                 {loading ? <Skeleton className='hidden' loading={loading} active></Skeleton> :
@@ -182,7 +182,7 @@ export default function EthMarket() {
                                 <div className='text-[12px] w-[50%]'>
                                     <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Total supplied</div>
                                     <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.total_supplied[1]}</div>
-                                    <div className='text-[12px] text-[#5F6D7E]'>{item.total_supplied[0]}</div>
+                                    <div className='text-[12px] text-[#5F6D7E]'>${item.total_supplied[0]}</div>
                                 </div>
                                 <div className='text-[12px] w-[50%] mt-[16px]'>
                                     <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Supply APY</div>
@@ -195,11 +195,11 @@ export default function EthMarket() {
                                 </div>
                                 <div className='text-[12px] w-[50%] mt-[16px]'>
                                     <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Borrow APY,variable</div>
-                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.variable}</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.variable}%</div>
                                 </div>
                                 <div className='text-[12px] w-[50%] mt-[16px]'>
                                     <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Borrow APY,stable</div>
-                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.supply_apy}</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.supply_apy}%</div>
                                 </div>
                             </div>
                             <div className='mt-[21px] text-right mb-[16px]'>

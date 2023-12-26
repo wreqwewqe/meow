@@ -54,7 +54,7 @@ function Header({ isHome = true }) {
     const content = (conn) => (
         <div className='box-border w-[31.7rem] h-[32.2rem] pt-[2.2rem] pr-[2rem] pb-[2.1rem] pl-[2.1rem]'>
             <div className='flex justify-between items-center w-[22.1rem]'>
-                <Blockies className='w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] ' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
+                <Blockies className='w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] ' seed={address ? address.toLowerCase() : ""} size={6} scale={4} />
                 <div className='flex justify-between  items-center w-[15.3rem] h-[2.2rem]'>
                     <div className='font-medium text-[1.8rem]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                     <div ><CopyFilled className='w-[1.5rem] h-[1.5rem] cursor-pointer' onClick={copy_address} /></div>

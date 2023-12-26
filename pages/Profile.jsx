@@ -67,7 +67,8 @@ export default function Profile() {
             <Header></Header>
             <div className='box-border px-[11.2rem] py-[64px]'>
                 {/* <div className='w-[80px] h-[80px] bg-[yellow] rounded-[50%] mb-[16px]'></div> */}
-                <Blockies className='w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] mb-[1.6rem]' seed={address ? address.toLowerCase() : ""} size={24} scale={4} />
+                <Blockies className='hidden w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] mb-[1.6rem]' seed={address ? address.toLowerCase() : ""} size={24} scale={4} />
+                <Blockies className='md:hidden w-[8rem] h-[8rem] bg-[yellow] rounded-[50%] mb-[1.6rem]' seed={address ? address.toLowerCase() : ""} size={14} scale={4} />
                 <div suppressHydrationWarning className='min-[1px]:text-[24px] md:text-[3.2rem] font-bold mb-[1.6rem]'>{address && (address.slice(0, 6) + "..." + address.slice(-4))}</div>
                 <div className='mb-[64px]'><Image src={copy} onClick={copy_address} className='cursor-pointer mr-[8px]' height={15}></Image><span className='text-[16px]  text-[#5F6D7E]'>Copy address to clipboard</span></div>
                 <div className='md:flex md:justify-between mb-[32px]'>
@@ -82,9 +83,9 @@ export default function Profile() {
                 </div>
                 <div className='box-border border-solid border p-[32px] border-[#EAEBF0] rounded-[5px] mb-[32px]'>
                 <div className='md:flex md:justify-between md:items-end mb-[16px]'>
-                <div className='text-[24px] font-bold mb-[12px] '>Invite My Friends <Popover content={content3}><Image src={exclaim_point} className='cursor-pointer' height={16} /></Popover></div>
-                        <div className='text-[16px] font-bold'>My Invited Number: <span className='text-[#F4B512]'>{loading ? "" : data.inviteNumber}</span></div>
-                    </div>
+                    <div className='text-[24px] font-bold mb-[12px] '>Invite My Friends <Popover content={content3}><Image src={exclaim_point} className='cursor-pointer' height={16} /></Popover></div>
+                    <div className='text-[16px] font-bold'>My Invited Number: <span className='text-[#F4B512]'>{loading ? "" : data.inviteNumber}</span></div>
+                </div>
                     <div className='mb-[32px] md:flex md:mb-[2.4rem]'><Input className='md:mr-[2.3rem] mb-[26px] md:mb-[0px]' value={loading ? "" : data.inviteCode} readOnly></Input> <span className='md:box-border bg-[#F4B512] px-[20px] py-[12px] md:w-[11.9rem] min-[1px]:inline  rounded-[6px] text-[white] font-semibold cursor-pointer  text-[1.4rem] border-none' onClick={copy_link}>Copy Link</span></div>
                     <div className='text-[16px] text-[#5F6D7E]'>Copy the link above to start inviting friends</div>
                 </div>
