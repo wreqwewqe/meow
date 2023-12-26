@@ -398,49 +398,49 @@ export default function Dashboard() {
     const button_style = 'px-[18px] py-[12px] bg-[#F4B512]  rounded-[6px] text-[white] font-bold font-semibold cursor-pointer text-[15px] border-none';
     let findIcon = (text) => (text == "ETH" ? Eth : text == "USDC" ? Usdc : text == "DAI" ? Dai : text == "WETH" ? Weth : Eth)
 
-    const test=()=>{
+    const test = () => {
         router.push('Home')
-      }
+    }
     const your_supply_columns = [
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            data:supplies.map(obj =>obj['name'] ),
+            data: supplies.map(obj => obj['name']),
             render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] text-center'>Balance</div>,
             dataIndex: 'balance',
             key: 'balance',
-            columnsName:'Balance',
-            data:loading || isChain || isError ? "" : supplies.map(obj =>obj['balance'] ),
+            columnsName: 'Balance',
+            data: loading || isChain || isError ? "" : supplies.map(obj => obj['balance']),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] text-center' >APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            columnsName:'APY',
-            data:loading || isChain || isError ? "" : supplies.map(obj =>obj['APY']+"%" ),
+            columnsName: 'APY',
+            data: loading || isChain || isError ? "" : supplies.map(obj => obj['APY'] + "%"),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]  whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
-            columnsName:'Can be Collateral',
-            data:loading || isChain || isError ? "" : supplies.map(obj =>obj['collateral'] ),
+            columnsName: 'Can be Collateral',
+            data: loading || isChain || isError ? "" : supplies.map(obj => obj['collateral']),
             render: (text) => <div className='text-center'>&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         },
         {
             title: "",
-            button1:"Withdraw",
-            button2:"Supply",
-            button1IsAble:loading || isChain || isError ? "" : supplies.map(obj =>obj['withdrawIsable'] ),
-            button2IsAble:loading || isChain || isError ? "" : supplies.map(obj =>obj['balancegtzero'] ),
-            button1Func:(index)=>{ setOperation("Withdraw"); setBoxData(supplies[index]); setOpen(true) },
-            button2Func:(index)=>{ setOperation("Supply"); setBoxData(supplies[index]); setOpen(true) },
+            button1: "Withdraw",
+            button2: "Supply",
+            button1IsAble: loading || isChain || isError ? "" : supplies.map(obj => obj['withdrawIsable']),
+            button2IsAble: loading || isChain || isError ? "" : supplies.map(obj => obj['balancegtzero']),
+            button1Func: (index) => { setOperation("Withdraw"); setBoxData(supplies[index]); setOpen(true) },
+            button2Func: (index) => { setOperation("Supply"); setBoxData(supplies[index]); setOpen(true) },
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.withdrawIsable ? ' text-[1.2rem] bg-[#F4B512] text-[white]  rounded-[0.5rem] py-[0.55rem] px-[0.5rem] mr-[0.6rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[0.5rem] py-[0.55rem] px-[1rem] mr-[0.6rem] cursor-pointer border-none'} onClick={() => { setOperation("Withdraw"); setBoxData(record); setOpen(true) }} disabled={!record.withdrawIsable}>Withdraw</button>
                 <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center ' disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</Button>
@@ -452,41 +452,41 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            data:borrows.map(obj =>obj['name']),
+            data: borrows.map(obj => obj['name']),
             render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem]'>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Debt</div>,
             dataIndex: 'balance',
             key: 'balance',
-            columnsName:'Debt',
-            data:borrows.map(obj =>obj['balance']),
+            columnsName: 'Debt',
+            data: borrows.map(obj => obj['balance']),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            columnsName:'APY',
-            data:borrows.map(obj =>obj['APY']+"%"),
+            columnsName: 'APY',
+            data: borrows.map(obj => obj['APY'] + "%"),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] w-[10rem] '>APY type</div>,
             dataIndex: 'APYType',
             key: 'APYType',
-            columnsName:'APY type',
-            data:borrows.map(obj =>obj['APYType']),
+            columnsName: 'APY type',
+            data: borrows.map(obj => obj['APYType']),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}</div>)
         },
         {
             title: "",
-            button1:"Repay",
-            button2:"Borrow",
-            button1IsAble:Array(borrows.length).fill(true),
-            button2IsAble:loading || isChain || isError ? "" : borrows.map(obj =>obj['borrowIsable'] ),
-            button1Func:(index)=>{ setOperation("Repay"); setBoxData(borrows[index]); setOpen(true) },
-            button2Func:(index)=>{ setOperation("Borrow"); setBoxData(borrows[index]); setOpen(true) },
+            button1: "Repay",
+            button2: "Borrow",
+            button1IsAble: Array(borrows.length).fill(true),
+            button2IsAble: loading || isChain || isError ? "" : borrows.map(obj => obj['borrowIsable']),
+            button1Func: (index) => { setOperation("Repay"); setBoxData(borrows[index]); setOpen(true) },
+            button2Func: (index) => { setOperation("Borrow"); setBoxData(borrows[index]); setOpen(true) },
             render: (text, record) => (<div className='flex font-semibold '>
                 <Button className=' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' onClick={() => { setOperation("Repay"); setBoxData(record); setOpen(true) }}>Repay</Button>
                 <Button className=' text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' disabled={!record.borrowIsable} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }}>Borrow</Button>
@@ -499,41 +499,41 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            data:assetSupplies.map(obj =>obj['name']),
+            data: assetSupplies.map(obj => obj['name']),
             render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] whitespace-nowrap '>Wallet balance</div>,
             dataIndex: 'balance',
             key: 'balance',
-            columnsName:'Wallet balance',
-            data:assetSupplies.map(obj =>obj['balance']),
+            columnsName: 'Wallet balance',
+            data: assetSupplies.map(obj => obj['balance']),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY</div>,
             dataIndex: 'APY',
             key: 'APY',
-            columnsName:'APY',
-            data:assetSupplies.map(obj =>obj['APY']+"%"),
+            columnsName: 'APY',
+            data: assetSupplies.map(obj => obj['APY'] + "%"),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>{text}%</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] whitespace-nowrap '>Can be Collateral</div>,
             dataIndex: 'collateral',
             key: 'collateral',
-            columnsName:'Can be Collateral',
-            data:assetSupplies.map(obj =>obj['collateral']),
+            columnsName: 'Can be Collateral',
+            data: assetSupplies.map(obj => obj['collateral']),
             render: (text) => <div className='text-center text-[1.2rem]'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
         },
         {
             title: "",
-            button1:"Supply",
-            button2:"Details",
-            button1IsAble:assetSupplies.map(obj =>obj['balancegtzero']),
-            button2IsAble:Array(assetSupplies.length).fill(true),
-            button1Func:(index)=>{ setOperation("Supply"); setBoxData(assetSupplies[index]); setOpen(true) },
-            button2Func:(index)=>router.push('/Details?asset=' + assetSupplies[index].name[0] + '&&net=' + assetSupplies[index].net),
+            button1: "Supply",
+            button2: "Details",
+            button1IsAble: assetSupplies.map(obj => obj['balancegtzero']),
+            button2IsAble: Array(assetSupplies.length).fill(true),
+            button1Func: (index) => { setOperation("Supply"); setBoxData(assetSupplies[index]); setOpen(true) },
+            button2Func: (index) => router.push('/Details?asset=' + assetSupplies[index].name[0] + '&&net=' + assetSupplies[index].net),
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.balancegtzero ? ' text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} disabled={!record.balancegtzero} onClick={() => { setOperation("Supply"); setBoxData(record); setOpen(true) }}>Supply</button>
                 <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
@@ -546,41 +546,41 @@ export default function Dashboard() {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] '>Asset</div>,
             dataIndex: 'name',
             key: 'name',
-            data:assetBorrows.map(obj => obj['name']),
+            data: assetBorrows.map(obj => obj['name']),
             render: (text) => (<div className='font-bold text-[1.2rem] flex items-center ' ><Image style={{ width: 'auto', maxHeight: '3rem' }} src={findIcon(text[0])} className='mr-[1.3rem]'></Image><div>{text[0].length > 4 ? text[0].slice(0, 3) + "..." : text[0]}<div className='font-normal text-[#c8cad3] text-[1.2rem] '>{text[1].length > 4 ? text[1].slice(0, 3) + "..." : text[1]}</div></div></div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem] '>Available</div>,
             dataIndex: 'available',
             key: 'available',
-            columnsName:'Available',
-            data:assetBorrows.map(obj => obj['available']),
+            columnsName: 'Available',
+            data: assetBorrows.map(obj => obj['available']),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}&nbsp;&nbsp;</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY,variable</div>,
             dataIndex: 'APYV',
             key: 'APYV',
-            columnsName:'APY,variable',
-            data:assetBorrows.map(obj => obj['APYV']+"%"),
+            columnsName: 'APY,variable',
+            data: assetBorrows.map(obj => obj['APYV'] + "%"),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}%&nbsp;&nbsp;&nbsp;</div>)
         },
         {
             title: <div className=' text-[#c8cad3] text-[1rem] relative bottom-[-1rem]'>APY,stable</div>,
             dataIndex: 'APYS',
             key: 'APYS',
-            columnsName:'APY,stable',
-            data:assetBorrows.map(obj => obj['APYS']+"%"),
+            columnsName: 'APY,stable',
+            data: assetBorrows.map(obj => obj['APYS'] + "%"),
             render: (text) => (<div className='font-semibold text-[1.2rem]'>&nbsp;&nbsp;{text}%&nbsp;&nbsp;</div>)
         },
         {
             title: "",
-            button1:"Borrow",
-            button2:"Details",
-            button1IsAble:assetBorrows.map(obj=>obj['borrowIsable'] && obj['balancegtzero']),
-            button2IsAble:Array(assetBorrows.length).fill(true),
-            button1Func:(index)=>{ setOperation("Borrow"); setBoxData(assetBorrows[index]); setOpen(true) },
-            button2Func:(index)=>router.push('/Details?asset=' + assetBorrows[index].name[0] + '&&net=' + assetBorrows[index].net),
+            button1: "Borrow",
+            button2: "Details",
+            button1IsAble: assetBorrows.map(obj => obj['borrowIsable'] && obj['balancegtzero']),
+            button2IsAble: Array(assetBorrows.length).fill(true),
+            button1Func: (index) => { setOperation("Borrow"); setBoxData(assetBorrows[index]); setOpen(true) },
+            button2Func: (index) => router.push('/Details?asset=' + assetBorrows[index].name[0] + '&&net=' + assetBorrows[index].net),
             render: (text, record) => (<div className='flex font-semibold '>
                 <button className={record.borrowIsable && record.balancegtzero ? 'text-[1.2rem] bg-[#F4B512] text-[white] rounded-[0.5rem] py-[0.3rem] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none' : 'text-[1.2rem] bg-[#F4B512]/[0.6] text-[white] rounded-[5px] py-[3px] px-[0.6rem] mr-[0.4rem] cursor-pointer border-none'} onClick={() => { setOperation("Borrow"); setBoxData(record); setOpen(true) }} disabled={!record.borrowIsable || !record.balancegtzero}>Borrow</button>
                 <Button className='text-[1.2rem] py-[0.3rem] px-[0.5rem] rounded-[0.6rem] border border-solid border-[#b0b6bd] cursor-pointer mr-[1.6rem] flex items-center justify-center' onClick={() => router.push('/Details?asset=' + record.name[0] + '&&net=' + record.net)}>Details</Button>
@@ -593,12 +593,14 @@ export default function Dashboard() {
     // console.log(assetBorrows.map(obj => {
     //     const selectedValues = {};
     //     ['name', 'available', "APYV", 'APYS', 'borrowIsable', 'balancegtzero'].forEach(key => {
-      //       selectedValues[key] = obj[key];
+    //       selectedValues[key] = obj[key];
     //     });
     //     return selectedValues;
-    
-  //   ));
 
+    //   ));
+    if (error) {
+        return <p>Error: {error.message}</p >;
+    }
     return (
         <div className='min-h-full '>
             <Header setToken={setToken}></Header>
@@ -621,7 +623,7 @@ export default function Dashboard() {
 
                 <div className='hidden md:block columns-2'>
                     <div className='inline-block w-full  mb-[1rem] ' >
-                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError} buttonfunc={()=>setSupply(["444"])}></ShowList>
+                        <ShowList title="Your supplies" about_me={true} data={supplies} columns={your_supply_columns} header={supplyBox} loading={loading || isChain || isError} buttonfunc={() => setSupply(["444"])}></ShowList>
                     </div>
                     <div className='inline-block w-full  '>
                         <ShowList title="Assets to supply" data={assetSupplies} columns={supply_columns} loading={loading || isChain || isError} buttonfunc={test}></ShowList>

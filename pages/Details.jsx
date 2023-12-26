@@ -253,8 +253,8 @@ export default function EthDetails() {
         if (active && payload && payload.length) {
             return (
                 <div className="bg-white border-transparent border-2 rounded-lg text-black p-4 shadow-md border-gray-300">
-                    <p className="mb-2 ">{`Utilization Rate: ${payload[0].payload["Utilization Rate"]}%`}</p>
-                    <p className=" ">{`Borrow APR, variable: ${payload[0].payload["Borrow APR, variable"]}%`}</p>
+                    <p className="mb-2 text-[14px]">{`Utilization Rate: ${payload[0].payload["Utilization Rate"]}%`}</p>
+                    <p className="text-[14px] ">{`Borrow APR, variable: ${payload[0].payload["Borrow APR, variable"]}%`}</p>
                 </div>
             );
         }
