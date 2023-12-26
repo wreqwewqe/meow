@@ -15,7 +15,7 @@ import Usdc from "../public/USDC.png"
 import Dai from "../public/DAI.png"
 import Image from 'next/image';
 import { useAccount, useConnect, useSwitchNetwork, useNetwork } from 'wagmi'
-import { EthereumCode,ScrollCode } from '../utils/constants'
+import { EthereumCode, ScrollCode } from '../utils/constants'
 export default function EthMarket() {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -133,22 +133,80 @@ export default function EthMarket() {
     return (
         <div className='min-h-full'>
             <Header></Header>
-            <div className='box-border  py-[6.4rem] px-[11.2rem] rounded-[1rem]'>
-                <div className='text-[3.2rem] font-bold w-[31.7rem]'>Scroll Market </div>
-                <div className='flex mt-[1.6rem] mb-[0.8rem] text-[1.6rem] font-normal text-[#5F6D7E] '>
+            <div className='box-border  py-[64px] px-[32px] md:px-[11.2rem] rounded-[1rem]'>
+                <div className='text-[24px] md:text-[3.2rem] font-bold'>Scroll Market </div>
+                <div className='hidden md:flex mt-[1.6rem] mb-[0.8rem] text-[1.6rem] font-normal text-[#5F6D7E] '>
                     <div className='w-[17.4rem] mr-[1.6rem]'>Total market size</div>
                     <div className='w-[17.4rem] mr-[1.6rem]'>Total avalible</div>
                     <div className='w-[17.4rem]'>Total borrows</div>
                 </div>
-                <div className='flex text-[2.2rem] text-[#272D37] font-semibold'>
+                <div className='hidden md:flex text-[2.2rem] text-[#272D37] font-semibold'>
                     <div className='w-[17.4rem] mr-[1.6rem]'>${marketsize}</div>
                     <div className='w-[17.4rem] mr-[1.6rem]'>${available}</div>
                     <div>${tborrows}</div>
                 </div>
-                {loading ? <Skeleton loading={loading} active></Skeleton> :
-                    <div className='w-[100%] mt-[6.4rem] rounded-[1px] border border-solid border-[#b0b6bd] font-bold ' >
+
+                <div className='md:hidden flex flex-wrap mt-[16px] '>
+                    <div className='w-[50%] '>
+                        <div className='text-[16px] text-[#5F6D7E]'>Total market size</div>
+                        <div className='text-[22px] text-[#272D37] mt-[8px]'>${marketsize}</div>
+                    </div>
+                    <div className='w-[50%]'>
+                        <div className='text-[16px] text-[#5F6D7E]'>Total avalible</div>
+                        <div className='text-[22px] text-[#272D37] mt-[8px]'>${available}</div>
+                    </div>
+                    <div className='mt-[8px]'>
+                        <div className='text-[16px] text-[#5F6D7E]'>Total borrows</div>
+                        <div className='text-[22px] text-[#272D37] mt-[8px]'>${tborrows}</div>
+                    </div>
+                </div>
+                {loading ? <Skeleton className='hidden' loading={loading} active></Skeleton> :
+                    <div className='hidden md:block w-[100%] mt-[6.4rem] rounded-[1px] border border-solid border-[#b0b6bd] font-bold ' >
                         <div className='mt-[2rem] ml-[2rem] text-[2.4rem]'>Ethereum assets</div>
                         <Table className='text-[red]' headerBorderRadius={8} columns={columns} dataSource={loading ? [] : data} pagination={false} />
+                    </div>
+                }
+                {loading ? <Skeleton className='md:hidden' loading={loading} active></Skeleton> :
+                    <div className='md:hidden  px-[32px] py-[32px]  mt-[64px] rounded-[1px] border border-solid border-[#b0b6bd] font-bold ' >
+                        <div className='text-[16px] font-bold mb-[16px]'>Ethereum assets</div>
+                        {data && data.map((item, index) => (<div>
+                            <div className='flex mb-[16px]'>
+                                <div className='mr-[10px]'><Image src={findIcon(item.asset[0])} style={{ width: 'auto', maxHeight: '48px' }}></Image></div>
+                                <div>
+                                    <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Asset</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.asset[1]}</div>
+                                    <div className='text-[12px] text-[#5F6D7E]'>{item.asset[0]}</div>
+                                </div>
+                            </div>
+                            <div className='flex flex-wrap mt-[16px]'>
+                                <div className='text-[12px] w-[50%]'>
+                                    <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Total supplied</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.total_supplied[1]}</div>
+                                    <div className='text-[12px] text-[#5F6D7E]'>{item.total_supplied[0]}</div>
+                                </div>
+                                <div className='text-[12px] w-[50%] mt-[16px]'>
+                                    <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Supply APY</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.supply_apy}%</div>
+                                </div>
+                                <div className='text-[12px] w-[50%] mt-[16px]'>
+                                    <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Total borrowed</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.total_borrowed[1]}</div>
+                                    <div className='text-[12px] text-[#5F6D7E]'>${item.total_borrowed[0]}</div>
+                                </div>
+                                <div className='text-[12px] w-[50%] mt-[16px]'>
+                                    <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Borrow APY,variable</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.variable}</div>
+                                </div>
+                                <div className='text-[12px] w-[50%] mt-[16px]'>
+                                    <div className='leading-[24px] text-[12px] text-[#5F6D7E]'>Borrow APY,stable</div>
+                                    <div className='leading-[30px] text-[16px] text-[#272D37]'>{item.supply_apy}</div>
+                                </div>
+                            </div>
+                            <div className='mt-[21px] text-right mb-[16px]'>
+                                <div className='inline-block  px-[10px] py-[5.5px] text-[bold] text-[14px] rounded-[1px] border border-solid border-[#b0b6bd] cursor-pointer' onClick={() => router.push('/Details?asset=' + item.asset[0] + '&&net=Ethereum')}>Details</div>
+                            </div>
+                            <div className={index == 3 ? "hidden" : 'border border-solid border-[#EAEBF0] mt-[16px] mb-[16px]'}></div>
+                        </div>))}
                     </div>
                 }
             </div>

@@ -164,7 +164,7 @@ function Header({ isHome = true }) {
                     <div className={yshow ? "p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer" : "hidden"} onClick={() => { router.push("/ScrollMarket"); setShow(false) }}>Scroll Market</div>
                     <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer' onClick={() => { window.open("https://meowprotocol.gitbook.io/doc/", "_blank"); setShow(false) }}>Docs</div>
                     <div className='p-[16px] font-bold text-[15px] boredr border-solid border-[transparent] border-b-[#EAEBF0] cursor-pointer' onClick={() => { window.open("", "_blank"); setShow(false) }}>Security</div>
-                    <div className='p-[16px] ' onClick={() => { setShow(false) }}><ConnectButton.Custom>
+                    <div className='p-[16px]' onClick={() => { setShow(false) }}><ConnectButton.Custom>
                         {({
                             account,
                             chain,
@@ -199,7 +199,7 @@ function Header({ isHome = true }) {
                                         if (!connected) {
                                             return (
                                                 <div className='text-center'>
-                                                    <button onClick={openConnectModal} type="button" className="px-[18px] py-[12px] bg-[#F4B512] border-none rounded-[6px] text-[white] cursor-pointer">
+                                                    <button onClick={openConnectModal} type="button" className="px-[18px] py-[12px] bg-[#F4B512] border-none rounded-[6px] text-[white] cursor-pointer m-auto">
                                                         Connect Wallet
                                                     </button>
                                                 </div>
@@ -218,7 +218,7 @@ function Header({ isHome = true }) {
                                             <Popover content={content(openConnectModal)}>
                                                 <div style={{ display: 'flex', gap: 12 }}>
 
-                                                    <button type="button" className={button_style}>
+                                                    <button type="button" className="px-[18px] py-[12px] bg-[#F4B512] border-none rounded-[6px] text-[white] cursor-pointer m-auto">
                                                         {account.displayName}
 
                                                     </button>
